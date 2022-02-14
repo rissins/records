@@ -4,7 +4,7 @@
 ### 3. 연속 몇일 완료?
 
 
-##Version
+## Version
 + Java 11
 + Gradle 7.4
 + Spring boot 2.6.3
