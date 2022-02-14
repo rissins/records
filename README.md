@@ -4,6 +4,11 @@
 ### 3. 연속 몇일 완료?
 
 
+##Version
++ Java 11
++ Gradle 7.4
++ Spring boot 2.6.3
+
 ## Skill Stacks
 1. Spring boot
 2. JPA
