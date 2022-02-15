@@ -6,6 +6,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -19,5 +21,18 @@ public class UserService {
 
     public List<User> findAllByUser() {
         return userRepository.findAll();
+    }
+
+    public int login(User user) {
+        Optional<User> first = userRepository.findAll().stream()
+                .filter(m -> Objects.equals(m.getUserId(), user.getUserId()))
+                .findFirst();
+        User checkUser = first.filter(m -> Objects.equals(m.getUserPassword(), user.getUserPassword()))
+                .orElse(null);
+        if (checkUser == null) {
+            return 1;
+        } else {
+            return 0;
+        }
     }
 }
