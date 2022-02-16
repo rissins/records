@@ -174,38 +174,12 @@
 
                         click: function (arg1) {
                             $('#insertModal').modal();
-
-                            // var date = new Date();
-                            // console.log(date);
-                            // calendar.addEvent({
-                            //     title: $('#title').val(),
-                            //     startTime: arg1.startTime,
-                            //     start: date,
-                            //     end: arg1.end,
-                            //     allDay: arg1.allDay,
-                            //     // url: 'www.naver.com'
-                            // })
-
                         }
                     },
                     loginButton: {
                         text: loginText,
-
                         click: function (arg) {
-
                             window.location.href = loginLink;
-
-                            // var date = new Date();
-                            // console.log(date);
-                            // calendar.addEvent({
-                            //     title: $('#title').val(),
-                            //     startTime: arg1.startTime,
-                            //     start: date,
-                            //     end: arg1.end,
-                            //     allDay: arg1.allDay,
-                            //     // url: 'www.naver.com'
-                            // })
-
                         }
                     }
                 },
@@ -276,56 +250,7 @@
 // 이벤트
                 events: [
                     {
-                        title: 'All Day Event',
-                        start: '2021-07-01',
-                    },
-                    {
-                        title: 'Long Event',
-                        start: '2021-07-07',
-                        end: '2021-07-10'
-                    },
-                    {
-                        groupId: 999,
-                        title: 'Repeating Event',
-                        start: '2021-07-09T16:00:00'
-                    },
-                    {
-                        groupId: 999,
-                        title: 'Repeating Event',
-                        start: '2021-07-16T16:00:00'
-                    },
-                    {
-                        title: 'Conference',
-                        start: '2021-07-11',
-                        end: '2021-07-13'
-                    },
-                    {
-                        title: 'Meeting',
-                        start: '2021-07-12T10:30:00',
-                        end: '2021-07-12T12:30:00'
-                    },
-                    {
-                        title: 'Lunch',
-                        start: '2021-07-12T12:00:00'
-                    },
-                    {
-                        title: 'Meeting',
-                        start: '2021-07-12T14:30:00'
-                    },
-                    {
-                        title: 'Happy Hour',
-                        start: '2021-07-12T17:30:00'
-                    },
-                    {
-                        title: 'Dinner',
-                        start: '2021-07-12T20:00:00'
-                    },
-                    {
-                        title: 'Birthday Party',
-                        start: '2021-07-13T07:00:00'
-                    },
-                    {
-                        title: 'Click for Google',
+                        title: 'Test',
                         start: '2022-02-16',
                         id: '1',
                         textColor: '#FFFF00',
@@ -337,6 +262,10 @@
 
             $('#submitButton').on('click', function(e){
                 // We don't want this to act as a link so cancel the link action
+                if (sessionId === "") {
+                    alert("로그인 해주세요")
+                    return;
+                }
                 e.preventDefault();
                 console.log(e)
                 doSubmit();

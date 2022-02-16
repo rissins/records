@@ -20,8 +20,9 @@ function eventSave() {
         'backgroundColor': $("#backgroundColor").val(),
         'loginUser' : $("#loginUser").val()
     };
-
-
+    if (param.loginUser === "") {
+        return;
+    }
 
     $.ajax({
         url: '/event',
