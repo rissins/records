@@ -26,7 +26,8 @@
 
     <!-- 색상 선택 JS -->
     <script src="https://cdn.jsdelivr.net/npm/spectrum-colorpicker2/dist/spectrum.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/spectrum-colorpicker2/dist/spectrum.min.css">
+    <link rel="stylesheet" type="text/css"
+          href="https://cdn.jsdelivr.net/npm/spectrum-colorpicker2/dist/spectrum.min.css">
 
     <script src="" th:src="@{js/eventAjax.js}"></script>
     <style>
@@ -62,7 +63,7 @@
     </style>
 </head>
 <body style="padding:30px;">
-<input type="hidden" th:value="${session.sessionId}" id="loginUser">
+
 <!-- calendar 태그 -->
 <div id='calendar-container'>
     <div id='calendar'></div>
@@ -99,8 +100,10 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">
-                <form>
+            <form>
+                <input type="hidden" th:value="${session.sessionId}" id="loginUser">
+                <div class="modal-body">
+
                     <div class="mb-3">
                         <label for="title" class="col-form-label">제목</label>
                         <input type="text" class="form-control" id="title">
@@ -110,15 +113,16 @@
                         <label for="context" class="col-form-label">내용</label>
                         <textarea class="form-control" id="context"></textarea>
                     </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                글자색 <input id='textColor' />
-                배경색 <input id='backgroundColor' />
 
-                <button type="button" class="btn btn-secondary" data-dismiss="modal" >Close</button>
-                <button type="button" class="btn btn-primary" onclick="eventSave()">Save changes</button>
-            </div>
+                </div>
+                <div class="modal-footer">
+                    글자색 <label for='textColor'></label><input id='textColor'/>
+                    배경색 <label for='backgroundColor'></label><input id='backgroundColor'/>
+
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" onclick="eventSave()">Save changes</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
@@ -145,16 +149,16 @@
                         click: function (arg1) {
                             $('#insertModal').modal();
 
-                                // var date = new Date();
-                                // console.log(date);
-                                // calendar.addEvent({
-                                //     title: $('#title').val(),
-                                //     startTime: arg1.startTime,
-                                //     start: date,
-                                //     end: arg1.end,
-                                //     allDay: arg1.allDay,
-                                //     // url: 'www.naver.com'
-                                // })
+                            // var date = new Date();
+                            // console.log(date);
+                            // calendar.addEvent({
+                            //     title: $('#title').val(),
+                            //     startTime: arg1.startTime,
+                            //     start: date,
+                            //     end: arg1.end,
+                            //     allDay: arg1.allDay,
+                            //     // url: 'www.naver.com'
+                            // })
 
                         }
                     }
@@ -278,8 +282,8 @@
                         start: '2022-02-16',
                         id: '1',
                         textColor: '#FFFF00',
-                        color : "#0000FF",
-                        backgroundColor : "#008000"
+                        color: "#0000FF",
+                        backgroundColor: "#008000"
                     }
                 ]
             });

@@ -15,7 +15,10 @@
 function eventSave() {
     var param = {
         'title': $("#title").val(),
-        'context': $("#context").val()
+        'context': $("#context").val(),
+        'textColor': $("#textColor").val(),
+        'backgroundColor': $("#backgroundColor").val()
+
     };
 
     $.ajax({
@@ -31,4 +34,27 @@ function eventSave() {
         }
     );
 
+}
+
+
+function subtractTwoIntegers(a,b){
+    var calcInstance = new com.rissins.records.service.EventService();
+    return {
+        result : calcInstance.findUi
+    };
+}
+
+function init() {
+    $.ajax({
+        type : "GET",
+        url : "http://localhost:10004/호출할ControllerMapping값",
+        contentType: "application/json",
+        dataType: "json",
+        success : function (data, status) {
+            alert(status);
+        },
+        error : function (status) {
+            alert(status + "error!");
+        }
+    });
 }

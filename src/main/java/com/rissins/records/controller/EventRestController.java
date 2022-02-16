@@ -21,14 +21,14 @@ public class EventRestController {
 
     @PostMapping
     public void save(EventResponse eventResponse) {
+
         Event event = Event.builder()
-                .id(eventResponse.getId())
+                .id(eventResponse.getLoginUser() + eventService.findUid())
                 .title(eventResponse.getTitle())
                 .context(eventResponse.getContext())
                 .textColor(eventResponse.getTextColor())
                 .backgroundColor(eventResponse.getBackgroundColor())
                 .build();
-
         eventService.save(event);
     }
 }
