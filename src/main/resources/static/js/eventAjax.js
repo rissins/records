@@ -21,6 +21,8 @@ function eventSave() {
         'loginUser' : $("#loginUser").val()
     };
 
+
+
     $.ajax({
         url: '/event',
         type: 'POST',
@@ -34,27 +36,4 @@ function eventSave() {
         }
     );
 
-}
-
-
-function subtractTwoIntegers(a,b){
-    var calcInstance = new com.rissins.records.service.EventService();
-    return {
-        result : calcInstance.findUi
-    };
-}
-
-function init() {
-    $.ajax({
-        type : "GET",
-        url : "http://localhost:10004/호출할ControllerMapping값",
-        contentType: "application/json",
-        dataType: "json",
-        success : function (data, status) {
-            alert(status);
-        },
-        error : function (status) {
-            alert(status + "error!");
-        }
-    });
 }

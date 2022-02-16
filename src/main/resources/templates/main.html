@@ -72,7 +72,9 @@
             font-size: 30px;
             top: 7px;
         }
-
+        body {
+            padding-right: 30px;
+        }
     </style>
 </head>
 <body style="padding:30px;">
@@ -133,7 +135,7 @@
                     배경색 <label for='backgroundColor'></label><input id='backgroundColor'/>
 
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" onclick="eventSave()">Save changes</button>
+                    <button type="button" class="btn btn-primary" onclick="eventSave(); " id="submitButton">Save changes</button>
                 </div>
             </form>
         </div>
@@ -154,6 +156,8 @@
                 expandRows: true, // 화면에 맞게 높이 재설정
                 slotMinTime: '00:00', // Day 캘린더에서 시작 시간
                 slotMaxTime: '23:59', // Day 캘린더에서 종료 시간
+                timeZone: 'KST',
+                locales: 'ko',
 // 해더에 표시할 툴바
                 customButtons: {
                     myCustomButton: {
@@ -320,6 +324,43 @@
                     }
                 ]
             });
+
+            $('#submitButton').on('click', function(e){
+                // We don't want this to act as a link so cancel the link action
+                e.preventDefault();
+                console.log(e)
+                doSubmit();
+            });
+
+            function doSubmit(){
+                $("#insertModal").modal('hide');
+
+
+                //현재 시간 설정 YY-MM-DD
+                var date = new Date();
+                var years = date.getFullYear();
+                var year = String(years);
+                var yy = year.substring(2, 4);
+                var month = new String(date.getMonth() + 1);
+                var day = new String(date.getDate());
+                if (month.length == 1) {
+                    month = "0" + month;
+                }
+                if (day.length == 1) {
+                    day = "0" + day;
+                }
+                var yymmdd = year + "-" + month + "-" + day;
+                console.log(yymmdd)
+                console.log(date);
+                calendar.addEvent({
+                    title: $('#title').val(),
+                    textColor: $('#textColor').val(),
+                    backgroundColor: $('#backgroundColor').val(),
+                    id: 'test',
+                    start: yymmdd
+                })
+            }
+
 // 캘린더 랜더링
             calendar.render();
         });
@@ -327,6 +368,7 @@
 
     $("#textColor").spectrum({
         type: "color",
+        color: "white",
         showPalette: false,
         showPaletteOnly: true,
         hideAfterPaletteSelect: true,
@@ -335,6 +377,7 @@
     });
     $("#backgroundColor").spectrum({
         type: "color",
+        color: "#02343F",
         showPalette: false,
         showPaletteOnly: true,
         hideAfterPaletteSelect: true,
