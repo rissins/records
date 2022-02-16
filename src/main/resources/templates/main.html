@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org"
+      lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -22,6 +23,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Stylish&display=swap" rel="stylesheet">
+
+    <script src="" th:src="@{js/eventAjax.js}"></script>
     <style>
         /* body 스타일 */
         @font-face {
@@ -48,39 +51,75 @@
             padding-left: 1em;
             padding-right: 1em;
         }
+
         a {
             color: black;
         }
     </style>
 </head>
 <body style="padding:30px;">
-    <!-- calendar 태그 -->
-    <div id='calendar-container' >
-        <div id='calendar'></div>
-    </div>
+<input type="hidden" th:value="${session.sessionId}" id="loginUser">
+<!-- calendar 태그 -->
+<div id='calendar-container'>
+    <div id='calendar'></div>
+</div>
 
-    <!--Model-->
-    <div class="modal fade" tabindex="-1" id="myModal">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Modal title</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <p>Modal body text goes here.</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                </div>
+<!--Model-->
+<div class="modal fade" tabindex="-1" id="checkModal">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">확인하기</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Modal body text goes here.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
             </div>
         </div>
     </div>
+</div>
+
+<!--Model-->
+<div class="modal fade" tabindex="-1" id="insertModal">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">추가하기</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="mb-3">
+                        <label for="title" class="col-form-label">제목</label>
+                        <input type="text" class="form-control" id="title">
+                    </div>
+                    <div class="mb-3">
+                        <label for="context" class="col-form-label">내용</label>
+                        <textarea class="form-control" id="context"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" >Close</button>
+                <button type="button" class="btn btn-primary" onclick="eventSave()">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
     (function () {
+        var sessionId = $('#loginUser').val();
+        console.log(sessionId);
+        console.log($('#title').val());
         $(function () {
 // calendar element 취득
             var calendarEl = $('#calendar')[0];
@@ -91,33 +130,67 @@
                 slotMinTime: '00:00', // Day 캘린더에서 시작 시간
                 slotMaxTime: '23:59', // Day 캘린더에서 종료 시간
 // 해더에 표시할 툴바
+                customButtons: {
+                    myCustomButton: {
+                        text: '추가하기',
+
+                        click: function (arg1) {
+                            $('#insertModal').modal();
+
+                                // var date = new Date();
+                                // console.log(date);
+                                // calendar.addEvent({
+                                //     title: $('#title').val(),
+                                //     startTime: arg1.startTime,
+                                //     start: date,
+                                //     end: arg1.end,
+                                //     allDay: arg1.allDay,
+                                //     // url: 'www.naver.com'
+                                // })
+
+                        }
+                    }
+                },
                 headerToolbar: {
                     left: 'prev,next today',
                     center: 'title',
-                    right: 'dayGridMonth,timeGridWeek,listWeek'
+                    right: 'myCustomButton,dayGridMonth,timeGridWeek,listWeek'
                 },
                 initialView: 'dayGridMonth', // 초기 로드 될때 보이는 캘린더 화면(기본 설정: 달)
                 // initialDate: '2021-07-15', // 초기 날짜 설정 (설정하지 않으면 오늘 날짜가 보인다.)
                 navLinks: true, // 날짜를 선택하면 Day 캘린더나 Week 캘린더로 링크
-                editable: true, // 수정 가능?
+                editable: false, // 수정 가능?
                 selectable: true, // 달력 일자 드래그 설정가능
+                dragScroll: false,
                 nowIndicator: true, // 현재 시간 마크
                 dayMaxEvents: true, // 이벤트가 오버되면 높이 제한 (+ 몇 개식으로 표현)
                 textColor: 'black',
-                // themeSystem: 'bootstrap5',
                 locale: 'ko', // 한국어 설정
                 eventAdd: function (obj) { // 이벤트가 추가되면 발생하는 이벤트
-                    console.log(obj);
+                    console.log('바보');
                 },
                 eventChange: function (obj) { // 이벤트가 수정되면 발생하는 이벤트
                     console.log(obj);
                 },
-                eventClick: function(event, jsEvent, view) {
-                    $('#modalTitle').html(event.title);
-                    $('#modalBody').html(event.description);
-                    $('#eventUrl').attr('href',event.url);
-                    $('#myModal').modal();
+                eventClick: function (event, jsEvent, view) {
+                    // $('#modalTitle').html(event.title);
+                    // $('#modalBody').html(event.description);
+                    // $('#eventUrl').attr('href',event.url);
+                    $('#checkModal').modal();
 
+
+                },
+                dayClick: function (date, allDay, jsEvent, view) {
+                    $('#calendar').fullCalendar('clientEvents', function (event) {
+                        if (event.start <= date && event.end >= date) {
+                            return true;
+                        }
+                        return false;
+                    });
+                },
+                selectConstraint: {
+                    start: '00:01',
+                    end: '23:59',
                 },
                 eventRemove: function (obj) { // 이벤트가 삭제되면 발생하는 이벤트
                     console.log(obj);
@@ -134,9 +207,12 @@
                             end: arg.end,
                             allDay: arg.allDay,
                             // url: 'www.naver.com'
+
                         })
                     }
-                    calendar.unselect()
+
+                    calendar.unselect();
+
                 },
 // 이벤트
                 events: [
@@ -201,5 +277,6 @@
         });
     })();
 </script>
+
 </body>
 </html>
