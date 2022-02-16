@@ -36,5 +36,20 @@ function eventSave() {
             // history.back();
         }
     );
+}
 
+
+function searchData() {
+    $.ajax({
+        url: "/event/" + 28,
+        type: "GET",
+        dataType: "json",
+    }).done(function (data) {
+        // $("#resultDiv").text(JSON.stringify(data));
+        console.log("성공");
+        console.log($("#resultDiv").text(JSON.stringify(data)))
+
+    }).fail(function () {
+        console.log("실패");
+    })
 }

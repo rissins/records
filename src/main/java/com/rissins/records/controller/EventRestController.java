@@ -6,9 +6,7 @@ import com.rissins.records.service.EventService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 @RestController
@@ -30,5 +28,13 @@ public class EventRestController {
                 .backgroundColor(eventResponse.getBackgroundColor())
                 .build();
         eventService.save(event);
+    }
+
+    @GetMapping("/{searchId}")
+    public Event search(@PathVariable Long searchId) {
+        log.info("Bbs Search Success");
+        Event event = eventService.findById(searchId).get();
+        System.out.println("event.toString() = " + event.toString());
+        return eventService.findById(searchId).get();
     }
 }

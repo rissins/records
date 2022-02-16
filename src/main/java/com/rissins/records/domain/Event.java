@@ -1,14 +1,18 @@
 package com.rissins.records.domain;
 
 import lombok.*;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@EntityListeners(AuditingEntityListener.class)
 @Table(name = "event")
 public class Event {
 
@@ -25,4 +29,20 @@ public class Event {
     private String textColor;
 
     private String backgroundColor;
+
+    @CreatedDate
+    private LocalDateTime createdDate;
+
+    @Override
+    public String toString() {
+        return "Event{" +
+                "uid=" + uid +
+                ", id='" + id + '\'' +
+                ", title='" + title + '\'' +
+                ", context='" + context + '\'' +
+                ", textColor='" + textColor + '\'' +
+                ", backgroundColor='" + backgroundColor + '\'' +
+                ", createdDate=" + createdDate +
+                '}';
+    }
 }
