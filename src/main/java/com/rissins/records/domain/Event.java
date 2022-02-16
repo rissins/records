@@ -9,7 +9,6 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-//@Setter
 @Table(name = "event")
 public class Event {
 
@@ -26,9 +25,4 @@ public class Event {
     private String textColor;
 
     private String backgroundColor;
-
-    private String borderColor;
-
-
-
 }

@@ -24,6 +24,10 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Stylish&display=swap" rel="stylesheet">
 
+    <!-- 색상 선택 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/spectrum-colorpicker2/dist/spectrum.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/spectrum-colorpicker2/dist/spectrum.min.css">
+
     <script src="" th:src="@{js/eventAjax.js}"></script>
     <style>
         /* body 스타일 */
@@ -100,6 +104,7 @@
                     <div class="mb-3">
                         <label for="title" class="col-form-label">제목</label>
                         <input type="text" class="form-control" id="title">
+
                     </div>
                     <div class="mb-3">
                         <label for="context" class="col-form-label">내용</label>
@@ -108,6 +113,9 @@
                 </form>
             </div>
             <div class="modal-footer">
+                글자색 <input id='textColor' />
+                배경색 <input id='backgroundColor' />
+
                 <button type="button" class="btn btn-secondary" data-dismiss="modal" >Close</button>
                 <button type="button" class="btn btn-primary" onclick="eventSave()">Save changes</button>
             </div>
@@ -160,7 +168,7 @@
                 // initialDate: '2021-07-15', // 초기 날짜 설정 (설정하지 않으면 오늘 날짜가 보인다.)
                 navLinks: true, // 날짜를 선택하면 Day 캘린더나 Week 캘린더로 링크
                 editable: false, // 수정 가능?
-                selectable: true, // 달력 일자 드래그 설정가능
+                // selectable: true, // 달력 일자 드래그 설정가능
                 dragScroll: false,
                 nowIndicator: true, // 현재 시간 마크
                 dayMaxEvents: true, // 이벤트가 오버되면 높이 제한 (+ 몇 개식으로 표현)
@@ -267,8 +275,11 @@
                     },
                     {
                         title: 'Click for Google',
-                        url: 'http://google.com/', // 클릭시 해당 url로 이동
-                        start: '2021-07-28'
+                        start: '2022-02-16',
+                        id: '1',
+                        textColor: '#FFFF00',
+                        color : "#0000FF",
+                        backgroundColor : "#008000"
                     }
                 ]
             });
@@ -276,6 +287,23 @@
             calendar.render();
         });
     })();
+
+    $("#textColor").spectrum({
+        type: "color",
+        showPalette: false,
+        showPaletteOnly: true,
+        hideAfterPaletteSelect: true,
+        showButtons: false,
+        allowEmpty: false
+    });
+    $("#backgroundColor").spectrum({
+        type: "color",
+        showPalette: false,
+        showPaletteOnly: true,
+        hideAfterPaletteSelect: true,
+        showButtons: false,
+        allowEmpty: false
+    });
 </script>
 
 </body>

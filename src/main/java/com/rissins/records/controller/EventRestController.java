@@ -7,18 +7,19 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 @RestController
 @RequiredArgsConstructor
 @Slf4j
-//@EnableWebMvc
+@RequestMapping("/event")
 public class EventRestController {
 
     private final EventService eventService;
 
-    @PostMapping("/event")
+    @PostMapping
     public void save(EventResponse eventResponse) {
         Event event = Event.builder()
                 .id(eventResponse.getId())
@@ -26,7 +27,6 @@ public class EventRestController {
                 .context(eventResponse.getContext())
                 .textColor(eventResponse.getTextColor())
                 .backgroundColor(eventResponse.getBackgroundColor())
-                .borderColor(eventResponse.getBorderColor())
                 .build();
 
         eventService.save(event);
