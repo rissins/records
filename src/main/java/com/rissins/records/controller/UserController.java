@@ -18,11 +18,6 @@ public class UserController {
 
     private final UserService userService;
 
-    @GetMapping
-    public String index() {
-        return "index";
-    }
-
     @GetMapping("/user/signup")
     public String signUp() {
         return "user/signup";
