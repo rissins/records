@@ -145,7 +145,16 @@
 <script>
     (function () {
         var sessionId = $('#loginUser').val();
-        console.log(sessionId);
+        var loginText;
+        var loginLink;
+        if (sessionId === "") {
+            loginText = "로그인";
+            loginLink = "login";
+        } else {
+            loginText = "로그아웃";
+            loginLink = "logout";
+        }
+        console.log("아이디 = "+ sessionId);
         console.log($('#title').val());
         $(function () {
 // calendar element 취득
@@ -180,11 +189,11 @@
                         }
                     },
                     loginButton: {
-                        text: '로그인',
+                        text: loginText,
 
                         click: function (arg) {
 
-                            window.location.href = 'login';
+                            window.location.href = loginLink;
 
                             // var date = new Date();
                             // console.log(date);
@@ -205,6 +214,7 @@
                     center: 'prev title next',
                     right: 'myCustomButton dayGridMonth,timeGridWeek,listWeek'
                 },
+
                 initialView: 'dayGridMonth', // 초기 로드 될때 보이는 캘린더 화면(기본 설정: 달)
                 // initialDate: '2021-07-15', // 초기 날짜 설정 (설정하지 않으면 오늘 날짜가 보인다.)
                 navLinks: true, // 날짜를 선택하면 Day 캘린더나 Week 캘린더로 링크
