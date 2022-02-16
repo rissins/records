@@ -17,8 +17,8 @@ function eventSave() {
         'title': $("#title").val(),
         'context': $("#context").val(),
         'textColor': $("#textColor").val(),
-        'backgroundColor': $("#backgroundColor").val()
-
+        'backgroundColor': $("#backgroundColor").val(),
+        'loginUser' : $("#loginUser").val()
     };
 
     $.ajax({
