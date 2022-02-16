@@ -41,7 +41,7 @@ function eventSave() {
 
 function searchData() {
     $.ajax({
-        url: "/event/" + 28,
+        url: "/event/" + 31,
         type: "GET",
         dataType: "json",
     }).done(function (data) {
