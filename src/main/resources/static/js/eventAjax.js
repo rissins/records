@@ -18,7 +18,8 @@ function eventSave() {
         'context': $("#context").val(),
         'textColor': $("#textColor").val(),
         'backgroundColor': $("#backgroundColor").val(),
-        'loginUser' : $("#loginUser").val()
+        'loginUser' : $("#loginUser").val(),
+        'userId' : $("#loginUser").val()
     };
     if (param.loginUser === "") {
         return;
@@ -40,16 +41,24 @@ function eventSave() {
 
 
 function searchData() {
+    let returnValue;
     $.ajax({
-        url: "/event/" + 31,
+        url: "/event/" + $("#loginUser").val(),
         type: "GET",
         dataType: "json",
+        async:false,
     }).done(function (data) {
         // $("#resultDiv").text(JSON.stringify(data));
+        // console.log(JSON.stringify(data));
         console.log("성공");
-        console.log($("#resultDiv").text(JSON.stringify(data)))
+        returnValue = data;
+        // console.log(returnValue);
+        // return JSON.stringify(data);
 
     }).fail(function () {
         console.log("실패");
-    })
+    });
+    return returnValue;
 }
+
+

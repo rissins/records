@@ -9,6 +9,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 @Slf4j
@@ -26,15 +28,17 @@ public class EventRestController {
                 .context(eventResponse.getContext())
                 .textColor(eventResponse.getTextColor())
                 .backgroundColor(eventResponse.getBackgroundColor())
+                .userId(eventResponse.getUserId())
                 .build();
         eventService.save(event);
     }
 
-    @GetMapping("/{searchId}")
-    public Event search(@PathVariable Long searchId) {
+    @GetMapping("/{loginId}")
+    public List<Event> search(@PathVariable String loginId) {
         log.info("Bbs Search Success");
-        Event event = eventService.findById(searchId).get();
-        System.out.println("event.toString() = " + event.toString());
-        return eventService.findById(searchId).get();
+//        Event event = eventService.findById(loginId).get();
+//        System.out.println("event.toString() = " + event.toString());
+//        return eventService.findById(loginId).get();
+        return eventService.findAllByUserId(loginId);
     }
 }

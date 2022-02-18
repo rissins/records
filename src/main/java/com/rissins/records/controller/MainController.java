@@ -10,9 +10,4 @@ public class MainController {
     public String index() {
         return "main";
     }
-
-//    @GetMapping("/main")
-//    public String main() {
-//        return "main";
-//    }
 }

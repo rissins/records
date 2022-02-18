@@ -30,6 +30,10 @@ public class Event {
 
     private String backgroundColor;
 
+//    @ManyToOne
+//    @JoinColumn(name = "user_id")
+    private String userId;
+
     @CreatedDate
     private LocalDateTime createdDate;
 

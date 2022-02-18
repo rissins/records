@@ -175,7 +175,9 @@
 </div>
 
 <script>
+    var calendar;
     (function () {
+
         var sessionId = $('#loginUser').val();
         var loginText;
         var loginLink;
@@ -192,7 +194,7 @@
 // calendar element 취득
             var calendarEl = $('#calendar')[0];
 // full-calendar 생성하기
-            var calendar = new FullCalendar.Calendar(calendarEl, {
+            calendar = new FullCalendar.Calendar(calendarEl, {
                 height: '700px', // calendar 높이 설정
                 expandRows: true, // 화면에 맞게 높이 재설정
                 slotMinTime: '00:00', // Day 캘린더에서 시작 시간
@@ -242,7 +244,6 @@
                     // $('#modalBody').html(event.description);
                     // $('#eventUrl').attr('href',event.url);
                     $('#checkModal').modal();
-
 
                 },
                 dayClick: function (date, allDay, jsEvent, view) {
@@ -356,7 +357,18 @@
         allowEmpty: false
     });
     $(document).ready(function(){
-        searchData()
+        // var bb = JSON.stringify(searchData());
+        // let a = searchData();
+
+        console.log(JSON.stringify(searchData()));
+        // calendar.addEvent({
+        //     title: 'Test111',
+        //     start: '2022-02-18',
+        //     // end: arg.end,
+        //     // allDay: arg.allDay,
+        //     url: 'www.naver.com'
+        //
+        // })
     });
 </script>
 

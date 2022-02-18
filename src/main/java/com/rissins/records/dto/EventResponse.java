@@ -14,4 +14,5 @@ public class EventResponse {
     private String backgroundColor;
     private String borderColor;
     private String loginUser;
+    private String userId;
 }
