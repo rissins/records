@@ -192,7 +192,8 @@
         console.log($('#title').val());
         $(function () {
 // calendar element 취득
-            var calendarEl = $('#calendar')[0];
+//             var calendarEl = $('#calendar')[0];
+            var calendarEl = document.getElementById('calendar');
 // full-calendar 생성하기
             calendar = new FullCalendar.Calendar(calendarEl, {
                 height: '700px', // calendar 높이 설정
@@ -277,21 +278,43 @@
                         })
                     }
 
-                    calendar.unselect();
+                    // calendar.unselect();
 
                 },
 // 이벤트
-                events: [
-                    {
-                        title: 'Test',
-                        start: '2022-02-16',
-                        id: '1',
-                        textColor: '#FFFF00',
-                        color: "#0000FF",
-                        backgroundColor: "#008000"
-                    }
-                ]
+//                 events: [
+//                     {
+//                         title: 'Test',
+//                         start: '2022-02-16',
+//                         id: '1',
+//                         textColor: '#FFFF00',
+//                         color: "#0000FF",
+//                         backgroundColor: "#008000"
+//                     }
+//                 ],
+                events: {
+                    url: '/event/all',
+                    method: 'GET',
+                    extraParams: {
+                        userId: sessionId,
+                        // user: 'aaa'
+
+                    },
+                    failure: function () {
+                        console.log("이벤트 실패")
+                    },
+                }
+
+
+
+
+
+
+
             });
+
+
+
 
             $('#submitButton').on('click', function(e){
                 // We don't want this to act as a link so cancel the link action
@@ -331,6 +354,8 @@
                     id: 'test',
                     start: yymmdd
                 })
+
+
             }
 
 // 캘린더 랜더링
@@ -357,10 +382,15 @@
         allowEmpty: false
     });
     $(document).ready(function(){
-        // var bb = JSON.stringify(searchData());
-        // let a = searchData();
 
-        console.log(JSON.stringify(searchData()));
+        if (!$("#loginUser").val()) {
+            return;
+        }
+        console.log(calendar.getEvents());
+
+        var aaa = searchData();
+        // console.log(aaa);
+        // console.log(searchData().length);
         // calendar.addEvent({
         //     title: 'Test111',
         //     start: '2022-02-18',
@@ -369,7 +399,40 @@
         //     url: 'www.naver.com'
         //
         // })
+
+
+
+        // for (let i = 0; i < aaa.length; i++) {
+        //     console.log(aaa[i].createdDate);
+        //     calendar.addEvent({
+        //         title: aaa[i].title,
+        //         id: aaa[i].id,
+        //         textColor: aaa[i].textColor,
+        //         start: formatDate(aaa[i].createDate),
+        //         backgroundColor: aaa[i].backgroundColor
+        //     })
+        // }
+
     });
+
+function inputDate() {
+    var aaa = searchData();
+    calendar.getEvents()
+    for (let i = 0; i < aaa.length; i++) {
+        console.log(aaa[i].createdDate);
+        // calendar.addEvent({
+        //     title: aaa[i].title,
+        //     id: aaa[i].id,
+        //     textColor: aaa[i].textColor,
+        //     start: formatDate(aaa[i].createDate),
+        //     backgroundColor: aaa[i].backgroundColor
+        // })
+
+    }
+    return '1';
+}
+
+
 </script>
 
 </body>

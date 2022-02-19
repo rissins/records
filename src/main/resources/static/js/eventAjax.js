@@ -47,6 +47,7 @@ function searchData() {
         type: "GET",
         dataType: "json",
         async:false,
+
     }).done(function (data) {
         // $("#resultDiv").text(JSON.stringify(data));
         // console.log(JSON.stringify(data));
@@ -61,4 +62,18 @@ function searchData() {
     return returnValue;
 }
 
+function formatDate(date) {
+
+    var d = new Date(date),
+
+        month = '' + (d.getMonth() + 1) ,
+        day = '' + d.getDate(),
+        year = d.getFullYear();
+
+    if (month.length < 2) month = '0' + month;
+    if (day.length < 2) day = '0' + day;
+
+    return [year, month, day].join('-');
+
+}
 

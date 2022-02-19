@@ -33,12 +33,17 @@ public class EventRestController {
         eventService.save(event);
     }
 
-    @GetMapping("/{loginId}")
-    public List<Event> search(@PathVariable String loginId) {
-        log.info("Bbs Search Success");
+    @GetMapping("/all")
+    public List<Event> search(@RequestParam String userId) {
+//        log.info("Bbs Search Success");
 //        Event event = eventService.findById(loginId).get();
 //        System.out.println("event.toString() = " + event.toString());
 //        return eventService.findById(loginId).get();
-        return eventService.findAllByUserId(loginId);
+        return eventService.findAllByUserId(userId);
     }
+
+//    @GetMapping("/all")
+//    public List<Event> findAll() {
+//        return eventService.findAll();
+//    }
 }

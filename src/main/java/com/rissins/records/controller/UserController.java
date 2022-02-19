@@ -31,6 +31,6 @@ public class UserController {
     public String logout(HttpServletRequest request) {
         HttpSession session = request.getSession();
         session.invalidate();
-        return "redirect:/main";
+        return "redirect:/";
     }
 }

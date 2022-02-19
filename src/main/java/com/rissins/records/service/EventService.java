@@ -29,4 +29,8 @@ public class EventService {
     public List<Event> findAllByUserId(String userId) {
         return eventRepository.findAllByUserId(userId);
     }
+
+    public List<Event> findAll() {
+        return eventRepository.findAll();
+    }
 }

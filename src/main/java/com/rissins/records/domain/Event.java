@@ -35,7 +35,7 @@ public class Event {
     private String userId;
 
     @CreatedDate
-    private LocalDateTime createdDate;
+    private LocalDateTime start;
 
     @Override
     public String toString() {
@@ -46,7 +46,7 @@ public class Event {
                 ", context='" + context + '\'' +
                 ", textColor='" + textColor + '\'' +
                 ", backgroundColor='" + backgroundColor + '\'' +
-                ", createdDate=" + createdDate +
+//                ", createdDate=" + createdDate +
                 '}';
     }
 }
