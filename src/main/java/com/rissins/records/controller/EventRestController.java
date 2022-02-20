@@ -1,15 +1,22 @@
 package com.rissins.records.controller;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.rissins.records.domain.Event;
 import com.rissins.records.dto.EventResponse;
 import com.rissins.records.service.EventService;
+import com.rissins.records.service.S3Service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
+import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
@@ -18,9 +25,14 @@ import java.util.List;
 public class EventRestController {
 
     private final EventService eventService;
+    private final S3Service s3Service;
 
     @PostMapping
-    public void save(EventResponse eventResponse) {
+    public void save(@RequestPart(value = "key") Map<String, Object> param, MultipartFile file) throws IOException {
+
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        EventResponse eventResponse = mapper.convertValue(param, EventResponse.class);
 
         Event event = Event.builder()
                 .id(eventResponse.getLoginUser() + eventService.findUid())
@@ -29,6 +41,8 @@ public class EventRestController {
                 .textColor(eventResponse.getTextColor())
                 .backgroundColor(eventResponse.getBackgroundColor())
                 .userId(eventResponse.getUserId())
+                .allDay(eventResponse.getAllDay())
+                .file(s3Service.upload(file))
                 .build();
         eventService.save(event);
     }

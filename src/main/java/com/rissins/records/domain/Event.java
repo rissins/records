@@ -6,7 +6,6 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 @Entity
 @Getter
@@ -36,22 +35,15 @@ public class Event {
     private String userId;
 
     @CreatedDate
-    private String start;
+    private LocalDateTime start;
 
     @CreatedDate
-    private String end;
+    private LocalDateTime end;
 
+    private Boolean allDay;
 
-    @PrePersist
-    public void onPrePersist() {
-        this.start = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd 00:00:00"));
-        this.end = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd 23:59:59"));
-    }
-
-//    @PrePersist
-//    public void onPreUpdate() {
-//
-//    }
+    @Column(columnDefinition = "TEXT")
+    private String file;
 
     @Override
     public String toString() {

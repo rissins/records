@@ -21,16 +21,16 @@ function eventSave() {
         'loginUser' : $("#loginUser").val(),
         'userId' : $("#loginUser").val(),
         'allDay' : $("#allDay").val(),
-        'file' : $("#file").val()
+        // 'file' : $("#file").val()
 
     }
     var form = $('#uploadForm')[0];
     var formData = new FormData(form);
-
-    console.log(param.allDay);
-    if (param.loginUser === "") {
-        return;
-    }
+    formData.append('key', new Blob([ JSON.stringify(param) ], {type : "application/json"}));
+    // console.log(param.allDay);
+    // if (param.loginUser === "") {
+    //     return;
+    // }
 
     $.ajax({
         url: '/event',

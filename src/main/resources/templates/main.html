@@ -28,8 +28,9 @@
     <script src="https://cdn.jsdelivr.net/npm/spectrum-colorpicker2/dist/spectrum.min.js"></script>
     <link rel="stylesheet" type="text/css"
           href="https://cdn.jsdelivr.net/npm/spectrum-colorpicker2/dist/spectrum.min.css">
+    <script src="" th:src="@{js/eventAjax.js?ver=003}" id="eventJs">
 
-    <script src="" th:src="@{js/eventAjax.js}" id="eventJs"></script>
+    </script>
     <style>
         /* body 스타일 */
         @font-face {
@@ -147,8 +148,10 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form>
+            <form id="uploadForm" name="uploadForm">
                 <input type="hidden" th:value="${session.sessionId}" id="loginUser">
+                <input type="hidden" th:value=true id="allDay">
+                <input type="file" id="file" name="file">
                 <div class="modal-body">
 
                     <div class="mb-3">
