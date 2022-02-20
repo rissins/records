@@ -19,8 +19,15 @@ function eventSave() {
         'textColor': $("#textColor").val(),
         'backgroundColor': $("#backgroundColor").val(),
         'loginUser' : $("#loginUser").val(),
-        'userId' : $("#loginUser").val()
-    };
+        'userId' : $("#loginUser").val(),
+        'allDay' : $("#allDay").val(),
+        'file' : $("#file").val()
+
+    }
+    var form = $('#uploadForm')[0];
+    var formData = new FormData(form);
+
+    console.log(param.allDay);
     if (param.loginUser === "") {
         return;
     }
@@ -28,7 +35,10 @@ function eventSave() {
     $.ajax({
         url: '/event',
         type: 'POST',
-        data: param,
+        enctype: 'multipart/form-data',
+        contentType : false,
+        processData : false,
+        data: formData,
     }).done(function () {
         alert("완료");
         // window.location.replace("/");
