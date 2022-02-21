@@ -35,7 +35,7 @@ public class EventRestController {
         EventResponse eventResponse = mapper.convertValue(param, EventResponse.class);
 
         Event event = Event.builder()
-                .id(eventResponse.getLoginUser() + eventService.findUid())
+                .externalId(eventResponse.getLoginUser() + eventService.findUid())
                 .title(eventResponse.getTitle())
                 .context(eventResponse.getContext())
                 .textColor(eventResponse.getTextColor())

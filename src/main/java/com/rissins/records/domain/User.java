@@ -18,8 +18,7 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_uid")
-    private Long uid;
+    private Long id;
 
 //    @Column(name = "user_id")
 //    @OneToMany(mappedBy = "user")

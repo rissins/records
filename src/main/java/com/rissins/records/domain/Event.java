@@ -18,9 +18,9 @@ public class Event {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long uid;
+    private Long id;
 
-    private String id;
+    private String externalId;
 
     private String title;
 
@@ -48,7 +48,6 @@ public class Event {
     @Override
     public String toString() {
         return "Event{" +
-                "uid=" + uid +
                 ", id='" + id + '\'' +
                 ", title='" + title + '\'' +
                 ", context='" + context + '\'' +

@@ -28,7 +28,7 @@
     <script src="https://cdn.jsdelivr.net/npm/spectrum-colorpicker2/dist/spectrum.min.js"></script>
     <link rel="stylesheet" type="text/css"
           href="https://cdn.jsdelivr.net/npm/spectrum-colorpicker2/dist/spectrum.min.css">
-    <script src="" th:src="@{js/eventAjax.js?ver=003}" id="eventJs">
+    <script src="" th:src="@{js/eventAjax.js?ver=}+${#dates.format(#dates.createNow(), 'yyyyMMddHHmm')}" id="eventJs">
 
     </script>
     <style>
@@ -389,9 +389,13 @@
         if (!$("#loginUser").val()) {
             return;
         }
-        console.log(calendar.getEvents());
 
         var aaa = searchData();
+
+        let dt = new Date();
+
+        let str1 = dt.getFullYear()+(dt.getMonth()+1)+dt.getDate();
+
         // console.log(aaa);
         // console.log(searchData().length);
         // calendar.addEvent({
