@@ -52,4 +52,10 @@ public class UserRestController {
             log.info("{} 로그인 성공", userResponse.getUserId());
         }
     }
+
+    @GetMapping("/user/logout")
+    public void logout(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        session.invalidate();
+    }
 }

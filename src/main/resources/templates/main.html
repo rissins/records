@@ -139,11 +139,11 @@
 <!--        </div>-->
 <!--    </div>-->
 <!--</div>-->
-<th:block th:insert="main_view_modal"></th:block>
+<th:block th:insert="main_view_modal"/>
 
-<th:block th:insert="main_insert_modal"></th:block>
+<th:block th:insert="main_insert_modal"/>
 
-<th:block th:insert="user/user_login_modal"></th:block>
+<th:block th:insert="user/user_login_modal"/>
 
 <script>
     var calendar;
@@ -154,10 +154,10 @@
         var loginLink;
         if (sessionId === "") {
             loginText = "로그인";
-            loginLink = "login";
+            // loginLink = $('#loginModal').modal();
         } else {
             loginText = "로그아웃";
-            loginLink = "logout";
+            // loginLink = $('#loginModal').modal();
         }
         console.log("아이디 = "+ sessionId);
         console.log($('#title').val());
@@ -185,8 +185,11 @@
                     loginButton: {
                         text: loginText,
                         click: function (arg) {
-                            // window.location.href = loginLink;
-                            $('#loginModal').modal();
+                            if (loginText === "로그인") {
+                                $('#loginModal').modal();
+                            } else {
+                                logout();
+                            }
                         }
                     }
                 },

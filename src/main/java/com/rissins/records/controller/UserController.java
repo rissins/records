@@ -26,11 +26,4 @@ public class UserController {
     public String login() {
         return "user/login";
     }
-
-    @GetMapping("/logout")
-    public String logout(HttpServletRequest request) {
-        HttpSession session = request.getSession();
-        session.invalidate();
-        return "redirect:/";
-    }
 }
