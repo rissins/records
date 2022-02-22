@@ -10,6 +10,7 @@ import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.rissins.records.domain.Event;
 import com.rissins.records.repository.EventRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -21,6 +22,7 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class EventService {
 
 
@@ -31,8 +33,8 @@ public class EventService {
         eventRepository.save(event);
     }
 
-    public String findUid() {
-        return String.valueOf(eventRepository.count() + 1);
+    public int findSizeByUserId(String userId) {
+        return eventRepository.findAllByUserId(userId).size() + 1;
     }
 
     public Optional<Event> findById(Long id) {
@@ -40,6 +42,7 @@ public class EventService {
     }
 
     public List<Event> findAllByUserId(String userId) {
+        log.info("{} 유저의 총 갯수는 {} 개 입니다.", userId, (long) eventRepository.findAllByUserId(userId).size());
         return eventRepository.findAllByUserId(userId);
     }
 

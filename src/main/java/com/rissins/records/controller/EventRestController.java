@@ -8,15 +8,14 @@ import com.rissins.records.service.EventService;
 import com.rissins.records.service.S3Service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
@@ -34,8 +33,10 @@ public class EventRestController {
         mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         EventResponse eventResponse = mapper.convertValue(param, EventResponse.class);
 
+        String userId = eventResponse.getUserId();
+
         Event event = Event.builder()
-                .externalId(eventResponse.getUserId() + eventService.findUid())
+                .externalId(userId + eventService.findSizeByUserId(userId))
                 .title(eventResponse.getTitle())
                 .context(eventResponse.getContext())
                 .textColor(eventResponse.getTextColor())
@@ -60,4 +61,9 @@ public class EventRestController {
 //    public List<Event> findAll() {
 //        return eventService.findAll();
 //    }
+
+    @GetMapping("/{eventId}")
+    public Optional<Event> findById(@PathVariable Long eventId) {
+        return eventService.findById(eventId);
+    }
 }

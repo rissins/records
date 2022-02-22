@@ -151,13 +151,10 @@
 
         var sessionId = $('#userId').val();
         var loginText;
-        var loginLink;
         if (sessionId === "") {
             loginText = "로그인";
-            // loginLink = $('#loginModal').modal();
         } else {
             loginText = "로그아웃";
-            // loginLink = $('#loginModal').modal();
         }
         console.log("아이디 = "+ sessionId);
         console.log($('#title').val());
@@ -215,12 +212,11 @@
                 eventChange: function (obj) { // 이벤트가 수정되면 발생하는 이벤트
                     console.log(obj);
                 },
-                eventClick: function (event, jsEvent, view) {
-                    // $('#viewModal').modal();
-                    viewModelPopUp();
-
-
-                },
+                // eventClick: function (info) {
+                //     // $('#viewModal').modal();
+                //     console.log(info.title);
+                //     viewModelPopUp(info);
+                // },
                 dayClick: function (date, allDay, jsEvent, view) {
                     $('#calendar').fullCalendar('clientEvents', function (event) {
                         if (event.start <= date && event.end >= date) {
@@ -266,6 +262,7 @@
 //                         backgroundColor: "#008000"
 //                     }
 //                 ],
+
                 events: {
                     url: '/event/all',
                     method: 'GET',
@@ -277,7 +274,12 @@
                     failure: function () {
                         console.log("이벤트 실패")
                     },
-                }
+                },
+                eventClick: function (info) {
+                    // $('#viewModal').modal();
+                    viewModelPopUp(info);
+                },
+
 
 
 
@@ -357,6 +359,7 @@
     });
     $(document).ready(function(){
 
+        var userData;
         if (!$("#userId").val()) {
             return;
         }

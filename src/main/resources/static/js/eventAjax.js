@@ -72,6 +72,21 @@ function searchData() {
     return returnValue;
 }
 
+function detailViewData(eventId) {
+
+    $.ajax({
+        url: "/event/" + eventId,
+        type: "GET",
+        dataType: "json",
+    }).done(function (data) {
+        console.log(data);
+        document.getElementById('viewTitle').innerText = data.title;
+        document.getElementById('viewContext').innerText = data.context;
+    }).fail(function () {
+        console.log("실패");
+    });
+}
+
 function formatDate(date) {
 
     var d = new Date(date),

@@ -7,43 +7,37 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form id="uploadForm" name="uploadForm">
-                <input type="hidden" th:value="${session.sessionId}" id="userId">
-                <input type="hidden" th:value=true id="allDay">
-                <input type="file" id="file" name="file">
+<!--                <input type="hidden" th:value="${session.sessionId}" id="userId">-->
+<!--                <input type="hidden" th:value=true id="allDay">-->
                 <div class="modal-body">
 
-                    <div class="mb-3">
-                        <label for="title" class="col-form-label">제목</label>
-                        <input type="text" class="form-control" id="title">
+                    <div class="mb-3" id="viewTitle">
+<!--                        <label for="viewTitle" class="col-form-label">제목</label>-->
+<!--                        <input type="text" class="form-control" id="viewTitle">-->
 
                     </div>
-                    <div class="mb-3">
-                        <label for="context" class="col-form-label">내용</label>
-                        <textarea class="form-control" id="context"></textarea>
+                    <div class="mb-3" id="viewContext">
+<!--                        <label for="viewContext" class="col-form-label">내용</label>-->
+<!--                        <textarea class="form-control" id="viewContext"></textarea>-->
                     </div>
 
                 </div>
                 <div class="modal-footer">
-                    글자색 <label for='textColor'></label><input id='textColor'/>
-                    배경색 <label for='backgroundColor'></label><input id='backgroundColor'/>
+                    글자색 <label for='viewTextColor'></label><input id='viewTextColor'/>
+                    배경색 <label for='viewBackgroundColor'></label><input id='viewBackgroundColor'/>
 
-                    <button type="button" class="btn btn-secondary" onclick="searchData()" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" onclick="eventSave(); " id="submitButton">Save changes</button>
+<!--                    <button type="button" class="btn btn-secondary" onclick="searchData()" data-dismiss="modal"></button>-->
+                    <button type="button" class="btn btn-primary" id="submitButton">확인</button>
                 </div>
-            </form>
         </div>
     </div>
 </div>
 <script>
-    function viewModelPopUp(){
-        // 팝업 호출 url
-        var url = "/event/all?userId="+$("#userId").val();
-
+    function viewModelPopUp(info){
         // 팝업 호출
         $("#viewModal > .modal-dialog").ready(function() {
             $("#viewModal").modal();
-            console.log("새로운 모달호출");
+            detailViewData(info.event.valueOf().id);
         });
     }
 </script>
