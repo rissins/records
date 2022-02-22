@@ -54,6 +54,8 @@
         $("#viewModal > .modal-dialog").ready(function() {
             $("#viewModal").modal();
             detailViewData(info.event.valueOf().id);
+            console.log(info);
+            console.log(info.event.valueOf().timeZoneName);
         });
     }
 </script>
