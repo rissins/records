@@ -82,6 +82,8 @@ function detailViewData(eventId) {
         console.log(data);
         document.getElementById('viewTitle').innerText = data.title;
         document.getElementById('viewContext').innerText = data.context;
+        document.getElementById('viewFile').src  = data.file;
+        document.getElementById('uploadDate').innerText = data.start.substring(0, 10) +"\u00a0\u00a0"+ data.start.substring(11, 19);
     }).fail(function () {
         console.log("실패");
     });

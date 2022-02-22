@@ -10,7 +10,7 @@
             <form id="uploadForm" name="uploadForm">
                 <input type="hidden" th:value="${session.sessionId}" id="userId">
                 <input type="hidden" th:value=true id="allDay">
-                <input type="file" id="file" name="file">
+
                 <div class="modal-body">
 
                     <div class="mb-3">
@@ -25,6 +25,8 @@
 
                 </div>
                 <div class="modal-footer">
+                    <input type="file" id="file" name="file" style="display: none">
+                    <button type="button" id="fileUpload">파일 선택</button>
                     글자색 <label for='textColor'></label><input id='textColor'/>
                     배경색 <label for='backgroundColor'></label><input id='backgroundColor'/>
 
@@ -35,3 +37,20 @@
         </div>
     </div>
 </div>
+<script>
+    $(function () {
+        $('#fileUpload').click(function (e) {
+            e.preventDefault();
+            $('#file').click();
+        });
+    });
+    function changeValue(obj){
+        alert(obj.value);
+    }
+</script>
+
+<style>
+    #fileUpload {
+        float: left;
+    }
+</style>

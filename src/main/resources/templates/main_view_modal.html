@@ -9,7 +9,7 @@
             </div>
 <!--                <input type="hidden" th:value="${session.sessionId}" id="userId">-->
 <!--                <input type="hidden" th:value=true id="allDay">-->
-                <div class="modal-body">
+                <div class="modal-body" id="viewModalBody">
 
                     <div class="mb-3" id="viewTitle">
 <!--                        <label for="viewTitle" class="col-form-label">제목</label>-->
@@ -20,11 +20,15 @@
 <!--                        <label for="viewContext" class="col-form-label">내용</label>-->
 <!--                        <textarea class="form-control" id="viewContext"></textarea>-->
                     </div>
+                    <div>
+                        <img id="viewFile">
+                    </div>
 
                 </div>
                 <div class="modal-footer">
-                    글자색 <label for='viewTextColor'></label><input id='viewTextColor'/>
-                    배경색 <label for='viewBackgroundColor'></label><input id='viewBackgroundColor'/>
+<!--                    글자색 <label for='viewTextColor'></label><input id='viewTextColor'/>-->
+<!--                    배경색 <label for='viewBackgroundColor'></label><input id='viewBackgroundColor'/>-->
+                    <div id="uploadDate"></div>
 
 <!--                    <button type="button" class="btn btn-secondary" onclick="searchData()" data-dismiss="modal"></button>-->
                     <button type="button" class="btn btn-primary" id="submitButton">확인</button>
@@ -32,6 +36,18 @@
         </div>
     </div>
 </div>
+<style>
+    #viewModalBody{
+        /*width:400px;*/
+    }
+
+    #viewModalBody #viewFile{
+        display:block;
+        width:100%;
+        height:auto;
+        text-align: center;
+    }
+</style>
 <script>
     function viewModelPopUp(info){
         // 팝업 호출
