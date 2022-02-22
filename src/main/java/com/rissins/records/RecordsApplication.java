@@ -17,6 +17,6 @@ public class RecordsApplication {
 
 	@PostConstruct
 	void started() {
-		TimeZone.setDefault(TimeZone.getTimeZone("KST"));
+		TimeZone.setDefault(TimeZone.getTimeZone("Asia/Seoul"));
 	}
 }
