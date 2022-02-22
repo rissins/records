@@ -38,6 +38,8 @@ public class UserRestController {
     @PostMapping("/user/login")
     public void login(HttpServletRequest request, UserResponse userResponse) {
         HttpSession session = request.getSession();
+        System.out.println("userResponse.getUserId = " + userResponse.getUserId());
+        System.out.println("userResponse.getUserPassword = " + userResponse.getUserPassword());
         User user = User.builder()
                 .userId(userResponse.getUserId())
                 .userPassword(userResponse.getUserPassword())

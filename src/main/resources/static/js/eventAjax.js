@@ -18,8 +18,7 @@ function eventSave() {
         'context': $("#context").val(),
         'textColor': $("#textColor").val(),
         'backgroundColor': $("#backgroundColor").val(),
-        'loginUser' : $("#loginUser").val(),
-        'userId' : $("#loginUser").val(),
+        'userId' : $("#userId").val(),
         'allDay' : $("#allDay").val(),
         // 'file' : $("#file").val()
 
@@ -52,8 +51,9 @@ function eventSave() {
 
 function searchData() {
     let returnValue;
+
     $.ajax({
-        url: "/event/" + $("#loginUser").val(),
+        url: "/event/" + $("#userId").val(),
         type: "GET",
         dataType: "json",
         async:false,

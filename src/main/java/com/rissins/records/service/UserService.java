@@ -25,7 +25,7 @@ public class UserService {
 
     public int login(User user) {
         Optional<User> first = userRepository.findAll().stream()
-//                .filter(m -> Objects.equals(m.getUserId(), user.getUserId()))
+                .filter(m -> Objects.equals(m.getUserId(), user.getUserId()))
                 .findFirst();
         User checkUser = first.filter(m -> Objects.equals(m.getUserPassword(), user.getUserPassword()))
                 .orElse(null);

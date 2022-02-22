@@ -28,7 +28,8 @@
     <script src="https://cdn.jsdelivr.net/npm/spectrum-colorpicker2/dist/spectrum.min.js"></script>
     <link rel="stylesheet" type="text/css"
           href="https://cdn.jsdelivr.net/npm/spectrum-colorpicker2/dist/spectrum.min.css">
-    <script src="" th:src="@{js/eventAjax.js?ver=}+${#dates.format(#dates.createNow(), 'yyyyMMddHHmm')}" id="eventJs">
+    <script src="" th:src="@{js/eventAjax.js?ver=}+${#dates.format(#dates.createNow(), 'yyyyMMddHHmm')}" id="eventJs"></script>
+    <script src="" th:src="@{js/userAjax.js?ver=}+${#dates.format(#dates.createNow(), 'yyyyMMddHHmm')}"></script>
 
     </script>
     <style>
@@ -107,81 +108,48 @@
 <!--</div>-->
 
 <!--Model-->
-<div class="modal fade" tabindex="-1" id="checkModal">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">추가하기</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <form>
-                <div class="modal-body">
+<!--<div class="modal fade" tabindex="-1" id="checkModal">-->
+<!--    <div class="modal-dialog modal-dialog-centered">-->
+<!--        <div class="modal-content">-->
+<!--            <div class="modal-header">-->
+<!--                <h5 class="modal-title">추가하기</h5>-->
+<!--                <button type="button" class="close" data-dismiss="modal" aria-label="Close">-->
+<!--                    <span aria-hidden="true">&times;</span>-->
+<!--                </button>-->
+<!--            </div>-->
+<!--            <form>-->
+<!--                <div class="modal-body">-->
 
-                    <div class="mb-3">
-                        <label for="title" class="col-form-label">제목</label>
-                        <input type="text" class="form-control" id="title1">
+<!--                    <div class="mb-3">-->
+<!--                        <label for="title" class="col-form-label">제목</label>-->
+<!--                        <input type="text" class="form-control" id="title1">-->
 
-                    </div>
-                    <div class="mb-3">
-                        <label for="context" class="col-form-label">내용</label>
-                        <textarea class="form-control" id="context1"></textarea>
-                    </div>
+<!--                    </div>-->
+<!--                    <div class="mb-3">-->
+<!--                        <label for="context" class="col-form-label">내용</label>-->
+<!--                        <textarea class="form-control" id="context1"></textarea>-->
+<!--                    </div>-->
 
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" onclick="eventSave(); " >Save changes</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
+<!--                </div>-->
+<!--                <div class="modal-footer">-->
+<!--                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>-->
+<!--                    <button type="button" class="btn btn-primary" onclick="eventSave(); " >Save changes</button>-->
+<!--                </div>-->
+<!--            </form>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+<th:block th:insert="main_view_modal"></th:block>
 
-<div class="modal fade" tabindex="-1" id="insertModal">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">추가하기</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <form id="uploadForm" name="uploadForm">
-                <input type="hidden" th:value="${session.sessionId}" id="loginUser">
-                <input type="hidden" th:value=true id="allDay">
-                <input type="file" id="file" name="file">
-                <div class="modal-body">
+<th:block th:insert="main_insert_modal"></th:block>
 
-                    <div class="mb-3">
-                        <label for="title" class="col-form-label">제목</label>
-                        <input type="text" class="form-control" id="title">
-
-                    </div>
-                    <div class="mb-3">
-                        <label for="context" class="col-form-label">내용</label>
-                        <textarea class="form-control" id="context"></textarea>
-                    </div>
-
-                </div>
-                <div class="modal-footer">
-                    글자색 <label for='textColor'></label><input id='textColor'/>
-                    배경색 <label for='backgroundColor'></label><input id='backgroundColor'/>
-
-                    <button type="button" class="btn btn-secondary" onclick="searchData()" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" onclick="eventSave(); " id="submitButton">Save changes</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
+<th:block th:insert="user/user_login_modal"></th:block>
 
 <script>
     var calendar;
     (function () {
 
-        var sessionId = $('#loginUser').val();
+        var sessionId = $('#userId').val();
         var loginText;
         var loginLink;
         if (sessionId === "") {
@@ -217,7 +185,8 @@
                     loginButton: {
                         text: loginText,
                         click: function (arg) {
-                            window.location.href = loginLink;
+                            // window.location.href = loginLink;
+                            $('#loginModal').modal();
                         }
                     }
                 },
@@ -244,10 +213,9 @@
                     console.log(obj);
                 },
                 eventClick: function (event, jsEvent, view) {
-                    // $('#modalTitle').html(event.title);
-                    // $('#modalBody').html(event.description);
-                    // $('#eventUrl').attr('href',event.url);
-                    $('#checkModal').modal();
+                    // $('#viewModal').modal();
+                    viewModelPopUp();
+
 
                 },
                 dayClick: function (date, allDay, jsEvent, view) {
@@ -386,15 +354,12 @@
     });
     $(document).ready(function(){
 
-        if (!$("#loginUser").val()) {
+        if (!$("#userId").val()) {
             return;
         }
 
         var aaa = searchData();
 
-        let dt = new Date();
-
-        let str1 = dt.getFullYear()+(dt.getMonth()+1)+dt.getDate();
 
         // console.log(aaa);
         // console.log(searchData().length);
@@ -421,25 +386,6 @@
         // }
 
     });
-
-function inputDate() {
-    var aaa = searchData();
-    calendar.getEvents()
-    for (let i = 0; i < aaa.length; i++) {
-        console.log(aaa[i].createdDate);
-        // calendar.addEvent({
-        //     title: aaa[i].title,
-        //     id: aaa[i].id,
-        //     textColor: aaa[i].textColor,
-        //     start: formatDate(aaa[i].createDate),
-        //     backgroundColor: aaa[i].backgroundColor
-        // })
-
-    }
-    return '1';
-}
-
-
 </script>
 
 </body>
