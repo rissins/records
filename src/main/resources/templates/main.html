@@ -264,13 +264,11 @@
 //                 ],
 
                 events: {
-                    url: '/event/all',
+                    url: '/api/v1/event',
                     method: 'GET',
                     timeZone: 'Asia/Seoul',
                     extraParams: {
                         userId: sessionId,
-                        // user: 'aaa'
-
                     },
                     failure: function () {
                         console.log("이벤트 실패")

@@ -75,12 +75,13 @@ function searchData() {
 function detailViewData(eventId) {
 
     $.ajax({
-        url: "/event/" + eventId,
+        url: "/api/v1/event/" + eventId,
         type: "GET",
         dataType: "json",
     }).done(function (data) {
         console.log(data.start.substring(0, 10) + "\u00a0\u00a0" + data.start.substring(11, 19));
         console.log(data);
+        document.getElementById('eventId').value = eventId;
         document.getElementById('viewTitle').innerText = data.title;
         document.getElementById('viewContext').innerText = data.context;
         document.getElementById('viewFile').src  = data.file;
@@ -90,18 +91,18 @@ function detailViewData(eventId) {
     });
 }
 
-function formatDate(date) {
+function deleteEvent() {
+    var eventId = $('#eventId').val();
 
-    var d = new Date(date),
-
-        month = '' + (d.getMonth() + 1) ,
-        day = '' + d.getDate(),
-        year = d.getFullYear();
-
-    if (month.length < 2) month = '0' + month;
-    if (day.length < 2) day = '0' + day;
-
-    return [year, month, day].join('-');
-
+    $.ajax({
+        url: "/event/" + eventId,
+        type: "DELETE",
+    }).done(function (data) {
+        console.log("삭제성공");
+    }).fail(function () {
+        console.log("실패");
+    });
 }
+
+
 

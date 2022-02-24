@@ -10,7 +10,7 @@
 <!--                <input type="hidden" th:value="${session.sessionId}" id="userId">-->
 <!--                <input type="hidden" th:value=true id="allDay">-->
                 <div class="modal-body" id="viewModalBody">
-
+                    <input type="hidden" id="eventId">
                     <div class="mb-3" id="viewTitle">
 <!--                        <label for="viewTitle" class="col-form-label">제목</label>-->
 <!--                        <input type="text" class="form-control" id="viewTitle">-->
@@ -30,7 +30,7 @@
 <!--                    배경색 <label for='viewBackgroundColor'></label><input id='viewBackgroundColor'/>-->
                     <div id="uploadDate"></div>
 
-<!--                    <button type="button" class="btn btn-secondary" onclick="searchData()" data-dismiss="modal"></button>-->
+                    <button type="button" class="btn btn-secondary" onclick="deleteEvent()" >삭제</button>
                     <button type="button" class="btn btn-primary" id="submitButton">확인</button>
                 </div>
         </div>

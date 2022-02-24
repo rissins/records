@@ -1,13 +1,13 @@
 package com.rissins.records.service;
 
+import com.rissins.records.domain.constant.Status;
 import com.rissins.records.domain.User;
 import com.rissins.records.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -19,6 +19,7 @@ public class UserService {
         userRepository.save(user);
     }
 
+    @Transactional(readOnly = true)
     public List<User> findAllByUser() {
         return userRepository.findAll();
     }
@@ -35,10 +36,11 @@ public class UserService {
 //            return 0;
 //        }
 //    }
-    public int login(User user) {
-        return findByUserId(user.getUserId()).getUserPassword().equals(user.getUserPassword()) ? 0 : 1;
+    public Status login(User user) {
+        return findByUserId(user.getUserId()).getUserPassword().equals(user.getUserPassword()) ? Status.ACCEPTED : Status.DENIED;
     }
 
+    @Transactional(readOnly = true)
     public User findByUserId(String userId) {
         return userRepository.findByUserId(userId);
     }

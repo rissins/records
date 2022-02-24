@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.transaction.Transactional;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
@@ -48,22 +49,13 @@ public class EventRestController {
         eventService.save(event);
     }
 
-    @GetMapping("/all")
-    public List<Event> search(@RequestParam String userId) {
-//        log.info("Bbs Search Success");
-//        Event event = eventService.findById(loginId).get();
-//        System.out.println("event.toString() = " + event.toString());
-//        return eventService.findById(loginId).get();
-        return eventService.findAllByUserId(userId);
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable Long id) {
+        eventService.delete(id);
     }
 
-//    @GetMapping("/all")
-//    public List<Event> findAll() {
-//        return eventService.findAll();
-//    }
-
-    @GetMapping("/{eventId}")
-    public Optional<Event> findById(@PathVariable Long eventId) {
-        return eventService.findById(eventId);
+    @PutMapping("/{id}")
+    public void modify(@PathVariable Long id) {
+        eventService.delete(id);
     }
 }
