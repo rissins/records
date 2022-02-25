@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,12 +17,13 @@ import javax.servlet.http.HttpSession;
 @RestController
 @Slf4j
 @RequiredArgsConstructor
+@RequestMapping("/user")
 public class UserRestController {
 
     private final UserService userService;
 
 
-    @PostMapping("/user/signup")
+    @PostMapping("/signup")
     public void signUp(UserResponse userResponse) {
         User user = User.builder()
                 .userId(userResponse.getUserId())
@@ -30,7 +32,7 @@ public class UserRestController {
         userService.save(user);
     }
 
-    @PostMapping("/user/login")
+    @PostMapping("/login")
     public void login(HttpServletRequest request, UserResponse userResponse) {
         HttpSession session = request.getSession();
         User user = User.builder()
@@ -46,7 +48,7 @@ public class UserRestController {
         }
     }
 
-    @GetMapping("/user/logout")
+    @GetMapping("/logout")
     public void logout(HttpServletRequest request) {
         HttpSession session = request.getSession();
         session.invalidate();
