@@ -104,6 +104,7 @@ function updateDetailViewData(eventId) {
         document.getElementById('updateContext').value = data.context;
         document.getElementById('updateTextColor').value = data.textColor;
         document.getElementById('updateBackgroundColor').value  = data.backgroundColor;
+        document.getElementById('updateFileName').value  = "아직 구현 안함";
         // document.getElementById('uploadDate').innerText = data.start.substring(0, 10) +"\u00a0\u00a0"+ data.start.substring(11, 19);
     }).fail(function () {
         console.log("실패");

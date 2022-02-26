@@ -10,7 +10,7 @@
             <form id="updateForm" name="updateForm">
                 <input type="hidden" th:value="${session.sessionId}" id="userId">
 
-                <div class="modal-body">
+                <div class="modal-body" id="updateModalBody">
 
                     <div class="mb-3">
                         <label for="updateTitle" class="col-form-label">제목</label>
@@ -22,15 +22,27 @@
                         <textarea class="form-control" id="updateContext"></textarea>
                     </div>
 
-                </div>
-                <div class="modal-footer">
-                    <input type="file" id="updateFile" name="file" style="display: none">
-                    <button type="button" id="updateFileUpload">파일 선택</button>
-                    글자색 <label for='updateTextColor'></label><input id='updateTextColor'/>
-                    배경색 <label for='updateBackgroundColor'></label><input id='updateBackgroundColor'/>
+                    <div class="mt-4">
+                        <div class="px-1">
+                            <input id="updateFileName" value="파일선택" disabled="disabled" size="10">
+                            <input type="file" id="updateFile" name="file" style="display: none">
+                            <button type="button" id="updateFileUpload">파일 선택</button>
 
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
-                    <button type="button" class="btn btn-primary" onclick="updateEvent(); " id="updateButton">저장</button>
+                            글자색 <label for='updateTextColor'></label><input id='updateTextColor'/>
+                            배경색 <label for='updateBackgroundColor'></label><input id='updateBackgroundColor'/>
+                        </div>
+                        <div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer" id="updateModalFooter">
+
+
+                    <div>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+                        <button type="button" class="btn btn-primary" onclick="updateEvent(); " id="updateButton">저장
+                        </button>
+                    </div>
                 </div>
             </form>
         </div>
@@ -54,7 +66,8 @@
             $('#updateFile').click();
         });
     });
-    function changeValue(obj){
+
+    function changeValue(obj) {
         alert(obj.value);
     }
 </script>
@@ -63,4 +76,17 @@
     #fileUpload {
         float: left;
     }
+
+    .sp-replacer {
+        margin-left: 5px;
+        margin-right: 5px;
+    }
+
+    #updateFileUpload {
+        margin-right: 18%;
+    }
+
+    /*#updateModalFooter {*/
+    /*    justify-content: unset;*/
+    /*}*/
 </style>
