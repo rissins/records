@@ -1,0 +1,66 @@
+<div class="modal fade" tabindex="-1" id="updateModal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">수정하기</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form id="updateForm" name="updateForm">
+                <input type="hidden" th:value="${session.sessionId}" id="userId">
+
+                <div class="modal-body">
+
+                    <div class="mb-3">
+                        <label for="updateTitle" class="col-form-label">제목</label>
+                        <input type="text" class="form-control" id="updateTitle">
+
+                    </div>
+                    <div class="mb-3">
+                        <label for="updateContext" class="col-form-label">내용</label>
+                        <textarea class="form-control" id="updateContext"></textarea>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <input type="file" id="updateFile" name="file" style="display: none">
+                    <button type="button" id="updateFileUpload">파일 선택</button>
+                    글자색 <label for='updateTextColor'></label><input id='updateTextColor'/>
+                    배경색 <label for='updateBackgroundColor'></label><input id='updateBackgroundColor'/>
+
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+                    <button type="button" class="btn btn-primary" onclick="updateEvent(); " id="updateButton">저장</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    // function updateModelPopUp(info){
+    //     // 팝업 호출
+    //     $("#updateModal > .modal-dialog").ready(function() {
+    //         $("#updateModal").modal();
+    //         // detailViewData(info.event.valueOf().id);
+    //         // updateEvent(info.event.valueOf().id);
+    //         // console.log(info);
+    //         // console.log(info.event.valueOf().timeZoneName);
+    //     });
+    // }
+
+    $(function () {
+        $('#updateFileUpload').click(function (e) {
+            e.preventDefault();
+            $('#updateFile').click();
+        });
+    });
+    function changeValue(obj){
+        alert(obj.value);
+    }
+</script>
+
+<style>
+    #fileUpload {
+        float: left;
+    }
+</style>

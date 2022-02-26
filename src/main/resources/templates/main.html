@@ -87,63 +87,13 @@
 </div>
 
 <!--Model-->
-<!--<div class="modal fade" tabindex="-1" id="checkModal">-->
-<!--    <div class="modal-dialog modal-dialog-centered">-->
-<!--        <div class="modal-content">-->
-<!--            <div class="modal-header">-->
-<!--                <h5 class="modal-title">확인하기</h5>-->
-<!--                <button type="button" class="close" data-dismiss="modal" aria-label="Close">-->
-<!--                    <span aria-hidden="true">&times;</span>-->
-<!--                </button>-->
-<!--            </div>-->
-<!--            <div class="modal-body">-->
-<!--                <p>Modal body text goes here.</p>-->
-<!--            </div>-->
-<!--            <div class="modal-footer">-->
-<!--                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>-->
-<!--                <button type="button" class="btn btn-primary">Save changes</button>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</div>-->
-
-<!--Model-->
-<!--<div class="modal fade" tabindex="-1" id="checkModal">-->
-<!--    <div class="modal-dialog modal-dialog-centered">-->
-<!--        <div class="modal-content">-->
-<!--            <div class="modal-header">-->
-<!--                <h5 class="modal-title">추가하기</h5>-->
-<!--                <button type="button" class="close" data-dismiss="modal" aria-label="Close">-->
-<!--                    <span aria-hidden="true">&times;</span>-->
-<!--                </button>-->
-<!--            </div>-->
-<!--            <form>-->
-<!--                <div class="modal-body">-->
-
-<!--                    <div class="mb-3">-->
-<!--                        <label for="title" class="col-form-label">제목</label>-->
-<!--                        <input type="text" class="form-control" id="title1">-->
-
-<!--                    </div>-->
-<!--                    <div class="mb-3">-->
-<!--                        <label for="context" class="col-form-label">내용</label>-->
-<!--                        <textarea class="form-control" id="context1"></textarea>-->
-<!--                    </div>-->
-
-<!--                </div>-->
-<!--                <div class="modal-footer">-->
-<!--                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>-->
-<!--                    <button type="button" class="btn btn-primary" onclick="eventSave(); " >Save changes</button>-->
-<!--                </div>-->
-<!--            </form>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</div>-->
 <th:block th:insert="main_view_modal"/>
 
 <th:block th:insert="main_insert_modal"/>
 
 <th:block th:insert="user/user_login_modal"/>
+
+<th:block th:insert="main_update_modal"/>
 
 <script>
     var calendar;
@@ -275,7 +225,9 @@
                     },
                 },
                 eventClick: function (info) {
-                    // $('#viewModal').modal();
+                    console.log("이벤트클릭")
+                    // $('#updateModal').modal();
+                    // updateModelPopUp(info);
                     viewModelPopUp(info);
                 },
 

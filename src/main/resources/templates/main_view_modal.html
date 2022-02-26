@@ -1,8 +1,8 @@
-<div class="modal fade" tabindex="-1" id="viewModal">
+<div class="modal fade" tabindex="-1" id="viewModal" aria-hidden="true" aria-labelledby="viewModalLabel">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">추가하기</h5>
+                <h5 class="modal-title" id="viewModalLabel">추가하기</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -31,6 +31,7 @@
                     <div id="uploadDate"></div>
 
                     <button type="button" class="btn btn-secondary" onclick="deleteEvent()" >삭제</button>
+                    <button type="button" class="btn btn-secondary" data-target="#updateModal" data-toggle="modal" id="updateButton" data-id="asd">수정</button>
                     <button type="button" class="btn btn-primary" id="submitButton">확인</button>
                 </div>
         </div>
@@ -49,13 +50,29 @@
     }
 </style>
 <script>
+    var eventId;
+
     function viewModelPopUp(info){
         // 팝업 호출
         $("#viewModal > .modal-dialog").ready(function() {
             $("#viewModal").modal();
-            detailViewData(info.event.valueOf().id);
+            eventId = info.event.valueOf().id;
+            detailViewData(eventId);
             console.log(info);
             console.log(info.event.valueOf().timeZoneName);
         });
     }
+    $(document).ready(function() {
+        $('#updateModal').on('show.bs.modal', function() {
+            var seq = eventId;
+            console.log(seq);
+            updateDetailViewData(eventId);
+        });
+    });
+
+    // function reloadUpdateModal() {
+    //     $("#viewModal").location.href = "main_update_modal";
+    //     document.querySelector('#viewModal').
+    //
+    // }
 </script>

@@ -57,4 +57,11 @@ public class EventService {
     public void delete(Long id) {
         eventRepository.deleteById(id);
     }
+
+    public void update(Long id) {
+        Optional<Event> event = eventRepository.findById(id);
+        event.ifPresent(event1 -> {
+
+        });
+    }
 }

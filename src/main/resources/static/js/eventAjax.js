@@ -91,8 +91,28 @@ function detailViewData(eventId) {
     });
 }
 
+function updateDetailViewData(eventId) {
+
+    $.ajax({
+        url: "/api/v1/event/" + eventId,
+        type: "GET",
+        dataType: "json",
+    }).done(function (data) {
+        // console.log(data.start.substring(0, 10) + "\u00a0\u00a0" + data.start.substring(11, 19));
+        console.log(data);
+        document.getElementById('updateTitle').value = data.title;
+        document.getElementById('updateContext').value = data.context;
+        document.getElementById('updateTextColor').value = data.textColor;
+        document.getElementById('updateBackgroundColor').value  = data.backgroundColor;
+        // document.getElementById('uploadDate').innerText = data.start.substring(0, 10) +"\u00a0\u00a0"+ data.start.substring(11, 19);
+    }).fail(function () {
+        console.log("실패");
+    });
+}
+
 function deleteEvent() {
     var eventId = $('#eventId').val();
+    console.log(eventId);
 
     $.ajax({
         url: "/event/" + eventId,
@@ -102,6 +122,44 @@ function deleteEvent() {
     }).fail(function () {
         console.log("실패");
     });
+}
+
+function updateEvent(eventId) {
+    // var eventId = $('#eventId').val();
+
+    var param = {
+        'title': $("#updateTitle").val(),
+        'context': $("#updateContext").val(),
+        'textColor': $("#updateTextColor").val(),
+        'backgroundColor': $("#updateBackgroundColor").val(),
+        // 'userId' : $("#userId").val(),
+        // 'allDay' : $("#allDay").val(),
+        // 'file' : $("#file").val()
+
+    }
+    var form = $('#updateForm')[0];
+    var formData = new FormData(form);
+    formData.append('key', new Blob([ JSON.stringify(param) ], {type : "application/json"}));
+    // console.log(param.allDay);
+    // if (param.loginUser === "") {
+    //     return;
+    // }
+
+    $.ajax({
+        url: '/event/' + 22,
+        type: 'PUT',
+        enctype: 'multipart/form-data',
+        contentType : false,
+        processData : false,
+        data: formData,
+    }).done(function () {
+        alert("수정완료");
+        // window.location.replace("/");
+    }).fail(function () {
+            alert("수정실패");
+            // history.back();
+        }
+    );
 }
 
 
