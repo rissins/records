@@ -71,16 +71,21 @@ public class EventRestController {
             mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
             EventResponse eventResponse = mapper.convertValue(param, EventResponse.class);
 
+            String userId = eventResponse.getUserId();
             try {
-                 Event.builder()
+                 Event newEvent = Event.builder()
+                         .id(id)
+                         .externalId(userId + eventService.findSizeByUserId(userId))
                         .title(eventResponse.getTitle())
                         .context(eventResponse.getContext())
                         .textColor(eventResponse.getTextColor())
                         .backgroundColor(eventResponse.getBackgroundColor())
                         .userId(eventResponse.getUserId())
+                         .allDay(eventResponse.getAllDay())
                         .file(s3Service.upload(file))
                         .build();
-                 eventService.save(selectEvent);
+                 eventService.save(newEvent);
+                System.out.println("selectEvent = " + newEvent);
             } catch (IOException e) {
                 e.printStackTrace();
             }

@@ -40,7 +40,7 @@ function eventSave() {
         data: formData,
     }).done(function () {
         alert("완료");
-        // window.location.replace("/");
+        window.location.reload();
     }).fail(function () {
             alert("실패");
             // history.back();
@@ -121,6 +121,7 @@ function deleteEvent() {
         type: "DELETE",
     }).done(function (data) {
         console.log("삭제성공");
+        window.location.reload();
     }).fail(function () {
         console.log("실패");
     });
@@ -128,17 +129,19 @@ function deleteEvent() {
 
 function updateEvent(eventId) {
     // var eventId = $('#eventId').val();
+    console.log("수정 아이디 =" + eventId);
 
     var param = {
         'title': $("#updateTitle").val(),
         'context': $("#updateContext").val(),
         'textColor': $("#updateTextColor").val(),
         'backgroundColor': $("#updateBackgroundColor").val(),
-        // 'userId' : $("#userId").val(),
-        // 'allDay' : $("#allDay").val(),
-        // 'file' : $("#file").val()
+        'userId' : $("#userId").val(),
+        'allDay' : $("#allDay").val(),
+        'file' : $("#updateFile").val()
 
-    }
+    };
+
     var form = $('#updateForm')[0];
     var formData = new FormData(form);
     formData.append('key', new Blob([ JSON.stringify(param) ], {type : "application/json"}));
@@ -148,7 +151,7 @@ function updateEvent(eventId) {
     // }
 
     $.ajax({
-        url: '/event/' + 22,
+        url: '/event/' + eventId,
         type: 'PUT',
         enctype: 'multipart/form-data',
         contentType : false,

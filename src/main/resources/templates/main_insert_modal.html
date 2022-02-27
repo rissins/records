@@ -22,19 +22,23 @@
                         <label for="context" class="col-form-label">내용</label>
                         <textarea class="form-control" id="context"></textarea>
                     </div>
+                    <div class="mt-4">
+                        <div class="px-1">
+                            <input id="fileName" value="파일선택" disabled="disabled" size="10">
+                            <input type="file" id="file" name="file" style="display: none">
+                            <button type="button" id="fileUpload">파일 선택</button>
 
+                            글자색 <label for='textColor'></label><input id='textColor'/>
+                            배경색 <label for='backgroundColor'></label><input id='backgroundColor'/>
+                        </div>
+                        <div>
+                        </div>
+                    </div>
                 </div>
+
+
+
                 <div class="modal-footer">
-                    <div class="form-row float-left">
-                        <input id="fileName" value="파일선택" disabled="disabled" size="10">
-                        <input type="file" id="file" name="file" style="display: none">
-                        <button type="button" id="fileUpload">파일 선택</button>
-                    </div>
-                    <div class="form-row float-right">
-                        글자색 <label for='textColor'></label><input id='textColor' />
-                        배경색 <label for='backgroundColor'></label><input id='backgroundColor' />
-                    </div>
-                    <hr>
                     <div>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
                         <button type="button" class="btn btn-primary" onclick="eventSave(); " id="submitButton">저장
@@ -77,7 +81,9 @@
 </script>
 
 <style>
+
     #fileUpload {
-        float: left;
+        margin-right: 18%;
     }
+
 </style>

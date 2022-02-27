@@ -40,7 +40,8 @@
 
                     <div>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
-                        <button type="button" class="btn btn-primary" onclick="updateEvent(); " id="updateButton">저장
+                        <button type="button" class="btn btn-primary" onclick="updateEvent(eventId); "
+                                id="updateButton">저장
                         </button>
                     </div>
                 </div>
@@ -60,6 +61,7 @@
     //     });
     // }
 
+
     $(function () {
         $('#updateFileUpload').click(function (e) {
             e.preventDefault();
@@ -72,13 +74,12 @@
     }
 
 
-
 </script>
 
 <style>
-    #fileUpload {
-        float: left;
-    }
+    /*#fileUpload {*/
+    /*    float: left;*/
+    /*}*/
 
     .sp-replacer {
         margin-left: 5px;
