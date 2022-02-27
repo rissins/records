@@ -92,14 +92,16 @@ function detailViewData(eventId) {
 }
 
 function updateDetailViewData(eventId) {
-
+    let returnData;
     $.ajax({
         url: "/api/v1/event/" + eventId,
         type: "GET",
         dataType: "json",
+        async: false
     }).done(function (data) {
         // console.log(data.start.substring(0, 10) + "\u00a0\u00a0" + data.start.substring(11, 19));
         console.log(data);
+        returnData = data
         document.getElementById('updateTitle').value = data.title;
         document.getElementById('updateContext').value = data.context;
         document.getElementById('updateTextColor').value = data.textColor;
@@ -109,6 +111,7 @@ function updateDetailViewData(eventId) {
     }).fail(function () {
         console.log("실패");
     });
+    return returnData;
 }
 
 function deleteEvent() {

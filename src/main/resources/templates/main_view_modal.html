@@ -65,9 +65,28 @@
     $(document).ready(function() {
         $('#updateModal').on('show.bs.modal', function() {
             $("#viewModal").modal("hide");
-            var seq = eventId;
-            console.log(seq);
-            updateDetailViewData(eventId);
+
+            let seq = updateDetailViewData(eventId);
+
+            $("#updateTextColor").spectrum({
+                type: "color",
+                color: seq.textColor,
+                showPalette: false,
+                showPaletteOnly: true,
+                hideAfterPaletteSelect: true,
+                showButtons: false,
+                allowEmpty: false
+            });
+
+            $("#updateBackgroundColor").spectrum({
+                type: "color",
+                color: seq.backgroundColor,
+                showPalette: false,
+                showPaletteOnly: true,
+                hideAfterPaletteSelect: true,
+                showButtons: false,
+                allowEmpty: false
+            });
         });
     });
 
