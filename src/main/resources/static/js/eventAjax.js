@@ -100,14 +100,12 @@ function updateDetailViewData(eventId) {
         async: false
     }).done(function (data) {
         // console.log(data.start.substring(0, 10) + "\u00a0\u00a0" + data.start.substring(11, 19));
-        console.log(data);
         returnData = data
         document.getElementById('updateTitle').value = data.title;
         document.getElementById('updateContext').value = data.context;
         document.getElementById('updateTextColor').value = data.textColor;
         document.getElementById('updateBackgroundColor').value  = data.backgroundColor;
-        document.getElementById('updateFileName').value  = "아직 구현 안함";
-        // document.getElementById('uploadDate').innerText = data.start.substring(0, 10) +"\u00a0\u00a0"+ data.start.substring(11, 19);
+        document.getElementById('updateFileName').value  = data.file.split('/').reverse()[0];
     }).fail(function () {
         console.log("실패");
     });
