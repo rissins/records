@@ -129,7 +129,7 @@
         color: rgb(12, 97, 33);
     }
 </style>
-<div class="modal fade" tabindex="-1" id="loginModal">
+<div class="modal fade" tabindex="-1" id="signupModal">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
 <!--            <div class="modal-header">-->
@@ -149,20 +149,19 @@
 <!--                            <p id="profile-name" class="profile-name-card"></p>-->
                             <form class="form-signin">
                                 <span id="reauth-email" class="reauth-email"></span>
-                                <input type="text" id="loginId" class="form-control" placeholder="아이디" required autofocus>
-                                <input type="password" id="loginPassword" class="form-control" placeholder="비밀번호" required>
+                                <label for="signupId"></label><input type="text" id="signupId" class="form-control" placeholder="아이디" required autofocus>
+                                <label for="signupPassword"></label><input type="password" id="signupPassword" class="form-control" placeholder="비밀번호" required>
                                 <hr>
                                 <div id="remember" class="checkbox">
                                     <label>
                                         <input type="checkbox" value="remember-me"> Remember me
                                     </label>
                                 </div>
-                                <button  class="btn btn-lg btn-primary btn-block btn-signin" type="button" onclick="login()">로그인</button>
+                                <button  class="btn btn-lg btn-primary btn-block btn-signin" type="button" onclick="signup()">회원가입하기</button>
                             </form><!-- /form -->
                             <a href="#" class="forgot-password">
                                 Forgot the password?
                             </a>
-                    <button type="button" class="btn btn-secondary" data-target="#signupModal" data-toggle="modal">회원가입</button>
 <!--                        </div>&lt;!&ndash; /card-container &ndash;&gt;-->
 <!--                    </div>&lt;!&ndash; /container &ndash;&gt;-->
 
@@ -176,9 +175,7 @@
     </div>
 </div>
 <script>
-    $(document).ready(function() {
-        $('#signupModal').on('show.bs.modal', function() {
-            $("#loginModal").modal("hide");
-        });
-    });
+
+
+
 </script>

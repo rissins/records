@@ -33,3 +33,24 @@ function logout() {
         }
     );
 }
+
+function signup() {
+
+    var param = {
+        'userId': $("#signupId").val(),
+        'userPassword': $("#signupPassword").val(),
+    }
+
+    $.ajax({
+        url: '/user/signup',
+        type: 'POST',
+        data: param,
+    }).done(function () {
+        alert("회원가입 완료");
+        window.location.replace("/");
+    }).fail(function () {
+            alert("회원가입 실패");
+            // history.back();
+        }
+    );
+}
