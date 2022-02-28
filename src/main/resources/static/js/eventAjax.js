@@ -139,8 +139,21 @@ function updateEvent(eventId) {
         'userId' : $("#userId").val(),
         'allDay' : $("#allDay").val(),
         'file' : $("#updateFile").val()
-
     };
+    //
+    // if (param.title !== "asdjklasjd") {
+    //     console.log(param.file);
+    //     alert("테스트");
+    //     return;
+    //
+    // }
+
+    if (param.file === "") {
+        console.log(param.file);
+        alert("테스트");
+        return;
+
+    }
 
     var form = $('#updateForm')[0];
     var formData = new FormData(form);
