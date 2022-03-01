@@ -25,15 +25,16 @@ public class UserRestController {
 
     @PostMapping("/signup")
     public void signUp(UserResponse userResponse) {
-        User user = User.builder()
-                .userId(userResponse.getUserId())
-                .userPassword(userResponse.getUserPassword())
-                .build();
-        userService.save(user);
+//        User user = User.builder()
+//                .userId(userResponse.getUserId())
+//                .userPassword(userResponse.getUserPassword())
+//                .build();
+        userService.save(userResponse);
     }
 
     @PostMapping("/login")
     public void login(HttpServletRequest request, UserResponse userResponse) {
+
         HttpSession session = request.getSession();
         User user = User.builder()
                 .userId(userResponse.getUserId())
