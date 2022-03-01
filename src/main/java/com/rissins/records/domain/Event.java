@@ -50,15 +50,4 @@ public class Event {
     @Column(columnDefinition = "TEXT")
     private String file;
 
-    @Override
-    public String toString() {
-        return "Event{" +
-                ", id='" + id + '\'' +
-                ", title='" + title + '\'' +
-                ", context='" + context + '\'' +
-                ", textColor='" + textColor + '\'' +
-                ", backgroundColor='" + backgroundColor + '\'' +
-//                ", createdDate=" + createdDate +
-                '}';
-    }
 }

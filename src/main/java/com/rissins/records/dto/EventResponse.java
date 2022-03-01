@@ -3,7 +3,6 @@ package com.rissins.records.dto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.web.multipart.MultipartFile;
 
 @Data
 @AllArgsConstructor
@@ -18,6 +17,4 @@ public class EventResponse {
     private String loginUser;
     private String userId;
     private Boolean allDay;
-//    private MultipartFile file;
-
 }

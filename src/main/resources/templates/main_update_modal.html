@@ -9,19 +9,15 @@
             </div>
             <form id="updateForm" name="updateForm">
                 <input type="hidden" th:value="${session.sessionId}" id="userId">
-
                 <div class="modal-body" id="updateModalBody">
-
                     <div class="mb-3">
                         <label for="updateTitle" class="col-form-label">제목</label>
                         <input type="text" class="form-control" id="updateTitle">
-
                     </div>
                     <div class="mb-3">
                         <label for="updateContext" class="col-form-label">내용</label>
                         <textarea class="form-control" id="updateContext"></textarea>
                     </div>
-
                     <div class="mt-4">
                         <div class="px-1">
                             <input id="updateFileName" value="파일선택" disabled="disabled" size="10">
@@ -36,8 +32,6 @@
                     </div>
                 </div>
                 <div class="modal-footer" id="updateModalFooter">
-
-
                     <div>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
                         <button type="button" class="btn btn-primary" onclick="updateEvent(eventId); "
@@ -50,37 +44,15 @@
     </div>
 </div>
 <script>
-    // function updateModelPopUp(info){
-    //     // 팝업 호출
-    //     $("#updateModal > .modal-dialog").ready(function() {
-    //         $("#updateModal").modal();
-    //         // detailViewData(info.event.valueOf().id);
-    //         // updateEvent(info.event.valueOf().id);
-    //         // console.log(info);
-    //         // console.log(info.event.valueOf().timeZoneName);
-    //     });
-    // }
-
-
     $(function () {
         $('#updateFileUpload').click(function (e) {
             e.preventDefault();
             $('#updateFile').click();
         });
     });
-
-    function changeValue(obj) {
-        alert(obj.value);
-    }
-
-
 </script>
 
 <style>
-    /*#fileUpload {*/
-    /*    float: left;*/
-    /*}*/
-
     .sp-replacer {
         margin-left: 5px;
         margin-right: 5px;
@@ -89,8 +61,4 @@
     #updateFileUpload {
         margin-right: 18%;
     }
-
-    /*#updateModalFooter {*/
-    /*    justify-content: unset;*/
-    /*}*/
 </style>

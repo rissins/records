@@ -32,18 +32,6 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    //    public int login(User user) {
-//        Optional<User> first = userRepository.findAll().stream()
-//                .filter(m -> Objects.equals(m.getUserId(), user.getUserId()))
-//                .findFirst();
-//        User checkUser = first.filter(m -> Objects.equals(m.getUserPassword(), user.getUserPassword()))
-//                .orElse(null);
-//        if (checkUser == null) {
-//            return 1;
-//        } else {
-//            return 0;
-//        }
-//    }
     public Status login(User user) {
         User byUserId = findByUserId(user.getUserId());
         boolean matches = passwordEncoder.matches(user.getUserPassword(), byUserId.getUserPassword());

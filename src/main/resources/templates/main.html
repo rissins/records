@@ -57,8 +57,6 @@
         html, body {
             link: black;
             overflow: hidden;
-            /*font-family: Arial, Helvetica Neue, Helvetica, sans-serif;*/
-            /*font-family: 'Stylish', sans-serif;*/
             font-family: 'LeferiPoint-BlackA';
             font-size: 14px;
             color: black;
@@ -81,9 +79,6 @@
 
         }
 
-        /*.fc-toolbar-title {*/
-        /*    */
-        /*}*/
         #fc-dom-1 {
             position: relative;
             font-size: 30px;
@@ -128,10 +123,10 @@
         console.log("아이디 = " + sessionId);
         console.log($('#title').val());
         $(function () {
-// calendar element 취득
+        // calendar element 취득
 //             var calendarEl = $('#calendar')[0];
             var calendarEl = document.getElementById('calendar');
-// full-calendar 생성하기
+        // full-calendar 생성하기
             calendar = new FullCalendar.Calendar(calendarEl, {
                 height: '700px', // calendar 높이 설정
                 expandRows: true, // 화면에 맞게 높이 재설정
@@ -139,7 +134,7 @@
                 slotMaxTime: '23:59', // Day 캘린더에서 종료 시간
                 timeZone: 'Asia/Seoul',
                 locales: 'ko',
-// 해더에 표시할 툴바
+        // 해더에 표시할 툴바
                 customButtons: {
                     myCustomButton: {
                         text: '추가하기',
@@ -170,10 +165,8 @@
                 },
 
                 initialView: 'dayGridMonth', // 초기 로드 될때 보이는 캘린더 화면(기본 설정: 달)
-                // initialDate: '2021-07-15', // 초기 날짜 설정 (설정하지 않으면 오늘 날짜가 보인다.)
                 navLinks: true, // 날짜를 선택하면 Day 캘린더나 Week 캘린더로 링크
                 editable: false, // 수정 가능?
-                // selectable: true, // 달력 일자 드래그 설정가능
                 dragScroll: false,
                 nowIndicator: true, // 현재 시간 마크
                 dayMaxEvents: true, // 이벤트가 오버되면 높이 제한 (+ 몇 개식으로 표현)
@@ -185,11 +178,6 @@
                 eventChange: function (obj) { // 이벤트가 수정되면 발생하는 이벤트
                     console.log(obj);
                 },
-                // eventClick: function (info) {
-                //     // $('#viewModal').modal();
-                //     console.log(info.title);
-                //     viewModelPopUp(info);
-                // },
                 dayClick: function (date, allDay, jsEvent, view) {
                     $('#calendar').fullCalendar('clientEvents', function (event) {
                         if (event.start <= date && event.end >= date) {
@@ -216,26 +204,11 @@
                             start: date,
                             end: arg.end,
                             allDay: arg.allDay,
-                            // url: 'www.naver.com'
-
                         })
                     }
-
                     // calendar.unselect();
-
                 },
 // 이벤트
-//                 events: [
-//                     {
-//                         title: 'Test',
-//                         start: '2022-02-16',
-//                         id: '1',
-//                         textColor: '#FFFF00',
-//                         color: "#0000FF",
-//                         backgroundColor: "#008000"
-//                     }
-//                 ],
-
                 events: {
                     url: '/api/v1/event',
                     method: 'GET',
@@ -253,11 +226,7 @@
                     // updateModelPopUp(info);
                     viewModelPopUp(info);
                 },
-
-
             });
-
-
             $('#submitButton').on('click', function (e) {
                 // We don't want this to act as a link so cancel the link action
                 if (sessionId === "") {
@@ -271,8 +240,6 @@
 
             function doSubmit() {
                 $("#insertModal").modal('hide');
-
-
                 //현재 시간 설정 YY-MM-DD
                 var date = new Date();
                 var years = date.getFullYear();
@@ -296,10 +263,7 @@
                     id: 'test',
                     start: yymmdd
                 })
-
-
             }
-
 // 캘린더 랜더링
             calendar.render();
         });
@@ -314,6 +278,7 @@
         showButtons: false,
         allowEmpty: false
     });
+
     $("#backgroundColor").spectrum({
         type: "color",
         color: "#02343F",
@@ -332,31 +297,6 @@
         }
 
         var aaa = searchData();
-
-
-        // console.log(aaa);
-        // console.log(searchData().length);
-        // calendar.addEvent({
-        //     title: 'Test111',
-        //     start: '2022-02-18',
-        //     // end: arg.end,
-        //     // allDay: arg.allDay,
-        //     url: 'www.naver.com'
-        //
-        // })
-
-
-        // for (let i = 0; i < aaa.length; i++) {
-        //     console.log(aaa[i].createdDate);
-        //     calendar.addEvent({
-        //         title: aaa[i].title,
-        //         id: aaa[i].id,
-        //         textColor: aaa[i].textColor,
-        //         start: formatDate(aaa[i].createDate),
-        //         backgroundColor: aaa[i].backgroundColor
-        //     })
-        // }
-
     });
 </script>
 

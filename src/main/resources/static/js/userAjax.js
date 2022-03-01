@@ -1,5 +1,4 @@
 function login() {
-
     var param = {
         'userId': $("#loginId").val(),
         'userPassword': $("#loginPassword").val(),
@@ -14,7 +13,6 @@ function login() {
         window.location.replace("/");
     }).fail(function () {
             alert("실패");
-            // history.back();
         }
     );
 }
@@ -29,7 +27,6 @@ function logout() {
         window.location.replace("/");
     }).fail(function () {
             alert("실패");
-            // history.back();
         }
     );
 }
@@ -50,7 +47,6 @@ function signup() {
         window.location.replace("/");
     }).fail(function () {
             alert("회원가입 실패");
-            // history.back();
         }
     );
 }

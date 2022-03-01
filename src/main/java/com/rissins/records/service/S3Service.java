@@ -19,7 +19,6 @@ import java.security.NoSuchAlgorithmException;
 
 @Service
 @RequiredArgsConstructor
-//@NoArgsConstructor
 public class S3Service {
 
     private final SHA_256 sha256;
@@ -53,7 +52,8 @@ public class S3Service {
         String[] splitData = fileName.split("\\.");
         String fileType = splitData[(splitData.length) - 1];
 
-        String encryptFileName = sha256.encryptBySha256(fileName + ":" +currentTimeMillis) + "." + fileType;
+//        String encryptFileName = sha256.encryptBySha256(fileName + ":" +currentTimeMillis) + "." + fileType;
+        String encryptFileName = sha256.encryptBySha256(fileName + currentTimeMillis) + "." + fileType;
 
         s3Client.putObject(new PutObjectRequest(bucket, encryptFileName, file.getInputStream(), null)
                 .withCannedAcl(CannedAccessControlList.Private));

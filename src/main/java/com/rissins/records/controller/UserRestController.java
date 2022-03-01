@@ -25,10 +25,6 @@ public class UserRestController {
 
     @PostMapping("/signup")
     public void signUp(UserResponse userResponse) {
-//        User user = User.builder()
-//                .userId(userResponse.getUserId())
-//                .userPassword(userResponse.getUserPassword())
-//                .build();
         userService.save(userResponse);
     }
 
@@ -43,9 +39,9 @@ public class UserRestController {
         Status login = userService.login(user);
         if (login == Status.ACCEPTED) {
             session.setAttribute("sessionId", userResponse.getUserId());
-            log.info("{} : 로그인 성공", userResponse.getUserId());
+            log.info("{} : {}}", userResponse.getUserId(), login);
         } else {
-            log.info("{} : 로그인 실패", userResponse.getUserId());
+            log.info("{} : {}", userResponse.getUserId(), login);
         }
     }
 

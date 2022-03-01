@@ -8,15 +8,11 @@ import com.rissins.records.service.EventService;
 import com.rissins.records.service.S3Service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.swing.text.html.Option;
-import javax.transaction.Transactional;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
-import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -57,15 +53,8 @@ public class EventRestController {
         eventService.delete(id);
     }
 
-
-    public void modify(@PathVariable Long id) {
-        eventService.delete(id);
-    }
-
     @PutMapping("/{id}")
     public void update(@RequestPart(value = "key") Map<String, Object> param, MultipartFile file, @PathVariable Long id) {
-        System.out.println("수정 아이디 : " + id);
-
         Optional<Event> event = eventService.findById(id);
         event.ifPresent(selectEvent -> {
             ObjectMapper mapper = new ObjectMapper();
@@ -86,12 +75,9 @@ public class EventRestController {
                         .file(s3Service.upload(file))
                         .build();
                  eventService.save(newEvent);
-                System.out.println("selectEvent = " + newEvent);
             } catch (IOException | NoSuchAlgorithmException e) {
                 e.printStackTrace();
             }
         });
-
-//        eventService.save(event);
     }
 }

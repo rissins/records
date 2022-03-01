@@ -1,7 +1,5 @@
 package com.rissins.records.utils.enctypt;
 
-import lombok.experimental.UtilityClass;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
 import java.security.MessageDigest;
@@ -26,14 +24,6 @@ public class SHA_256 {
         }
         return builder.toString();
     }
-
-//    public static void main(String[] args) throws NoSuchAlgorithmException {
-//        Encrypt encrypt = new Encrypt();
-//        String s = encrypt.encryptBySha256("1234");
-//        System.out.println("s = " + s);
-//
-//    }
-
 }
 
 

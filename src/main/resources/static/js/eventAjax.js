@@ -1,49 +1,28 @@
-// function eventSave() {
-//     $.ajax({
-//         url: "/bbs",
-//         type: "GET",
-//         dataType: "json",
-//     }).done(function (data) {
-//         $("#resultDiv").text(JSON.stringify(data));
-//         console.log("성공");
-//
-//     }).fail(function () {
-//         console.log("실패");
-//     })
-// }
-
 function eventSave() {
     var param = {
         'title': $("#title").val(),
         'context': $("#context").val(),
         'textColor': $("#textColor").val(),
         'backgroundColor': $("#backgroundColor").val(),
-        'userId' : $("#userId").val(),
-        'allDay' : $("#allDay").val(),
-        // 'file' : $("#file").val()
-
+        'userId': $("#userId").val(),
+        'allDay': $("#allDay").val(),
     }
     var form = $('#uploadForm')[0];
     var formData = new FormData(form);
-    formData.append('key', new Blob([ JSON.stringify(param) ], {type : "application/json"}));
-    // console.log(param.allDay);
-    // if (param.loginUser === "") {
-    //     return;
-    // }
+    formData.append('key', new Blob([JSON.stringify(param)], {type: "application/json"}));
 
     $.ajax({
         url: '/event',
         type: 'POST',
         enctype: 'multipart/form-data',
-        contentType : false,
-        processData : false,
+        contentType: false,
+        processData: false,
         data: formData,
     }).done(function () {
         alert("완료");
         window.location.reload();
     }).fail(function () {
             alert("실패");
-            // history.back();
         }
     );
 }
@@ -56,15 +35,11 @@ function searchData() {
         url: "/event/" + $("#userId").val(),
         type: "GET",
         dataType: "json",
-        async:false,
+        async: false,
 
     }).done(function (data) {
-        // $("#resultDiv").text(JSON.stringify(data));
-        // console.log(JSON.stringify(data));
         console.log("성공");
         returnValue = data;
-        // console.log(returnValue);
-        // return JSON.stringify(data);
 
     }).fail(function () {
         console.log("실패");
@@ -84,8 +59,8 @@ function detailViewData(eventId) {
         document.getElementById('eventId').value = eventId;
         document.getElementById('viewTitle').innerText = data.title;
         document.getElementById('viewContext').innerText = data.context;
-        document.getElementById('viewFile').src  = data.file;
-        document.getElementById('uploadDate').innerText = data.start.substring(0, 10) +"\u00a0\u00a0"+ data.start.substring(11, 19);
+        document.getElementById('viewFile').src = data.file;
+        document.getElementById('uploadDate').innerText = data.start.substring(0, 10) + "\u00a0\u00a0" + data.start.substring(11, 19);
     }).fail(function () {
         console.log("실패");
     });
@@ -104,8 +79,8 @@ function updateDetailViewData(eventId) {
         document.getElementById('updateTitle').value = data.title;
         document.getElementById('updateContext').value = data.context;
         document.getElementById('updateTextColor').value = data.textColor;
-        document.getElementById('updateBackgroundColor').value  = data.backgroundColor;
-        document.getElementById('updateFileName').value  = data.file.split('/').reverse()[0];
+        document.getElementById('updateBackgroundColor').value = data.backgroundColor;
+        document.getElementById('updateFileName').value = data.file.split('/').reverse()[0];
     }).fail(function () {
         console.log("실패");
     });
@@ -114,7 +89,6 @@ function updateDetailViewData(eventId) {
 
 function deleteEvent() {
     var eventId = $('#eventId').val();
-    console.log(eventId);
 
     $.ajax({
         url: "/event/" + eventId,
@@ -128,7 +102,6 @@ function deleteEvent() {
 }
 
 function updateEvent(eventId) {
-    // var eventId = $('#eventId').val();
     console.log("수정 아이디 =" + eventId);
 
     var param = {
@@ -136,17 +109,10 @@ function updateEvent(eventId) {
         'context': $("#updateContext").val(),
         'textColor': $("#updateTextColor").val(),
         'backgroundColor': $("#updateBackgroundColor").val(),
-        'userId' : $("#userId").val(),
-        'allDay' : $("#allDay").val(),
-        'file' : $("#updateFile").val()
+        'userId': $("#userId").val(),
+        'allDay': $("#allDay").val(),
+        'file': $("#updateFile").val()
     };
-    //
-    // if (param.title !== "asdjklasjd") {
-    //     console.log(param.file);
-    //     alert("테스트");
-    //     return;
-    //
-    // }
 
     if (param.file === "") {
         console.log(param.file);
@@ -157,25 +123,20 @@ function updateEvent(eventId) {
 
     var form = $('#updateForm')[0];
     var formData = new FormData(form);
-    formData.append('key', new Blob([ JSON.stringify(param) ], {type : "application/json"}));
-    // console.log(param.allDay);
-    // if (param.loginUser === "") {
-    //     return;
-    // }
+    formData.append('key', new Blob([JSON.stringify(param)], {type: "application/json"}));
 
     $.ajax({
         url: '/event/' + eventId,
         type: 'PUT',
         enctype: 'multipart/form-data',
-        contentType : false,
-        processData : false,
+        contentType: false,
+        processData: false,
         data: formData,
     }).done(function () {
-        alert("수정완료");
-        // window.location.replace("/");
+            alert("수정완료");
+            window.location.reload();
     }).fail(function () {
             alert("수정실패");
-            // history.back();
         }
     );
 }

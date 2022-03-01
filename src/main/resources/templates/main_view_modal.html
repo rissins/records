@@ -7,18 +7,9 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-<!--                <input type="hidden" th:value="${session.sessionId}" id="userId">-->
-<!--                <input type="hidden" th:value=true id="allDay">-->
                 <div class="modal-body" id="viewModalBody">
                     <input type="hidden" id="eventId">
-<!--                    <div class="mb-3" id="viewTitle">-->
-<!--                        <label for="viewTitle" class="col-form-label">제목</label>-->
-<!--                        <input type="text" class="form-control" id="viewTitle">-->
-
-<!--                    </div>-->
                     <div class="mb-3" id="viewContext">
-<!--                        <label for="viewContext" class="col-form-label">내용</label>-->
-<!--                        <textarea class="form-control" id="viewContext"></textarea>-->
                     </div>
                     <div>
                         <img id="viewFile">
@@ -26,8 +17,6 @@
 
                 </div>
                 <div class="modal-footer">
-<!--                    글자색 <label for='viewTextColor'></label><input id='viewTextColor'/>-->
-<!--                    배경색 <label for='viewBackgroundColor'></label><input id='viewBackgroundColor'/>-->
                     <div id="uploadDate"></div>
 
                     <button type="button" class="btn btn-secondary" onclick="deleteEvent()" >삭제</button>
@@ -38,10 +27,6 @@
     </div>
 </div>
 <style>
-    #viewModalBody{
-        /*width:400px;*/
-    }
-
     #viewModalBody #viewFile{
         display:block;
         width:100%;
@@ -89,10 +74,4 @@
             });
         });
     });
-
-    // function reloadUpdateModal() {
-    //     $("#viewModal").location.href = "main_update_modal";
-    //     document.querySelector('#viewModal').
-    //
-    // }
 </script>
