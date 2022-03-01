@@ -15,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.swing.text.html.Option;
 import javax.transaction.Transactional;
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -29,7 +30,7 @@ public class EventRestController {
     private final S3Service s3Service;
 
     @PostMapping
-    public void save(@RequestPart(value = "key") Map<String, Object> param, MultipartFile file) throws IOException {
+    public void save(@RequestPart(value = "key") Map<String, Object> param, MultipartFile file) throws IOException, NoSuchAlgorithmException {
 
         ObjectMapper mapper = new ObjectMapper();
         mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
@@ -62,7 +63,7 @@ public class EventRestController {
     }
 
     @PutMapping("/{id}")
-    public void update(@RequestPart(value = "key") Map<String, Object> param, MultipartFile file, @PathVariable Long id) throws IOException {
+    public void update(@RequestPart(value = "key") Map<String, Object> param, MultipartFile file, @PathVariable Long id) {
         System.out.println("수정 아이디 : " + id);
 
         Optional<Event> event = eventService.findById(id);
@@ -86,7 +87,7 @@ public class EventRestController {
                         .build();
                  eventService.save(newEvent);
                 System.out.println("selectEvent = " + newEvent);
-            } catch (IOException e) {
+            } catch (IOException | NoSuchAlgorithmException e) {
                 e.printStackTrace();
             }
         });

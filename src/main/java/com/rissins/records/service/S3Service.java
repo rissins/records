@@ -7,18 +7,22 @@ import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import com.amazonaws.services.s3.model.CannedAccessControlList;
 import com.amazonaws.services.s3.model.PutObjectRequest;
-import lombok.NoArgsConstructor;
+import com.rissins.records.utils.enctypt.SHA_256;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.PostConstruct;
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 
 @Service
-@NoArgsConstructor
+@RequiredArgsConstructor
+//@NoArgsConstructor
 public class S3Service {
 
+    private final SHA_256 sha256;
     private AmazonS3 s3Client;
 
     @Value("${aws.s3.accessKey}")
@@ -43,11 +47,16 @@ public class S3Service {
                 .build();
     }
 
-    public String upload(MultipartFile file) throws IOException {
+    public String upload(MultipartFile file) throws IOException, NoSuchAlgorithmException {
         String fileName = file.getOriginalFilename();
+        long currentTimeMillis = System.currentTimeMillis();
+        String[] splitData = fileName.split("\\.");
+        String fileType = splitData[(splitData.length) - 1];
 
-        s3Client.putObject(new PutObjectRequest(bucket, fileName, file.getInputStream(), null)
+        String encryptFileName = sha256.encryptBySha256(fileName + ":" +currentTimeMillis) + "." + fileType;
+
+        s3Client.putObject(new PutObjectRequest(bucket, encryptFileName, file.getInputStream(), null)
                 .withCannedAcl(CannedAccessControlList.Private));
-        return s3Client.getUrl(bucket, fileName).toString();
+        return s3Client.getUrl(bucket, encryptFileName).toString();
     }
 }
