@@ -127,11 +127,10 @@
     var sessionId;
     var planModal = "#planModal";
     var viewModal = "#planViewModal";
-    var dropDownHtml = '<div class="dropdown">드롭다운<div class="dropdown dropdown-toggle" id="dropdownTest" data-toggle="dropdown" aria-expanded="false">' +
+    var dropDownHtml = '<div id="dropdown"> 계획추가<div class="dropdown dropdown-toggle" id="dropdownTest" data-toggle="dropdown" aria-expanded="false">' +
         '<div class="dropdown-menu">\n' +
         '    <a class="dropdown-item" href="index.html" onclick="dropDownOnclick(planModal)">계획등록</a>\n' +
         '    <a class="dropdown-item" href="#" onclick="dropDownOnclick(viewModal)">계획조회</a>\n' +
-        '    <a class="dropdown-item" href="#">Something else here</a>\n' +
         '  </div>' +
         '</div>' +
         '</div>';
@@ -185,9 +184,9 @@
                         }
                     },
                     dropDownButton: {
-                        text: "계획추가",
+                        // text: "계획추가",
                         click: function (arg) {
-                            $('.fc-toolbar-chunk .fc-dropDownButton-button').attr("data-toggle", "dropdown");
+                            // $('.fc-dropDownButton-button').attr("data-toggle", "dropdown");
                             document.querySelector(".fc-dropDownButton-button").innerHTML=dropDownHtml;
                             // $('dropdown-menu').html(dropDownHtml);
                                 $('.dropdown-toggle').dropdown('show');
@@ -329,6 +328,7 @@
 
     $(document).ready(function () {
 
+        document.querySelector(".fc-dropDownButton-button").innerHTML="계획추가";
         var userData;
         if (!$("#userId").val()) {
             return;
