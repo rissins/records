@@ -115,6 +115,11 @@ function updateEvent(eventId) {
     };
 
     if (param.file === "") {
+        alert("파일을 참부해주세요.");
+        return;
+    }
+
+    if (param.file === "") {
         console.log(param.file);
         alert("테스트");
         return;

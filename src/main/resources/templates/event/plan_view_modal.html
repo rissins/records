@@ -2,37 +2,102 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">상세보기</h5>
+                <h5 class="modal-title">계획조회</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body" id="planViewModalBody" >
-<!--                <input type="hidden" id="eventId">-->
-                <div class="mb-3" id="planViewTitle">
-                </div>
-                <div class="mb-3" id="planViewContext">
-                </div>
+            <div class="modal-body" id="planViewModalBody">
+                <form>
+                    <table class="table table-bordered">
+                        <thead>
+                        <tr>
+                            <th class="text-center" style="width: 10%" scope="col">#</th>
+                            <th class="text-center" style="width: 40%" scope="col">제목</th>
+                            <th class="text-center" style="width: 50%" scope="col">내용</th>
+                        </tr>
+                        </thead>
+                        <tbody class="text-center" id="planTableBody">
+
+                        </tbody>
+                    </table>
+                </form>
+                <!--                <input type="hidden" id="eventId">-->
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" onclick="deleteEvent()" >삭제</button>
-<!--                <button type="button" class="btn btn-secondary" data-target="#updateModal" data-toggle="modal" id="updateButton" data-id="asd">수정</button>-->
-                <button type="button" class="btn btn-primary" >확인</button>
+                <!--                <button type="button" class="btn btn-secondary" data-target="#updateModal" data-toggle="modal" id="updateButton" data-id="asd">수정</button>-->
+                <button type="button" class="btn btn-secondary" id="planDeleteButton" onclick="planDeleteModelPopUp()">
+                    삭제
+                </button>
+
+                <button type="button" class="btn btn-primary" data-dismiss="modal">확인</button>
             </div>
         </div>
     </div>
 </div>
 <script>
-    // function planViewModelPopUp(){
-    //     // 팝업 호출
-    //     $("#planViewModal > .modal-dialog").ready(function() {
-    //         $("#planViewModal").modal();
-    //         viewPlanData(sessionId);
-    //     });
-    // }
+    function planDeleteModelPopUp() {
+        // 팝업 호출
+        $('#planTableBody').empty();
+        viewPlanData(sessionId, "delete");
+    }
+
+    function checkBoxCheck() {
+        $("#checkbox2").click(function () {
+
+            if ($(this).is(":checked")) { //대상이 체크 되어 있을 때
+                console.log("체크됨");
+                //모든 체크박스 체크
+                // $(".chkSub").attr("checked", true);
+
+            } else { //대상이 체크 해제 되어 있을 때
+
+                //모든 체크박스 체크해제
+                // $(".chkSub").attr("checked", false);
+
+            }
+
+        });
+    }
 
     $(document).ready(function () {
-        viewPlanData(sessionId);
+        viewPlanData(sessionId, "view");
+
+        $('#planViewModal').on('hide.bs.modal', function () {
+            $('#planTableBody').empty();
+            viewPlanData(sessionId, "view");
+        });
+        checkBoxCheck();
+
+
+        // $('#checkbox').on('click', function () {
+        //     var checkbox = $('input[id=checkbox]:checked');
+        //     console.log(checkbox.val());
+        //     if ($(this).prop('checked')) {
+        //
+        //     }
+        //
+        //
+        //     });
+        // $("input[name=checkbox2]").change(function(){
+        //     if($("input[name=checkbox2]").is(":checked")){
+        //         console.log("체크박스 체크했음!");
+        //     }else{
+        //         console.log("체크박스 체크 해제!");
+        //     }
+        // });
+
+
     });
 
 </script>
+<style>
+    #planViewModalBody .table {
+        margin-bottom: unset;
+    }
+
+    #planViewModalBody {
+        padding: unset;
+    }
+
+</style>
