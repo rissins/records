@@ -119,14 +119,18 @@
 
 <th:block th:insert="event/plan_insert_modal"/>
 
+<th:block th:insert="event/plan_view_modal"/>
+
 
 
 <script>
+    var sessionId;
     var planModal = "#planModal";
+    var viewModal = "#planViewModal";
     var dropDownHtml = '<div class="dropdown">드롭다운<div class="dropdown dropdown-toggle" id="dropdownTest" data-toggle="dropdown" aria-expanded="false">' +
         '<div class="dropdown-menu">\n' +
         '    <a class="dropdown-item" href="index.html" onclick="dropDownOnclick(planModal)">계획등록</a>\n' +
-        '    <a class="dropdown-item" href="#">계획조회</a>\n' +
+        '    <a class="dropdown-item" href="#" onclick="dropDownOnclick(viewModal)">계획조회</a>\n' +
         '    <a class="dropdown-item" href="#">Something else here</a>\n' +
         '  </div>' +
         '</div>' +
@@ -135,7 +139,7 @@
     var calendar;
     (function () {
 
-        var sessionId = $('#userId').val();
+        sessionId = $('#userId').val();
         var loginText;
         if (sessionId === "") {
             loginText = "로그인";

@@ -26,4 +26,6 @@ public class Plan {
     private String title;
 
     private String context;
+
+    private String userId;
 }

@@ -9,4 +9,5 @@ public class PlanResponse {
 
     private String title;
     private String context;
+    private String userId;
 }

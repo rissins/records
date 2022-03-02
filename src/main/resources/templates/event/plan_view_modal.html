@@ -1,0 +1,38 @@
+<div class="modal fade" tabindex="-1" id="planViewModal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">상세보기</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="planViewModalBody" >
+<!--                <input type="hidden" id="eventId">-->
+                <div class="mb-3" id="planViewTitle">
+                </div>
+                <div class="mb-3" id="planViewContext">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" onclick="deleteEvent()" >삭제</button>
+<!--                <button type="button" class="btn btn-secondary" data-target="#updateModal" data-toggle="modal" id="updateButton" data-id="asd">수정</button>-->
+                <button type="button" class="btn btn-primary" >확인</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    // function planViewModelPopUp(){
+    //     // 팝업 호출
+    //     $("#planViewModal > .modal-dialog").ready(function() {
+    //         $("#planViewModal").modal();
+    //         viewPlanData(sessionId);
+    //     });
+    // }
+
+    $(document).ready(function () {
+        viewPlanData(sessionId);
+    });
+
+</script>
