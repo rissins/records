@@ -109,7 +109,7 @@ function updateEvent(eventId) {
         'context': $("#updateContext").val(),
         'textColor': $("#updateTextColor").val(),
         'backgroundColor': $("#updateBackgroundColor").val(),
-        'userId': $("#userId").val(),
+        'userId': $("#updateUserId").val(),
         'allDay': $("#allDay").val(),
         'file': $("#updateFile").val()
     };
