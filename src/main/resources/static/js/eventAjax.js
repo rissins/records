@@ -90,6 +90,10 @@ function updateDetailViewData(eventId) {
 function deleteEvent() {
     var eventId = $('#eventId').val();
 
+    if (confirm("삭제하시겠습니까?") === false) {
+        return;
+    }
+
     $.ajax({
         url: "/event/" + eventId,
         type: "DELETE",
