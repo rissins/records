@@ -1,10 +1,12 @@
 package com.rissins.records.controller;
 
+import com.rissins.records.domain.constant.Status;
 import com.rissins.records.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 @RequiredArgsConstructor
@@ -22,4 +24,6 @@ public class UserController {
     public String login() {
         return "user/login";
     }
+
+
 }

@@ -184,6 +184,10 @@
                     dropDownButton: {
                         // text: "계획추가",
                         click: function (arg) {
+                            if (sessionId === "") {
+                                alert("로그인이 필요합니다.");
+                                return;
+                            }
                             // $('.fc-dropDownButton-button').attr("data-toggle", "dropdown");
                             document.querySelector(".fc-dropDownButton-button").innerHTML=dropDownHtml;
                             // $('dropdown-menu').html(dropDownHtml);

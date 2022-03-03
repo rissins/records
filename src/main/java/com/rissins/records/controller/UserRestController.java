@@ -6,10 +6,7 @@ import com.rissins.records.dto.UserResponse;
 import com.rissins.records.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -49,5 +46,22 @@ public class UserRestController {
     public void logout(HttpServletRequest request) {
         HttpSession session = request.getSession();
         session.invalidate();
+    }
+
+    @PostMapping("/check")
+    public String overlapCheck(String userId) {
+        String returnValue = "";
+        Status status = userService.overlapCheckByUserId(userId);
+        if (status == Status.ACCEPTED) {
+            returnValue = "사용가능한 아이디입니다.";
+        } else {
+            returnValue = "중복된 아이디입니다.";
+        }
+        return returnValue;
+    }
+
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable Long id) {
+        userService.deleteById(id);
     }
 }

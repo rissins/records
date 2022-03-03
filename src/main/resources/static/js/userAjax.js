@@ -50,3 +50,33 @@ function signup() {
         }
     );
 }
+
+function overlapCheck() {
+
+    var userId = $('#signupId').val();
+
+    $.ajax({
+        url: '/user/check',
+        type: 'POST',
+        data: {'userId': userId },
+    }).done(function (data) {
+        // console.log(data);
+        $('#overlapCheckDiv').text(data);
+    }).fail(function () {
+        }
+    );
+}
+
+function deleteUser() {
+
+    $.ajax({
+        url: '/user/3',
+        type: 'DELETE',
+        data: {'userId': userId },
+    }).done(function (data) {
+        alert("삭제성공")
+    }).fail(function () {
+        alert("삭제실패")
+        }
+    );
+}

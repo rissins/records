@@ -5,6 +5,7 @@ import com.rissins.records.domain.User;
 import com.rissins.records.dto.UserResponse;
 import com.rissins.records.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,6 +14,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class UserService {
 
     private final UserRepository userRepository;
@@ -41,6 +43,20 @@ public class UserService {
     @Transactional(readOnly = true)
     public User findByUserId(String userId) {
         return userRepository.findByUserId(userId);
+    }
+
+    public Status overlapCheckByUserId(String userId) {
+
+        try {
+            String userId1 = userRepository.findByUserId(userId).getUserId();
+            return Status.DENIED;
+        } catch (NullPointerException e) {
+            return Status.ACCEPTED;
+        }
+    }
+
+    public void deleteById(Long id) {
+        userRepository.deleteById(id);
     }
 
 }
