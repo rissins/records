@@ -57,20 +57,26 @@ function viewPlanData(userId, input) {
 }
 
 function deleteData() {
-    var param = {
-        'aa': $("#checkbox2").val(),
-        'bb': $("#checkbox3").val(),
-        // 'context': $("#planContext").val(),
-        // 'userId': $("#planUserId").val(),
-    }
+
     var check = $("input[name=checkbox]:checked");
     var chkArray = new Array();
 
     $(check).each(function() { // 체크된 체크박스의 value 값을 가지고 온다.
         chkArray.push(this.value);
-        // console.log(this.value);
+        console.log(this.value);
     });
-    console.log(chkArray);
+    $.ajax({
+        url: "/plan/" + chkArray,
+        type: "DELETE",
+    }).done(function () {
+        alert("삭제성공");
+        window.location.reload();
+    }).fail(function () {
+        alert("삭제실패");
+    });
 
+
+
+    // console.log(chkArray);
 
 }

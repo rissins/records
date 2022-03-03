@@ -4,9 +4,9 @@ import com.rissins.records.dto.PlanResponse;
 import com.rissins.records.service.PlanService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -19,5 +19,10 @@ public class PlanRestController {
     @PostMapping
     public void save(PlanResponse planResponse) {
         planService.save(planResponse);
+    }
+
+    @DeleteMapping("/{ids}")
+    public void delete(@PathVariable List<Long> ids) {
+        planService.deleteByIds(ids);
     }
 }

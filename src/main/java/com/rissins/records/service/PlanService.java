@@ -27,4 +27,11 @@ public class PlanService {
     public List<Plan> findAllByUserId(String userId) {
         return planRepository.findAllByUserId(userId);
     }
+
+    public void deleteByIds(List<Long> ids) {
+//        planRepository.deleteById(id);
+        for (Long id : ids) {
+            planRepository.deleteById(id);
+        }
+    }
 }
