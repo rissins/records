@@ -13,17 +13,4 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Slf4j
 public class UserController {
 
-    private final UserService userService;
-
-    @GetMapping("/user/signup")
-    public String signUp() {
-        return "user/signup";
-    }
-
-    @GetMapping("/login")
-    public String login() {
-        return "user/login";
-    }
-
-
 }
