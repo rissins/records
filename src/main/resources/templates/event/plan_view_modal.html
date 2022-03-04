@@ -61,8 +61,6 @@
     }
 
     $(document).ready(function () {
-        viewPlanData(sessionId, "view");
-
         $('#planViewModal').on('hide.bs.modal', function () {
             $('#planTableBody').empty();
             viewPlanData(sessionId, "view");

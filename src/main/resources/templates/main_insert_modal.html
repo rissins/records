@@ -14,8 +14,14 @@
                 <div class="modal-body">
 
                     <div class="mb-3">
-                        <label for="title" class="col-form-label">제목</label>
+                        <label for="title" class="col-form-label" >
+                            제목
+                            <label for="planSelect"></label>
+                            <select id="planSelect" style="width: 130px; height: 30px; padding: 2px">
+                            </select>
+                        </label>
                         <input type="text" class="form-control" id="title">
+
 
                     </div>
                     <div class="mb-3">
@@ -47,18 +53,8 @@
     </div>
 </div>
 <script>
-    $(function () {
-        // $('#fileUpload').click(function (e) {
-        //     e.preventDefault();
-        //     $('#file').click();
-        // });
-    });
-
-    function changeValue(obj) {
-        alert(obj.value);
-    }
-
     $(document).ready(function () {
+        viewPlanData(sessionId, 'inserts');
         $('#fileUpload').click(function (e) {
             e.preventDefault();
             $('#file').click();
@@ -81,6 +77,15 @@
 
     #fileUpload {
         margin-right: 18%;
+    }
+
+    .col-form-label {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    select {
+        font-family: sans-serif;
     }
 
 </style>

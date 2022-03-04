@@ -41,6 +41,12 @@ function viewPlanData(userId, input) {
             document.getElementById("planDeleteButton").setAttribute('onclick', 'deleteData()');
             document.getElementById("planDeleteButton").innerText = '선택항목 삭제';
 
+        } else if (input === 'inserts' && planData.length !== 0) {
+            for (var idx in planData) {
+                htmlOut += '<option>' + planData[idx].title + '</option>';
+                console.log(planData[idx].title);
+            }
+            $('#planSelect').append(htmlOut);
         } else {
             for (var idx in planData) {
                 htmlOut += '<tr>';
