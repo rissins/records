@@ -5,6 +5,7 @@ import com.rissins.records.domain.Plan;
 import com.rissins.records.service.EventService;
 import com.rissins.records.service.PlanService;
 import com.rissins.records.service.UserService;
+import com.rissins.records.utils.requestlimit.Throttle;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
