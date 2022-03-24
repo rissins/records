@@ -14,15 +14,10 @@
 ## ⚡Skills
 
 ### BackEnd
-> - Java
-> - Spring Boot
-> - JPA
-> - Spring Security
-> - Lombok
+-> Java, Spring Boot, JPA, Spring Security, Lombok
+
 ### FrontEnd
-> - Thymeleaf
-> - JavaScript
-> - JQuery
+-> Thymeleaf, JavaScript, JQuery
 
 
 ### DB
