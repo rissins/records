@@ -1,5 +1,5 @@
 # 해야 할 일 기록 사이트
- 1. 완료여부 표시
+ 1. 완료여부 표시.
  2. 연속 몇일 완료?
 
 ## Version
@@ -14,15 +14,10 @@
 ## ⚡Skills
 
 ### BackEnd
-> - Java
-> - Spring Boot
-> - JPA
-> - Spring Security
-> - Lombok
+-> Java, Spring Boot, JPA, Spring Security, Lombok
+
 ### FrontEnd
-> - Thymeleaf
-> - JavaScript
-> - JQuery
+-> Thymeleaf, JavaScript, JQuery
 
 
 ### DB
