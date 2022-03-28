@@ -55,6 +55,8 @@ function viewPlanData(userId, input) {
                 htmlOut += '    <td>' + (planData[idx].context) + '</td>';
                 htmlOut += '</tr>';
             }
+            document.getElementById("planDeleteButton").setAttribute('onclick', 'planDeleteModelPopUp()');
+            document.getElementById("planDeleteButton").innerText = '삭제';
         }
         $('#planTableBody').append(htmlOut);
     }).fail(function () {

@@ -61,7 +61,7 @@
     }
 
     $(document).ready(function () {
-        $('#planViewModal').on('hide.bs.modal', function () {
+        $('#planViewModal').on('show.bs.modal', function () {
             $('#planTableBody').empty();
             viewPlanData(sessionId, "view");
         });
