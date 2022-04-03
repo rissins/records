@@ -39,6 +39,3 @@
 
 ![records_flow.png](https://github.com/rissins/study/blob/master/%EC%9E%90%EB%B0%94%EA%B3%A0%EA%B8%89%EC%8A%A4%ED%84%B0%EB%94%94/images/records_flow.JPG?raw=true)
 
-## 🎥 Demo
-
-데모
