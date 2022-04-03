@@ -14,24 +14,24 @@
 ## ⚡Skills
 
 ### BackEnd
--> Java, Spring Boot, JPA, Spring Security, Lombok
+- Java, Spring Boot, JPA, Spring Security, Lombok
 
 ### FrontEnd
--> Thymeleaf, JavaScript, JQuery
+- Thymeleaf, JavaScript, JQuery
 
 
 ### DB
-> - AWS RDS ( MySQL )
-> - AWS S3
+- AWS RDS ( MySQL )
+- AWS S3
 
 ### CI/CD
-> - Jenkins
+- Jenkins
 
 
 ## ⚖️Use Library
  
-> - FullCalendar (https://fullcalendar.io/) - 달력
-> - Spectrum (https://seballot.github.io/spectrum/) - 색상선택
+- FullCalendar (https://fullcalendar.io/) - 달력
+- Spectrum (https://seballot.github.io/spectrum/) - 색상선택
 
 
 ## 🛠 Project Architecture
