@@ -1,4 +1,5 @@
 # **Records** 📅
+<br/>
 
 ## 🚀 Intro
 
@@ -6,11 +7,13 @@
 2. 그 계획을 매일 인증
 3. 지날 날짜에는 인증을 못하고 당일 00:00 ~ 23:59 에 유효
 
+<br/>
+
 ## 💻Version
 + Java 11
 + Gradle 7.4
 + Spring Boot 2.6.3
-
+<br/>
 
 ## ⚡Skills
 
@@ -28,12 +31,14 @@
 ### CI/CD
 - Jenkins
 
+<br/>
 
 ## ⚖️Use Library
  
 - FullCalendar (https://fullcalendar.io/) - 달력
 - Spectrum (https://seballot.github.io/spectrum/) - 색상선택
 
+<br/>
 
 ## 🛠 Project Architecture
 - **User Request Flow**
