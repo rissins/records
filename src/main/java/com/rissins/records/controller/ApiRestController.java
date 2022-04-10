@@ -2,6 +2,7 @@ package com.rissins.records.controller;
 
 import com.rissins.records.domain.Event;
 import com.rissins.records.domain.Plan;
+import com.rissins.records.dto.EventResponse;
 import com.rissins.records.service.EventService;
 import com.rissins.records.service.PlanService;
 import com.rissins.records.service.UserService;
@@ -23,7 +24,7 @@ public class ApiRestController {
     private final PlanService planService;
 
     @GetMapping("/event")
-    public List<Event> findByUserId(@RequestParam String userId) {
+    public List<EventResponse> findByUserId(@RequestParam String userId) {
         return eventService.findAllByUserId(userId);
     }
 

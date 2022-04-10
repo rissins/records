@@ -27,6 +27,13 @@ dependencies {
 	implementation 'com.amazonaws:aws-java-sdk-secretsmanager:1.12.150'
 	implementation 'com.amazonaws:aws-encryption-sdk-java:2.3.3'
 
+	// https://mvnrepository.com/artifact/org.springframework.data/spring-data-redis
+	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+
+	// https://mvnrepository.com/artifact/com.fasterxml.jackson.datatype/jackson-datatype-jsr310
+	implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.13.2'
+
+
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 	compileOnly 'org.projectlombok:lombok'
 	runtimeOnly 'mysql:mysql-connector-java'

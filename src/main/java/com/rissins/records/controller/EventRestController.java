@@ -63,21 +63,26 @@ public class EventRestController {
 
             String userId = eventResponse.getUserId();
             try {
-                 Event newEvent = Event.builder()
-                         .id(id)
-                         .externalId(userId + eventService.findSizeByUserId(userId))
+                Event newEvent = Event.builder()
+                        .id(id)
+                        .externalId(userId + eventService.findSizeByUserId(userId))
                         .title(eventResponse.getTitle())
                         .context(eventResponse.getContext())
                         .textColor(eventResponse.getTextColor())
                         .backgroundColor(eventResponse.getBackgroundColor())
                         .userId(eventResponse.getUserId())
-                         .allDay(eventResponse.getAllDay())
+                        .allDay(eventResponse.getAllDay())
                         .file(s3Service.upload(file))
                         .build();
-                 eventService.save(newEvent);
+                eventService.save(newEvent);
             } catch (IOException | NoSuchAlgorithmException e) {
                 e.printStackTrace();
             }
         });
+    }
+
+    @GetMapping("/count")
+    public int dbCount() {
+        return eventService.getDbCount();
     }
 }
