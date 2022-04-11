@@ -5,6 +5,7 @@ import com.rissins.records.dto.EventResponse;
 import com.rissins.records.repository.EventRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,7 +23,6 @@ import java.util.stream.Stream;
 public class EventService {
 
     private static int dbCount = 0;
-
     private final EventRepository eventRepository;
 
 
@@ -40,12 +40,11 @@ public class EventService {
     }
 
     @Transactional(readOnly = true)
-    @Cacheable(key = "#userId", value = "findAllByUserId")
+    @Cacheable(key = "#userId", value = "userId")
     public List<EventResponse> findAllByUserId(String userId) {
         List<Event> allByUserId = eventRepository.findAllByUserId(userId);
         dbCount++;
         log.info("{} 유저의 총 갯수는 {} 개 입니다.", userId, (long) eventRepository.findAllByUserId(userId).size());
-//        System.out.println("allByUserId = " + allByUserId);
         log.info(allByUserId.toString());
         List<EventResponse> eventResponses = new ArrayList<>();
             allByUserId.forEach(event -> {

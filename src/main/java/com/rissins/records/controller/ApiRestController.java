@@ -5,7 +5,6 @@ import com.rissins.records.domain.Plan;
 import com.rissins.records.dto.EventResponse;
 import com.rissins.records.service.EventService;
 import com.rissins.records.service.PlanService;
-import com.rissins.records.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
@@ -20,11 +19,13 @@ import java.util.Optional;
 public class ApiRestController {
 
     private final EventService eventService;
-    private final UserService userService;
     private final PlanService planService;
+    private static int dbRead = 0;
 
     @GetMapping("/event")
     public List<EventResponse> findByUserId(@RequestParam String userId) {
+        log.info("DB 호출");
+        dbRead++;
         return eventService.findAllByUserId(userId);
     }
 
@@ -36,5 +37,11 @@ public class ApiRestController {
     @GetMapping("/plan")
     public List<Plan> findAllByUserId(@RequestParam String userId) {
         return planService.findAllByUserId(userId);
+    }
+
+    @GetMapping("/count")
+    public String dbCount() {
+        int dbCount = eventService.getDbCount();
+        return "사용자 호출 횟수 : " + dbRead + "   실제 호출 횟수 : " + dbCount;
     }
 }
