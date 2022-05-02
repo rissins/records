@@ -119,6 +119,8 @@
 
 <th:block th:insert="event/plan_view_modal"/>
 
+<th:block th:insert="notice"/>
+
 <script>
     var sessionId;
     var planModal = "#planModal";
@@ -328,6 +330,7 @@
     });
 
     $(document).ready(function () {
+        $('#noticeModal').modal('show');
 
         document.querySelector(".fc-dropDownButton-button").innerHTML="계획추가";
         var userData;
@@ -337,6 +340,8 @@
         var aaa = searchData();
 
         // $('.fc-dropDownButton-button .dropdown-menu .dropdown-item').click();
+
+
 
 
     });
