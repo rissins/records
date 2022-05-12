@@ -20,13 +20,18 @@ public class UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
-    public void signUp(UserResponse userResponse) {
+    public Status signUp(UserResponse userResponse) {
         String encodePassword = passwordEncoder.encode(userResponse.getUserPassword());
         User user = User.builder()
                 .userId(userResponse.getUserId())
                 .userPassword(encodePassword)
                 .build();
-        userRepository.save(user);
+        try {
+            userRepository.save(user);
+            return Status.ACCEPTED;
+        } catch (Exception e) {
+            return Status.DENIED;
+        }
     }
 
     @Transactional(readOnly = true)
@@ -55,7 +60,12 @@ public class UserService {
         }
     }
 
-    public void deleteById(Long id) {
-        userRepository.deleteById(id);
+    public Status deleteById(Long id) {
+        try {
+            userRepository.deleteById(id);
+            return Status.ACCEPTED;
+        } catch (Exception e) {
+            return Status.DENIED;
+        }
     }
 }
