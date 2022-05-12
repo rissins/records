@@ -41,8 +41,13 @@ public class UserService {
 
     public Status login(User user) {
         User byUserId = findByUserId(user.getUserId());
-        boolean matches = passwordEncoder.matches(user.getUserPassword(), byUserId.getUserPassword());
-        return matches ? Status.ACCEPTED : Status.DENIED;
+
+        try {
+            boolean matches = passwordEncoder.matches(user.getUserPassword(), byUserId.getUserPassword());
+            return matches ? Status.ACCEPTED : Status.DENIED;
+        } catch (NullPointerException e) {
+            return Status.DENIED;
+        }
     }
 
     @Transactional(readOnly = true)
