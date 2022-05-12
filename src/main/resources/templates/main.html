@@ -181,17 +181,6 @@
                             $('#insertModal').modal();
                         }
                     },
-                    loginButton: {
-                        text: loginText,
-                        class: "dropdown-toggle",
-                        click: function (arg) {
-                            if (loginText === "로그인") {
-                                $('#loginModal').modal();
-                            } else {
-                                logout();
-                            }
-                        }
-                    },
                     dropDownButton: {
                         // text: "계획추가",
                         click: function (arg) {
@@ -199,33 +188,26 @@
                                 alert("로그인이 필요합니다.");
                                 return;
                             }
-                            // $('.fc-dropDownButton-button').attr("data-toggle", "dropdown");
                             document.querySelector(".fc-dropDownButton-button").innerHTML=dropDownHtml;
-                            // $('dropdown-menu').html(dropDownHtml);
                                 $('.dropdown-toggle').dropdown('show');
-
-
                         }
                     },
                     loginDropDownButton: {
                         text: "계정",
                         click: function (arg) {
-                            // $('.fc-dropDownButton-button').attr("data-toggle", "dropdown");
                             document.querySelector(".fc-loginDropDownButton-button").innerHTML=loginDropDownHtml;
                             if (sessionId !== "") {
-                                // document.querySelector("#loginDropdown #abc").innerHTML="로그아웃"
                                 document.getElementById("abc").innerText = "로그아웃";
                                 document.getElementById("abc").setAttribute("onClick", "logout()");
                                 document.getElementById("def").innerText = "회원탈퇴";
                                 document.getElementById("def").setAttribute("onClick", "deleteUser()");
                             }
-                            // $('dropdown-menu').html(dropDownHtml);
                                 $('#loginDropdown .dropdown-toggle').dropdown('show');
                         }
                     },
                 },
                 headerToolbar: {
-                    left: 'loginDropDownButton loginButton today',
+                    left: 'loginDropDownButton today',
                     center: 'prev title next',
                     right: 'myCustomButton dropDownButton dayGridMonth,timeGridWeek,listWeek'
                 },
