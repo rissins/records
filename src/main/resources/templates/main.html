@@ -138,8 +138,8 @@
 
     var loginDropDownHtml = '<div id="loginDropdown"> 계정<div class="dropdown dropdown-toggle" id="loginDropdownTest" data-toggle="dropdown" aria-expanded="false">' +
         '<div class="dropdown-menu">\n' +
-        '    <a class="dropdown-item" href="index.html" onclick="dropDownOnclick(loginModal)">로그인</a>\n' +
-        '    <a class="dropdown-item" href="#" onclick="dropDownOnclick(signupModal)">회원가입</a>\n' +
+        '    <a class="dropdown-item" id="abc" href="index.html" onclick="dropDownOnclick(loginModal)">로그인</a>\n' +
+        '    <a class="dropdown-item" id="def" href="#" onclick="dropDownOnclick(signupModal)">회원가입</a>\n' +
         '  </div>' +
         '</div>' +
         '</div>';
@@ -212,6 +212,13 @@
                         click: function (arg) {
                             // $('.fc-dropDownButton-button').attr("data-toggle", "dropdown");
                             document.querySelector(".fc-loginDropDownButton-button").innerHTML=loginDropDownHtml;
+                            if (sessionId !== "") {
+                                // document.querySelector("#loginDropdown #abc").innerHTML="로그아웃"
+                                document.getElementById("abc").innerText = "로그아웃";
+                                document.getElementById("abc").setAttribute("onClick", "logout()");
+                                document.getElementById("def").innerText = "회원탈퇴";
+                                document.getElementById("def").setAttribute("onClick", "deleteUser()");
+                            }
                             // $('dropdown-menu').html(dropDownHtml);
                                 $('#loginDropdown .dropdown-toggle').dropdown('show');
                         }
