@@ -181,6 +181,12 @@
                             $('#insertModal').modal();
                         }
                     },
+                    noticeDropDownButton: {
+                        text: "공지",
+                        click: function (arg) {
+                            $('#noticeModal').modal('show');
+                        }
+                    },
                     dropDownButton: {
                         // text: "계획추가",
                         click: function (arg) {
@@ -207,7 +213,7 @@
                     },
                 },
                 headerToolbar: {
-                    left: 'loginDropDownButton today',
+                    left: 'loginDropDownButton noticeDropDownButton today',
                     center: 'prev title next',
                     right: 'myCustomButton dropDownButton dayGridMonth,timeGridWeek,listWeek'
                 },
@@ -288,7 +294,7 @@
             });
 
             function doSubmit() {
-                $("#insertModal").modal('hide');
+                // $("#insertModal").modal('hide');
                 //현재 시간 설정 YY-MM-DD
                 var date = new Date();
                 var years = date.getFullYear();

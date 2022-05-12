@@ -11,6 +11,16 @@ function eventSave() {
     var formData = new FormData(form);
     formData.append('key', new Blob([JSON.stringify(param)], {type: "application/json"}));
 
+    if (!$('#file').val()) {
+        alert("파일을 첨부해주세요.")
+        return;
+    }
+
+    if (confirm("등록하시겠습니까?") === false) {
+        return;
+    }
+    $("#insertModal").modal('hide');
+
     $.ajax({
         url: '/event',
         type: 'POST',
@@ -19,11 +29,10 @@ function eventSave() {
         processData: false,
         data: formData,
     }).done(function () {
-        alert("완료");
         window.location.reload();
     }).fail(function () {
-            alert("실패");
-        }
+        alert("등록 실패");
+    }
     );
 }
 
