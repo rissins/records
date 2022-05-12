@@ -63,5 +63,12 @@ public class UserRestController {
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id) {
         userService.deleteById(id);
+
     }
+
+    @GetMapping
+    public User findByUserId(@RequestParam String userId) {
+        return userService.findByUserId(userId);
+    }
+
 }

@@ -125,10 +125,21 @@
     var sessionId;
     var planModal = "#planModal";
     var viewModal = "#planViewModal";
+    var loginModal = "#loginModal";
+    var signupModal = "#signupModal"
     var dropDownHtml = '<div id="dropdown"> 계획추가<div class="dropdown dropdown-toggle" id="dropdownTest" data-toggle="dropdown" aria-expanded="false">' +
         '<div class="dropdown-menu">\n' +
         '    <a class="dropdown-item" href="index.html" onclick="dropDownOnclick(planModal)">계획등록</a>\n' +
         '    <a class="dropdown-item" href="#" onclick="dropDownOnclick(viewModal)">계획조회</a>\n' +
+        '  </div>' +
+        '</div>' +
+        '</div>';
+
+
+    var loginDropDownHtml = '<div id="loginDropdown"> 계정<div class="dropdown dropdown-toggle" id="loginDropdownTest" data-toggle="dropdown" aria-expanded="false">' +
+        '<div class="dropdown-menu">\n' +
+        '    <a class="dropdown-item" id="abc" href="index.html" onclick="dropDownOnclick(loginModal)">로그인</a>\n' +
+        '    <a class="dropdown-item" id="def" href="#" onclick="dropDownOnclick(signupModal)">회원가입</a>\n' +
         '  </div>' +
         '</div>' +
         '</div>';
@@ -196,9 +207,25 @@
 
                         }
                     },
+                    loginDropDownButton: {
+                        text: "계정",
+                        click: function (arg) {
+                            // $('.fc-dropDownButton-button').attr("data-toggle", "dropdown");
+                            document.querySelector(".fc-loginDropDownButton-button").innerHTML=loginDropDownHtml;
+                            if (sessionId !== "") {
+                                // document.querySelector("#loginDropdown #abc").innerHTML="로그아웃"
+                                document.getElementById("abc").innerText = "로그아웃";
+                                document.getElementById("abc").setAttribute("onClick", "logout()");
+                                document.getElementById("def").innerText = "회원탈퇴";
+                                document.getElementById("def").setAttribute("onClick", "deleteUser()");
+                            }
+                            // $('dropdown-menu').html(dropDownHtml);
+                                $('#loginDropdown .dropdown-toggle').dropdown('show');
+                        }
+                    },
                 },
                 headerToolbar: {
-                    left: 'loginButton today',
+                    left: 'loginDropDownButton loginButton today',
                     center: 'prev title next',
                     right: 'myCustomButton dropDownButton dayGridMonth,timeGridWeek,listWeek'
                 },

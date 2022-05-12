@@ -58,7 +58,7 @@ function overlapCheck() {
     $.ajax({
         url: '/user/check',
         type: 'POST',
-        data: {'userId': userId },
+        data: {'userId': userId},
     }).done(function (data) {
         // console.log(data);
         $('#overlapCheckDiv').text(data);
@@ -70,13 +70,27 @@ function overlapCheck() {
 function deleteUser() {
 
     $.ajax({
-        url: '/user/3',
-        type: 'DELETE',
-        data: {'userId': userId },
+        url: '/user?userId=' + sessionId,
+        type: 'GET',
     }).done(function (data) {
-        alert("삭제성공")
+        $.ajax({
+            url: '/user/' + data.id,
+            type: 'DELETE',
+        }).done(function (data) {
+            alert("회원탈퇴 완료")
+            $.ajax({
+                url: '/user/logout',
+                type: 'GET',
+            }).done(function () {
+                    window.location.replace("/");
+                }
+            );
+        }).fail(function () {
+                alert("삭제실패")
+            }
+        );
     }).fail(function () {
-        alert("삭제실패")
+            alert("삭제 할 아이디 검색 실패")
         }
     );
 }
