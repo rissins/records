@@ -69,7 +69,7 @@ class UserServiceTest {
 
     @Order(5)
     @Test
-    void 로그인_실패() {
+    void 로그인_실패_비밀번호_불일치() {
         //given
         User user = User.builder()
                 .userId(joinTestId)
@@ -82,6 +82,20 @@ class UserServiceTest {
     }
 
     @Order(6)
+    @Test
+    void 로그인_실패_아이디_불일치() {
+        //given
+        User user = User.builder()
+                .userId(testId)
+                .userPassword(joinTestPassword)
+                .build();
+        //when
+        Status loginResult = userService.login(user);
+        //then
+        Assertions.assertThat(loginResult).isEqualByComparingTo(Status.DENIED);
+    }
+
+    @Order(7)
     @Test
     void 회원탈퇴_성공() {
         //given
