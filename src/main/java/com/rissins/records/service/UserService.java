@@ -20,7 +20,7 @@ public class UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
-    public void save(UserResponse userResponse) {
+    public void signUp(UserResponse userResponse) {
         String encodePassword = passwordEncoder.encode(userResponse.getUserPassword());
         User user = User.builder()
                 .userId(userResponse.getUserId())

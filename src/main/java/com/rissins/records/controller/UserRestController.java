@@ -22,7 +22,7 @@ public class UserRestController {
 
     @PostMapping("/signup")
     public void signUp(UserResponse userResponse) {
-        userService.save(userResponse);
+        userService.signUp(userResponse);
     }
 
     @PostMapping("/login")
@@ -36,9 +36,9 @@ public class UserRestController {
         Status login = userService.login(user);
         if (login == Status.ACCEPTED) {
             session.setAttribute("sessionId", userResponse.getUserId());
-            log.info("{} : {}}", userResponse.getUserId(), login);
+            log.info("{} : 로그인 {}", userResponse.getUserId(), login);
         } else {
-            log.info("{} : {}", userResponse.getUserId(), login);
+            log.info("{} : 로그인 {}", userResponse.getUserId(), login);
         }
     }
 

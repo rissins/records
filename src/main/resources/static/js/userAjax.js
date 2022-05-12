@@ -9,10 +9,8 @@ function login() {
         type: 'POST',
         data: param,
     }).done(function () {
-        alert("완료");
         window.location.replace("/");
     }).fail(function () {
-            alert("실패");
         }
     );
 }
@@ -23,10 +21,9 @@ function logout() {
         url: '/user/logout',
         type: 'GET',
     }).done(function () {
-        alert("완료");
+        alert("로그아웃 완료")
         window.location.replace("/");
     }).fail(function () {
-            alert("실패");
         }
     );
 }
@@ -68,6 +65,9 @@ function overlapCheck() {
 }
 
 function deleteUser() {
+    if (confirm("회원탈퇴를 하시겠습니까 ?") === false) {
+        return;
+    }
 
     $.ajax({
         url: '/user?userId=' + sessionId,
