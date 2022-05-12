@@ -136,7 +136,7 @@
         '</div>';
 
 
-    var loginDropDownHtml = '<div id="loginDropdown"> 계정<div class="dropdown dropdown-toggle" id="loginDropdownTest" data-toggle="dropdown" aria-expanded="false">' +
+    var loginDropDownHtml = '<div id="loginDropdown">계정<div class="dropdown dropdown-toggle" id="loginDropdownTest" data-toggle="dropdown" aria-expanded="false">' +
         '<div class="dropdown-menu">\n' +
         '    <a class="dropdown-item" id="abc" href="index.html" onclick="dropDownOnclick(loginModal)">로그인</a>\n' +
         '    <a class="dropdown-item" id="def" href="#" onclick="dropDownOnclick(signupModal)">회원가입</a>\n' +
@@ -193,7 +193,7 @@
                         }
                     },
                     loginDropDownButton: {
-                        text: "계정",
+                        // text: "계정",
                         click: function (arg) {
                             document.querySelector(".fc-loginDropDownButton-button").innerHTML=loginDropDownHtml;
                             if (sessionId !== "") {
@@ -342,6 +342,10 @@
         $('#noticeModal').modal('show');
 
         document.querySelector(".fc-dropDownButton-button").innerHTML="계획추가";
+
+        document.querySelector(".fc-loginDropDownButton-button").innerHTML="계정";
+
+
         var userData;
         if (!$("#userId").val()) {
             return;
