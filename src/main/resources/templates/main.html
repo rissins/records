@@ -339,23 +339,13 @@
     });
 
     $(document).ready(function () {
-        $('#noticeModal').modal('show');
+        if (!$("#userId").val()) {
+            $('#noticeModal').modal('show');
+        }
 
         document.querySelector(".fc-dropDownButton-button").innerHTML="계획추가";
 
         document.querySelector(".fc-loginDropDownButton-button").innerHTML="계정";
-
-
-        var userData;
-        if (!$("#userId").val()) {
-            return;
-        }
-        var aaa = searchData();
-
-        // $('.fc-dropDownButton-button .dropdown-menu .dropdown-item').click();
-
-
-
 
     });
     document.getElementById("calendar").addEventListener("click", function (e) {
