@@ -26,20 +26,21 @@ public class UserRestController {
     }
 
     @PostMapping("/login")
-    public void login(HttpServletRequest request, UserResponse userResponse) {
+    public Status login(HttpServletRequest request, UserResponse userResponse) {
 
         HttpSession session = request.getSession();
         User user = User.builder()
                 .userId(userResponse.getUserId())
                 .userPassword(userResponse.getUserPassword())
                 .build();
-        Status login = userService.login(user);
-        if (login == Status.ACCEPTED) {
+        Status loginStatus = userService.login(user);
+        if (loginStatus == Status.ACCEPTED) {
             session.setAttribute("sessionId", userResponse.getUserId());
-            log.info("{} : 로그인 {}", userResponse.getUserId(), login);
+            log.info("{} : 로그인 {}", userResponse.getUserId(), loginStatus);
         } else {
-            log.info("{} : 로그인 {}", userResponse.getUserId(), login);
+            log.info("{} : 로그인 {}", userResponse.getUserId(), loginStatus);
         }
+        return loginStatus;
     }
 
     @GetMapping("/logout")

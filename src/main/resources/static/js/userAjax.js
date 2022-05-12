@@ -8,20 +8,27 @@ function login() {
         url: '/user/login',
         type: 'POST',
         data: param,
-    }).done(function () {
-        window.location.replace("/");
+    }).done(function (data) {
+        console.log(data);
+        if (data === "DENIED") {
+            alert("잘못된 아이디 또는 비밀번호입니다.");
+        } else {
+            window.location.replace("/");
+        }
     }).fail(function () {
         }
     );
 }
 
 function logout() {
+    if (confirm("로그아웃 하시겠습니까 ?") === false) {
+        return;
+    }
 
     $.ajax({
         url: '/user/logout',
         type: 'GET',
     }).done(function () {
-        alert("로그아웃 완료")
         window.location.replace("/");
     }).fail(function () {
         }
