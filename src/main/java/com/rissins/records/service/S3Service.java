@@ -60,9 +60,8 @@ public class S3Service {
         return s3Client.getUrl(bucket, encryptFileName).toString();
     }
 
-    public void delete(Long id) {
-        String fileById = eventService.findFileById(id);
-        DeleteObjectRequest request = new DeleteObjectRequest(bucket, fileById);
+    public void delete(String fileName) {
+        DeleteObjectRequest request = new DeleteObjectRequest(bucket, fileName);
         s3Client.deleteObject(request);
     }
 }
