@@ -8,6 +8,7 @@ import com.rissins.records.service.EventService;
 import com.rissins.records.service.S3Service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -62,21 +63,35 @@ public class EventRestController {
             ObjectMapper mapper = new ObjectMapper();
             mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
             EventResponse eventResponse = mapper.convertValue(param, EventResponse.class);
-
             String userId = eventResponse.getUserId();
             try {
-                Event newEvent = Event.builder()
-                        .id(id)
-                        .externalId(userId + eventService.findSizeByUserId(userId))
-                        .title(eventResponse.getTitle())
-                        .context(eventResponse.getContext())
-                        .textColor(eventResponse.getTextColor())
-                        .backgroundColor(eventResponse.getBackgroundColor())
-                        .userId(eventResponse.getUserId())
-                        .allDay(eventResponse.getAllDay())
-                        .file(s3Service.upload(file))
-                        .build();
-                eventService.save(newEvent);
+                if (!file.isEmpty()) {
+                    Event newEvent = Event.builder()
+                            .id(id)
+                            .externalId(userId + eventService.findSizeByUserId(userId))
+                            .title(eventResponse.getTitle())
+                            .context(eventResponse.getContext())
+                            .textColor(eventResponse.getTextColor())
+                            .backgroundColor(eventResponse.getBackgroundColor())
+                            .userId(eventResponse.getUserId())
+                            .allDay(eventResponse.getAllDay())
+                            .file(s3Service.upload(file))
+                            .build();
+                    eventService.save(newEvent);
+                } else {
+                    Event newEvent = Event.builder()
+                            .id(id)
+                            .externalId(userId + eventService.findSizeByUserId(userId))
+                            .title(eventResponse.getTitle())
+                            .context(eventResponse.getContext())
+                            .textColor(eventResponse.getTextColor())
+                            .backgroundColor(eventResponse.getBackgroundColor())
+                            .userId(eventResponse.getUserId())
+                            .allDay(eventResponse.getAllDay())
+                            .file(eventService.findFileById(id))
+                            .build();
+                    eventService.save(newEvent);
+                }
             } catch (IOException | NoSuchAlgorithmException e) {
                 e.printStackTrace();
             }
