@@ -6,6 +6,7 @@ import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import com.amazonaws.services.s3.model.CannedAccessControlList;
+import com.amazonaws.services.s3.model.DeleteObjectRequest;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.rissins.records.utils.enctypt.SHA_256;
 import lombok.RequiredArgsConstructor;
@@ -22,6 +23,7 @@ import java.security.NoSuchAlgorithmException;
 public class S3Service {
 
     private final SHA_256 sha256;
+    private final EventService eventService;
     private AmazonS3 s3Client;
 
     @Value("${aws.s3.accessKey}")
@@ -51,12 +53,16 @@ public class S3Service {
         long currentTimeMillis = System.currentTimeMillis();
         String[] splitData = fileName.split("\\.");
         String fileType = splitData[(splitData.length) - 1];
-
-//        String encryptFileName = sha256.encryptBySha256(fileName + ":" +currentTimeMillis) + "." + fileType;
         String encryptFileName = sha256.encryptBySha256(fileName + currentTimeMillis) + "." + fileType;
 
         s3Client.putObject(new PutObjectRequest(bucket, encryptFileName, file.getInputStream(), null)
                 .withCannedAcl(CannedAccessControlList.Private));
         return s3Client.getUrl(bucket, encryptFileName).toString();
+    }
+
+    public void delete(Long id) {
+        String fileById = eventService.findFileById(id);
+        DeleteObjectRequest request = new DeleteObjectRequest(bucket, fileById);
+        s3Client.deleteObject(request);
     }
 }

@@ -53,6 +53,7 @@ public class EventRestController {
 
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id) {
+        s3Service.delete(id);
         eventService.delete(id);
     }
 
