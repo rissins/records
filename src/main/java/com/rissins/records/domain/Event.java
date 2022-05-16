@@ -11,7 +11,6 @@ import org.springframework.util.ObjectUtils;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
-@DynamicUpdate
 @Entity
 @Getter
 @AllArgsConstructor
@@ -19,36 +18,50 @@ import java.time.LocalDateTime;
 @Builder
 @EntityListeners(AuditingEntityListener.class)
 @Table(name = "event")
+@DynamicUpdate
 public class Event {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column
     private String externalId;
 
+    @Column
     private String title;
 
+    @Column
     private String context;
 
+    @Column
     private String textColor;
 
+    @Column
     private String backgroundColor;
 
 //    @ManyToOne
 //    @JoinColumn(name = "user_id")
+    @Column
     private String userId;
 
+    @Column
     @CreatedDate
     @LastModifiedDate
     private LocalDateTime start;
 
+    @Column
     @CreatedDate
     @LastModifiedDate
     private LocalDateTime end;
 
+    @Column
     private Boolean allDay;
 
     @Column(columnDefinition = "TEXT")
     private String file;
+
+    public void changeTitle(String title) {
+        this.title = title;
+    }
 }

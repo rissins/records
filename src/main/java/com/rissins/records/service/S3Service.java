@@ -7,7 +7,9 @@ import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import com.amazonaws.services.s3.model.CannedAccessControlList;
 import com.amazonaws.services.s3.model.DeleteObjectRequest;
+import com.amazonaws.services.s3.model.MultiObjectDeleteException;
 import com.amazonaws.services.s3.model.PutObjectRequest;
+import com.rissins.records.domain.constant.Status;
 import com.rissins.records.utils.enctypt.SHA_256;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -23,7 +25,6 @@ import java.security.NoSuchAlgorithmException;
 public class S3Service {
 
     private final SHA_256 sha256;
-    private final EventService eventService;
     private AmazonS3 s3Client;
 
     @Value("${aws.s3.accessKey}")
@@ -60,8 +61,13 @@ public class S3Service {
         return s3Client.getUrl(bucket, encryptFileName).toString();
     }
 
-    public void delete(String fileName) {
+    public Status delete(String fileName) {
         DeleteObjectRequest request = new DeleteObjectRequest(bucket, fileName);
-        s3Client.deleteObject(request);
+        try {
+            s3Client.deleteObject(request);
+            return Status.ACCEPTED;
+        } catch (MultiObjectDeleteException e) {
+            return Status.DENIED;
+        }
     }
 }

@@ -4,15 +4,16 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
+import com.rissins.records.domain.Event;
+import com.rissins.records.domain.User;
 import lombok.*;
 
 import java.time.LocalDateTime;
 
 @Data
-@Getter
 @Builder
 @AllArgsConstructor
-@RequiredArgsConstructor
+@NoArgsConstructor
 public class EventResponse {
 
     private Long id;
@@ -32,4 +33,17 @@ public class EventResponse {
 
     private Boolean allDay;
     private String file;
+
+    public Event toEntity() {
+        return Event.builder()
+                .id(id)
+                .userId(userId)
+                .title(title)
+                .context(context)
+                .backgroundColor(backgroundColor)
+                .textColor(textColor)
+                .allDay(allDay)
+                .file(file)
+                .build();
+    }
 }

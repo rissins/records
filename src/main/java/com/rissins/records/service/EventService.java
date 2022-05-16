@@ -1,5 +1,7 @@
 package com.rissins.records.service;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.rissins.records.domain.Event;
 import com.rissins.records.dto.EventResponse;
 import com.rissins.records.repository.EventRepository;
@@ -7,10 +9,15 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 
@@ -21,6 +28,7 @@ public class EventService {
 
     private static int dbCount = 0;
     private final EventRepository eventRepository;
+    private final S3Service s3Service;
 
 
     @Transactional
@@ -39,7 +47,7 @@ public class EventService {
     }
 
     @Transactional(readOnly = true)
-    @Cacheable(key = "#userId", value = "userId")
+//    @Cacheable(key = "#userId", value = "userId")
     public List<EventResponse> findAllByUserId(String userId) {
         List<Event> allByUserId = eventRepository.findAllByUserId(userId);
         dbCount++;
@@ -78,5 +86,27 @@ public class EventService {
 
     public String findFileById(Long id) {
         return findById(id).get().getFile();
+    }
+
+    @Transactional
+    public void eventSave(Map<String, Object> param, MultipartFile file) throws IOException, NoSuchAlgorithmException {
+        String fileUpload = s3Service.upload(file);
+        param.put("file", fileUpload);
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        EventResponse eventResponse = mapper.convertValue(param, EventResponse.class);
+        Event event1 = eventRepository.findById(3L).map(event -> eventResponse.toEntity()).get();
+        eventRepository.save(event1);
+//        Event event = eventResponse.toEntity();
+//
+//        eventRepository.save(event);
+    }
+
+    @Transactional
+    public void eventUpdate(Map<String, Object> param, MultipartFile file, Long id) throws IOException, NoSuchAlgorithmException {
+        ObjectMapper mapper = new ObjectMapper();
+        EventResponse eventResponse = mapper.convertValue(param, EventResponse.class);
+        Event event = eventRepository.findById(id).get();
+        event.changeTitle(eventResponse.getTitle());
     }
 }
