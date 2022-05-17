@@ -1,9 +1,8 @@
 package com.rissins.records.service;
 
-import com.rissins.records.dto.UserResponse;
-import user.Fixtures;
+import com.rissins.records.domain.Plan;
+import com.rissins.records.dto.PlanResponse;
 import com.rissins.records.domain.Event;
-import com.rissins.records.domain.User;
 import com.rissins.records.dto.EventResponse;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.MethodOrderer;
@@ -19,7 +18,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -31,12 +29,15 @@ class EventServiceTest {
     EventService eventService;
     @Autowired
     S3Service s3Service;
+    @Autowired
+    PlanService planService;
 
     @Order(1)
     @Test
     void 인증_추가() throws IOException, NoSuchAlgorithmException {
         //given
         Map<String, Object> param = new HashMap<>();
+
 
         String userId = "testId";
         String title = "testTitle";
@@ -48,12 +49,23 @@ class EventServiceTest {
         InputStream stream = new ByteArrayInputStream(data);
         MockMultipartFile file = new MockMultipartFile("file", "NameOfTheFile", "multipart/form-data", stream);
 
+        PlanResponse planResponse = PlanResponse.builder()
+                .title("계획테스트제목")
+                .context("계획테스트내용")
+                .userId(userId)
+                .build();
+
+        Plan plan1 = planService.findById(23L).get();
+
+        Plan plan = planResponse.toEntity();
+
         param.put("userId", userId);
         param.put("title", title);
         param.put("context", context);
         param.put("textColor", textColor);
         param.put("backgroundColor", backgroundColor);
         param.put("allDay", allDay);
+        param.put("plan", plan1);
 
         //when
         eventService.eventSave(param, file);
@@ -95,7 +107,6 @@ class EventServiceTest {
         String updateEvent = eventService.findById(id).get().getTitle();
         //then
         Assertions.assertThat(updateEvent).isEqualTo(updateTestTitle);
-
     }
 
     @Order(3)
