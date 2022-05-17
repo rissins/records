@@ -43,7 +43,9 @@ function viewPlanData(userId, input) {
 
         } else if (input === 'inserts' && planData.length !== 0) {
             for (var idx in planData) {
-                htmlOut += '<option>' + planData[idx].title + '</option>';
+                htmlOut += '<option value=' + planData[idx].id + '>' + planData[idx].title + '</option>';
+
+                console.log(planData[idx].id);
                 console.log(planData[idx].title);
             }
             $('#planSelect').append(htmlOut);
@@ -84,4 +86,18 @@ function deleteData() {
         window.location.reload();
     }).fail(function () {
     });
+}
+
+function readData(id) {
+    var returnValue = "";
+    $.ajax({
+        url: "/api/v1/plan/" + id,
+        type: "GET",
+        dataType : "json",
+        async: false,
+    }).done(function (data) {
+        returnValue = data;
+    }).fail(function () {
+    });
+    return returnValue;
 }

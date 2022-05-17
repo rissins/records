@@ -39,6 +39,11 @@ public class ApiRestController {
         return planService.findAllByUserId(userId);
     }
 
+    @GetMapping("/plan/{id}")
+    public Optional<Plan> findPlanById(@PathVariable Long id) {
+        return planService.findById(id);
+    }
+
     @GetMapping("/count")
     public String dbCount() {
         int dbCount = eventService.getDbCount();

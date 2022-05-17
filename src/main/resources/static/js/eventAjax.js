@@ -1,4 +1,6 @@
 function eventSave() {
+    var planId = $('#planSelect option:selected').val();
+    var plan = readData(planId);
     var param = {
         'title': $("#title").val(),
         'context': $("#context").val(),
@@ -6,6 +8,7 @@ function eventSave() {
         'backgroundColor': $("#backgroundColor").val(),
         'userId': $("#userId").val(),
         'allDay': $("#allDay").val(),
+        'plan': plan,
     }
     var form = $('#uploadForm')[0];
     var formData = new FormData(form);
@@ -29,7 +32,7 @@ function eventSave() {
         processData: false,
         data: formData,
     }).done(function () {
-        window.location.reload();
+        // window.location.reload();
     }).fail(function () {
         alert("등록 실패");
     }
