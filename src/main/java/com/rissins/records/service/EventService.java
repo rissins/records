@@ -104,9 +104,12 @@ public class EventService {
 
     @Transactional
     public void eventUpdate(Map<String, Object> param, MultipartFile file, Long id) throws IOException, NoSuchAlgorithmException {
+        String fileUpload = s3Service.upload(file);
+        param.put("file", fileUpload);
         ObjectMapper mapper = new ObjectMapper();
+        mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         EventResponse eventResponse = mapper.convertValue(param, EventResponse.class);
         Event event = eventRepository.findById(id).get();
-        event.changeTitle(eventResponse.getTitle());
+        event.updateInfo(eventResponse);
     }
 }

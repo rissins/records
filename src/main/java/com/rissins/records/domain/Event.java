@@ -2,11 +2,11 @@ package com.rissins.records.domain;
 
 import com.rissins.records.dto.EventResponse;
 import lombok.*;
+import org.apache.commons.lang3.StringUtils;
 import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-import org.springframework.util.ObjectUtils;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -61,7 +61,15 @@ public class Event {
     @Column(columnDefinition = "TEXT")
     private String file;
 
-    public void changeTitle(String title) {
-        this.title = title;
+
+    public void updateInfo(EventResponse eventResponse) {
+        if (eventResponse.getFile() != null) {
+            this.file = eventResponse.getFile();
+        }
+        this.title = eventResponse.getTitle();
+        this.context = eventResponse.getContext();
+        this.textColor = eventResponse.getTextColor();
+        this.backgroundColor = eventResponse.getBackgroundColor();
+        this.userId = eventResponse.getUserId();
     }
 }

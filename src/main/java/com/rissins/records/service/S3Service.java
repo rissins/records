@@ -50,6 +50,9 @@ public class S3Service {
     }
 
     public String upload(MultipartFile file) throws IOException, NoSuchAlgorithmException {
+        if (file == null || file.isEmpty()) {
+            return null;
+        }
         String fileName = file.getOriginalFilename();
         long currentTimeMillis = System.currentTimeMillis();
         String[] splitData = fileName.split("\\.");
