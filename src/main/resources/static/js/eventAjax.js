@@ -32,7 +32,7 @@ function eventSave() {
         processData: false,
         data: formData,
     }).done(function () {
-        // window.location.reload();
+        window.location.reload();
     }).fail(function () {
         alert("등록 실패");
     }
