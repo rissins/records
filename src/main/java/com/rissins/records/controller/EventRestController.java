@@ -30,28 +30,8 @@ public class EventRestController {
 
     @PostMapping
     public void save(@RequestPart(value = "key") Map<String, Object> param, MultipartFile file) throws IOException, NoSuchAlgorithmException {
-
-//        ObjectMapper mapper = new ObjectMapper();
-//        mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-//        EventResponse eventResponse = mapper.convertValue(param, EventResponse.class);
-//
-//        String userId = eventResponse.getUserId();
-//
-//        Event event = Event.builder()
-//                .externalId(userId + eventService.findSizeByUserId(userId))
-//                .title(eventResponse.getTitle())
-//                .context(eventResponse.getContext())
-//                .textColor(eventResponse.getTextColor())
-//                .backgroundColor(eventResponse.getBackgroundColor())
-//                .userId(eventResponse.getUserId())
-//                .allDay(eventResponse.getAllDay())
-//                .file(s3Service.upload(file))
-//                .build();
-//        eventService.save(event);
-
         eventService.eventSave(param, file);
     }
-
 
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id) {
@@ -61,44 +41,7 @@ public class EventRestController {
     }
 
     @PutMapping("/{id}")
-    public void update(@RequestPart(value = "key") Map<String, Object> param, MultipartFile file, @PathVariable Long id) {
-        Optional<Event> event = eventService.findById(id);
-        event.ifPresent(selectEvent -> {
-            ObjectMapper mapper = new ObjectMapper();
-            mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-            EventResponse eventResponse = mapper.convertValue(param, EventResponse.class);
-            String userId = eventResponse.getUserId();
-            try {
-                if (!file.isEmpty()) {
-                    Event newEvent = Event.builder()
-                            .id(id)
-                            .externalId(userId + eventService.findSizeByUserId(userId))
-                            .title(eventResponse.getTitle())
-                            .context(eventResponse.getContext())
-                            .textColor(eventResponse.getTextColor())
-                            .backgroundColor(eventResponse.getBackgroundColor())
-                            .userId(eventResponse.getUserId())
-                            .allDay(eventResponse.getAllDay())
-                            .file(s3Service.upload(file))
-                            .build();
-                    eventService.save(newEvent);
-                } else {
-                    Event newEvent = Event.builder()
-                            .id(id)
-                            .externalId(userId + eventService.findSizeByUserId(userId))
-                            .title(eventResponse.getTitle())
-                            .context(eventResponse.getContext())
-                            .textColor(eventResponse.getTextColor())
-                            .backgroundColor(eventResponse.getBackgroundColor())
-                            .userId(eventResponse.getUserId())
-                            .allDay(eventResponse.getAllDay())
-                            .file(eventService.findFileById(id))
-                            .build();
-                    eventService.save(newEvent);
-                }
-            } catch (IOException | NoSuchAlgorithmException e) {
-                e.printStackTrace();
-            }
-        });
+    public void update(@RequestPart(value = "key") Map<String, Object> param, MultipartFile file, @PathVariable Long id) throws IOException, NoSuchAlgorithmException {
+        eventService.eventUpdate(param, file, id);
     }
 }

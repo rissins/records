@@ -95,11 +95,8 @@ public class EventService {
         ObjectMapper mapper = new ObjectMapper();
         mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         EventResponse eventResponse = mapper.convertValue(param, EventResponse.class);
-        Event event1 = eventRepository.findById(3L).map(event -> eventResponse.toEntity()).get();
-        eventRepository.save(event1);
-//        Event event = eventResponse.toEntity();
-//
-//        eventRepository.save(event);
+        Event event = eventResponse.toEntity();//
+        eventRepository.save(event);
     }
 
     @Transactional
