@@ -28,6 +28,10 @@ public class Event {
     @Column
     private String externalId;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "plan_id")
+    private Plan plan;
+
     @Column
     private String title;
 
@@ -40,8 +44,6 @@ public class Event {
     @Column
     private String backgroundColor;
 
-//    @ManyToOne
-//    @JoinColumn(name = "user_id")
     @Column
     private String userId;
 
@@ -71,5 +73,19 @@ public class Event {
         this.textColor = eventResponse.getTextColor();
         this.backgroundColor = eventResponse.getBackgroundColor();
         this.userId = eventResponse.getUserId();
+    }
+
+    public EventResponse toResponse() {
+        return EventResponse.builder()
+                .id(id)
+                .plan(plan)
+                .userId(userId)
+                .title(title)
+                .context(context)
+                .backgroundColor(backgroundColor)
+                .textColor(textColor)
+                .allDay(allDay)
+                .file(file)
+                .build();
     }
 }

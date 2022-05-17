@@ -7,9 +7,7 @@ import com.rissins.records.dto.EventResponse;
 import com.rissins.records.repository.EventRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -95,7 +93,7 @@ public class EventService {
         ObjectMapper mapper = new ObjectMapper();
         mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         EventResponse eventResponse = mapper.convertValue(param, EventResponse.class);
-        Event event = eventResponse.toEntity();//
+        Event event = eventResponse.toEntity();
         eventRepository.save(event);
     }
 
