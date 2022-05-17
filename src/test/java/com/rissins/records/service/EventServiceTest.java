@@ -21,6 +21,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @SpringBootTest
 @TestMethodOrder(value = MethodOrderer.OrderAnnotation.class)
@@ -56,27 +57,26 @@ class EventServiceTest {
 
         //when
         eventService.eventSave(param, file);
-//        eventService.save(event);
-//        EventResponse findByUserId = eventService.findAllByUserId(userId).get(0);
+        EventResponse findByUserId = eventService.findAllByUserId(userId).get(0);
 
         //then
-//        Assertions.assertThat(findByUserId.getTitle()).isEqualTo(title);
-//        Assertions.assertThat(findByUserId.getContext()).isEqualTo(context);
+        Assertions.assertThat(findByUserId.getTitle()).isEqualTo(title);
+        Assertions.assertThat(findByUserId.getContext()).isEqualTo(context);
     }
 
     @Order(2)
     @Test
-    void 인증_수정() throws IOException, NoSuchAlgorithmException {
+    void 인증_수정_파일이_NULL() throws IOException, NoSuchAlgorithmException {
         //given
         Map<String, Object> param = new HashMap<>();
 
         String userId = "testId";
         EventResponse eventResponse = eventService.findAllByUserId(userId).get(0);
         Long id = eventResponse.getId();
-        String title = "updateTestTitle";
+        String updateTestTitle = "updateTestTitle";
         String context = "testContext";
-//        String textColor = "#02343f";
-//        String backgroundColor = "#02343f";
+        String textColor = "#02343f";
+        String backgroundColor = "#02343f";
         Boolean allDay = true;
         byte[] data = new byte[]{1, 2, 3, 4};
         InputStream stream = new ByteArrayInputStream(data);
@@ -85,30 +85,32 @@ class EventServiceTest {
 
         param.put("id", id);
         param.put("userId", userId);
-        param.put("title", title);
-//        param.put("context", context);
-//        param.put("textColor", textColor);
-//        param.put("backgroundColor", backgroundColor);
+        param.put("title", updateTestTitle);
+        param.put("context", context);
+        param.put("textColor", textColor);
+        param.put("backgroundColor", backgroundColor);
         param.put("allDay", allDay);
         //when
-        eventService.eventUpdate(param, file, id);
+        eventService.eventUpdate(param, file1, id);
+        String updateEvent = eventService.findById(id).get().getTitle();
         //then
+        Assertions.assertThat(updateEvent).isEqualTo(updateTestTitle);
 
     }
 
-//    @Order(3)
-//    @Test
-//    void 인증_삭제() {
-//        //given
-//        String userId = "testId";
-//        Long id = eventService.findAllByUserId(userId).get(0).getId();
-//        String fileById = eventService.findFileById(id);
-//        //when
-//        eventService.delete(id);
-//        s3Service.delete(fileById);
-//
-//        Optional<Event> byId = eventService.findById(id);
-//        //then
-//        Assertions.assertThat(byId).isEmpty();
-//    }
+    @Order(3)
+    @Test
+    void 인증_삭제() {
+        //given
+        String userId = "testId";
+        Long id = eventService.findAllByUserId(userId).get(0).getId();
+        String fileById = eventService.findFileById(id);
+        //when
+        eventService.delete(id);
+        s3Service.delete(fileById);
+
+        Optional<Event> byId = eventService.findById(id);
+        //then
+        Assertions.assertThat(byId).isEmpty();
+    }
 }
