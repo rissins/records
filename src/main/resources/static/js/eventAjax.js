@@ -69,7 +69,7 @@ function detailViewData(eventId) {
         console.log(data.start.substring(0, 10) + "\u00a0\u00a0" + data.start.substring(11, 19));
         console.log(data);
         document.getElementById('eventId').value = eventId;
-        document.getElementById('viewTitle').innerText = data.title;
+        document.getElementById('viewTitle').innerText = "[" + data.plan.title + "]  " + data.title;
         document.getElementById('viewContext').innerText = data.context;
         document.getElementById('viewFile').src = data.file;
         document.getElementById('uploadDate').innerText = data.start.substring(0, 10) + "\u00a0\u00a0" + data.start.substring(11, 19);
