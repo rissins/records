@@ -30,7 +30,7 @@ public class ApiRestController {
     }
 
     @GetMapping("/event/{eventId}")
-    public Optional<Event> findById(@PathVariable Long eventId) {
+    public EventResponse findById(@PathVariable Long eventId) {
         return eventService.findById(eventId);
     }
 

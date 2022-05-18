@@ -40,8 +40,8 @@ public class EventService {
     }
 
     @Transactional(readOnly = true)
-    public Optional<Event> findById(Long id) {
-        return eventRepository.findById(id);
+    public EventResponse findById(Long id) {
+        return eventRepository.findById(id).get().toResponse();
     }
 
     @Transactional(readOnly = true)
@@ -83,7 +83,7 @@ public class EventService {
     }
 
     public String findFileById(Long id) {
-        return findById(id).get().getFile();
+        return findById(id).getFile();
     }
 
     @Transactional

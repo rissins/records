@@ -104,7 +104,7 @@ class EventServiceTest {
         param.put("allDay", allDay);
         //when
         eventService.eventUpdate(param, file1, id);
-        String updateEvent = eventService.findById(id).get().getTitle();
+        String updateEvent = eventService.findById(id).getTitle();
         //then
         Assertions.assertThat(updateEvent).isEqualTo(updateTestTitle);
     }
@@ -120,8 +120,8 @@ class EventServiceTest {
         eventService.delete(id);
         s3Service.delete(fileById);
 
-        Optional<Event> byId = eventService.findById(id);
+        EventResponse byId = eventService.findById(id);
         //then
-        Assertions.assertThat(byId).isEmpty();
+        Assertions.assertThat(byId).isNull();
     }
 }

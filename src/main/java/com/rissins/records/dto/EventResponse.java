@@ -47,6 +47,8 @@ public class EventResponse {
                 .textColor(textColor)
                 .allDay(allDay)
                 .file(file)
+                .start(start)
+                .end(end)
                 .build();
     }
 }
