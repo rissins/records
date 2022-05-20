@@ -29,11 +29,7 @@ public class UserRestController {
     public Status login(HttpServletRequest request, UserResponse userResponse) {
 
         HttpSession session = request.getSession();
-        User user = User.builder()
-                .userId(userResponse.getUserId())
-                .userPassword(userResponse.getUserPassword())
-                .build();
-        Status loginStatus = userService.login(user);
+        Status loginStatus = userService.login(userResponse);
         if (loginStatus == Status.ACCEPTED) {
             session.setAttribute("sessionId", userResponse.getUserId());
             log.info("{} : 로그인 {}", userResponse.getUserId(), loginStatus);
@@ -51,14 +47,12 @@ public class UserRestController {
 
     @PostMapping("/check")
     public String overlapCheck(String userId) {
-        String returnValue = "";
         Status status = userService.overlapCheckByUserId(userId);
         if (status == Status.ACCEPTED) {
-            returnValue = "사용가능한 아이디입니다.";
+            return "사용가능한 아이디입니다.";
         } else {
-            returnValue = "중복된 아이디입니다.";
+            return "중복된 아이디입니다.";
         }
-        return returnValue;
     }
 
     @DeleteMapping("/{id}")

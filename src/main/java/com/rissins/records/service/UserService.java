@@ -22,10 +22,7 @@ public class UserService {
 
     public Status signUp(UserResponse userResponse) {
         String encodePassword = passwordEncoder.encode(userResponse.getUserPassword());
-        User user = User.builder()
-                .userId(userResponse.getUserId())
-                .userPassword(encodePassword)
-                .build();
+        User user = userResponse.toEntityWithEncoderPassword(encodePassword);
         try {
             userRepository.save(user);
             return Status.ACCEPTED;
@@ -39,7 +36,8 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    public Status login(User user) {
+    public Status login(UserResponse userResponse) {
+        User user = userResponse.toEntity();
         User byUserId = findByUserId(user.getUserId());
 
         try {

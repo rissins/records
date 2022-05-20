@@ -57,12 +57,12 @@ class UserServiceTest {
     @Test
     void 로그인_성공() {
         //given
-        User user = User.builder()
+        UserResponse userResponse = UserResponse.builder()
                 .userId(joinTestId)
                 .userPassword(joinTestPassword)
                 .build();
         //when
-        Status loginResult = userService.login(user);
+        Status loginResult = userService.login(userResponse);
         //then
         Assertions.assertThat(loginResult).isEqualByComparingTo(Status.ACCEPTED);
     }
@@ -71,12 +71,12 @@ class UserServiceTest {
     @Test
     void 로그인_실패_비밀번호_불일치() {
         //given
-        User user = User.builder()
+        UserResponse userResponse = UserResponse.builder()
                 .userId(joinTestId)
                 .userPassword(testPassword)
                 .build();
         //when
-        Status loginResult = userService.login(user);
+        Status loginResult = userService.login(userResponse);
         //then
         Assertions.assertThat(loginResult).isEqualByComparingTo(Status.DENIED);
     }
@@ -85,12 +85,12 @@ class UserServiceTest {
     @Test
     void 로그인_실패_아이디_불일치() {
         //given
-        User user = User.builder()
+        UserResponse userResponse = UserResponse.builder()
                 .userId(testId)
                 .userPassword(joinTestPassword)
                 .build();
         //when
-        Status loginResult = userService.login(user);
+        Status loginResult = userService.login(userResponse);
         //then
         Assertions.assertThat(loginResult).isEqualByComparingTo(Status.DENIED);
     }
