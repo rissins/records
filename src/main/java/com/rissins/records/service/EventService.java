@@ -3,6 +3,7 @@ package com.rissins.records.service;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.rissins.records.domain.Event;
+import com.rissins.records.domain.User;
 import com.rissins.records.dto.EventResponse;
 import com.rissins.records.repository.EventRepository;
 import lombok.RequiredArgsConstructor;
@@ -27,6 +28,7 @@ public class EventService {
     private static int dbCount = 0;
     private final EventRepository eventRepository;
     private final S3Service s3Service;
+    private final UserService userService;
 
 
     @Transactional
@@ -88,8 +90,10 @@ public class EventService {
 
     @Transactional
     public void eventSave(Map<String, Object> param, MultipartFile file) throws IOException, NoSuchAlgorithmException {
+        User user = userService.findByUserId((String) param.get("userId"));
         String fileUpload = s3Service.upload(file);
         param.put("file", fileUpload);
+        param.put("user", user);
         ObjectMapper mapper = new ObjectMapper();
         mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         EventResponse eventResponse = mapper.convertValue(param, EventResponse.class);

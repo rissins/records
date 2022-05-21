@@ -25,12 +25,13 @@ public class Event {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column
-    private String externalId;
-
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "plan_id")
     private Plan plan;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_uuid")
+    private User user;
 
     @Column
     private String title;

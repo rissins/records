@@ -65,5 +65,4 @@ public class UserRestController {
     public User findByUserId(@RequestParam String userId) {
         return userService.findByUserId(userId);
     }
-
 }

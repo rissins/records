@@ -20,10 +20,6 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-//    @Column(name = "user_id")
-//    @OneToMany(mappedBy = "user")
-//    private Set<Event> event;
-
     @Column(name = "user_id")
     private String userId;
 
