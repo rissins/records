@@ -1,5 +1,6 @@
 package com.rissins.records.service;
 
+import com.rissins.records.UserFixtures;
 import com.rissins.records.domain.User;
 import com.rissins.records.domain.constant.Status;
 import com.rissins.records.dto.UserResponse;
@@ -12,20 +13,21 @@ import org.springframework.boot.test.context.SpringBootTest;
 @TestMethodOrder(value = MethodOrderer.OrderAnnotation.class)
 class UserServiceTest {
 
+    private UserFixtures userFixtures;
+
     @Autowired
     private UserService userService;
 
-    final String joinTestId = "test111";
-    final String joinTestPassword = "test111";
-
-    final String testId = "test222";
-    final String testPassword = "test222";
+    @BeforeEach
+    void setUp() {
+        this.userFixtures = new UserFixtures();
+    }
 
     @Order(1)
     @Test
     void 테스트_계정생성() {
         //given
-        UserResponse userResponse = new UserResponse(joinTestId, joinTestPassword);
+        UserResponse userResponse = userFixtures.getUserResponse();
         //when
         Status signUpResult = userService.signUp(userResponse);
         //then
@@ -36,9 +38,9 @@ class UserServiceTest {
     @Test
     void 중복된_아이디() {
         //given
-
+        String userId = userFixtures.getUserResponse().getUserId();
         //when
-        Status overlapCheckResult = userService.overlapCheckByUserId(joinTestId);
+        Status overlapCheckResult = userService.overlapCheckByUserId(userId);
         //then
         Assertions.assertThat(overlapCheckResult).isEqualByComparingTo(Status.DENIED);
     }
@@ -47,8 +49,9 @@ class UserServiceTest {
     @Test
     void 사용가능한_아이디() {
         //given
+        String userId = userFixtures.getUserResponse().getUserId() + "1";
         //when
-        Status overlapCheckResult = userService.overlapCheckByUserId(testId);
+        Status overlapCheckResult = userService.overlapCheckByUserId(userId);
         //then
         Assertions.assertThat(overlapCheckResult).isEqualByComparingTo(Status.ACCEPTED);
     }
@@ -57,10 +60,7 @@ class UserServiceTest {
     @Test
     void 로그인_성공() {
         //given
-        UserResponse userResponse = UserResponse.builder()
-                .userId(joinTestId)
-                .userPassword(joinTestPassword)
-                .build();
+        UserResponse userResponse = userFixtures.getUserResponse();
         //when
         Status loginResult = userService.login(userResponse);
         //then
@@ -71,12 +71,9 @@ class UserServiceTest {
     @Test
     void 로그인_실패_비밀번호_불일치() {
         //given
-        UserResponse userResponse = UserResponse.builder()
-                .userId(joinTestId)
-                .userPassword(testPassword)
-                .build();
+        UserResponse userResponseWithInCorrectPassword = userFixtures.getUserResponseWithInCorrectPassword();
         //when
-        Status loginResult = userService.login(userResponse);
+        Status loginResult = userService.login(userResponseWithInCorrectPassword);
         //then
         Assertions.assertThat(loginResult).isEqualByComparingTo(Status.DENIED);
     }
@@ -85,12 +82,9 @@ class UserServiceTest {
     @Test
     void 로그인_실패_아이디_불일치() {
         //given
-        UserResponse userResponse = UserResponse.builder()
-                .userId(testId)
-                .userPassword(joinTestPassword)
-                .build();
+        UserResponse userResponseWithInCorrectId = userFixtures.getUserResponseWithInCorrectId();
         //when
-        Status loginResult = userService.login(userResponse);
+        Status loginResult = userService.login(userResponseWithInCorrectId);
         //then
         Assertions.assertThat(loginResult).isEqualByComparingTo(Status.DENIED);
     }
@@ -99,9 +93,9 @@ class UserServiceTest {
     @Test
     void 회원탈퇴_성공() {
         //given
-
+        String userId = userFixtures.getUserResponse().getUserId();
         //when
-        User byUserId = userService.findByUserId(joinTestId);
+        User byUserId = userService.findByUserId(userId);
         Status deleteResult = userService.deleteById(byUserId.getId());
         //then
         Assertions.assertThat(deleteResult).isEqualByComparingTo(Status.ACCEPTED);
