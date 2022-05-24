@@ -10,6 +10,7 @@ import lombok.Data;
 @AllArgsConstructor
 public class PlanResponse {
 
+    private Long id;
     private String title;
     private String context;
     private String userId;

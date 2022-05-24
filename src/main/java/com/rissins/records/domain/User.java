@@ -1,5 +1,6 @@
 package com.rissins.records.domain;
 
+import com.rissins.records.dto.UserResponse;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -27,4 +28,10 @@ public class User {
     private String userPassword;
 
 
+    public UserResponse toResponse() {
+        return UserResponse.builder()
+                .userId(userId)
+                .userPassword(userPassword)
+                .build();
+    }
 }

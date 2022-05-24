@@ -1,5 +1,6 @@
 package com.rissins.records.domain;
 
+import com.rissins.records.dto.PlanResponse;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -28,4 +29,13 @@ public class Plan {
     private String context;
 
     private String userId;
+
+    public PlanResponse toResponse() {
+        return PlanResponse.builder()
+                .id(id)
+                .title(title)
+                .context(context)
+                .userId(userId)
+                .build();
+    }
 }

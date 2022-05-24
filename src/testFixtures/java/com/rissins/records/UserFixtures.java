@@ -6,8 +6,17 @@ import com.rissins.records.dto.UserResponse;
 import static com.rissins.records.common.CommonFixtures.*;
 
 public class UserFixtures {
+
+    public User getUser() {
+        return User.builder()
+                .id(ID)
+                .userId(USER_ID)
+                .userPassword(USER_PASSWORD)
+                .build();
+    }
     public UserResponse getUserResponse() {
         return UserResponse.builder()
+                .id(ID)
                 .userId(USER_ID)
                 .userPassword(USER_PASSWORD)
                 .build();
