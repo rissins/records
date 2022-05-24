@@ -111,4 +111,9 @@ public class EventService {
         Event event = eventRepository.findById(id).get();
         event.updateInfo(eventResponse);
     }
+
+    @Transactional
+    public List<Event> findAllWithEventWithFetchJoin() {
+        return eventRepository.findAllWithEventWithFetchJoin();
+    }
 }

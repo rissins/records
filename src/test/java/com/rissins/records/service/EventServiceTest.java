@@ -64,10 +64,12 @@ class EventServiceTest {
 
         //when
         eventService.save(event);
-        List<EventResponse> findEventsByUserId = eventService.findAllByUserId(event.getUserId());
+//        List<EventResponse> findEventsByUserId = eventService.findAllByUserId(event.getUserId());
+        System.out.println("====================");
+        List<Event> allWithEventWithFetchJoin = eventService.findAllWithEventWithFetchJoin();
 
         //then
-        Assertions.assertThat(findEventsByUserId).isNotNull();
+        Assertions.assertThat(allWithEventWithFetchJoin).isNotNull();
     }
 
     @Order(2)
