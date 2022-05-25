@@ -5,15 +5,15 @@ import com.rissins.records.PlanFixtures;
 import com.rissins.records.UserFixtures;
 import com.rissins.records.domain.Plan;
 import com.rissins.records.domain.User;
-import com.rissins.records.dto.PlanResponse;
 import com.rissins.records.domain.Event;
 import com.rissins.records.dto.EventResponse;
-import com.rissins.records.dto.UserResponse;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.mock.web.MockMultipartFile;
+import org.springframework.test.annotation.Rollback;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -22,10 +22,10 @@ import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 @SpringBootTest
 @TestMethodOrder(value = MethodOrderer.OrderAnnotation.class)
+@Transactional
 class EventServiceTest {
 
     @Autowired
@@ -49,6 +49,7 @@ class EventServiceTest {
 
     @Order(1)
     @Test
+    @Rollback(value = false)
     void 인증_추가() throws IOException, NoSuchAlgorithmException {
         //given
         Plan plan = planFixtures.getPlan();
@@ -64,8 +65,6 @@ class EventServiceTest {
 
         //when
         eventService.save(event);
-//        List<EventResponse> findEventsByUserId = eventService.findAllByUserId(event.getUserId());
-        System.out.println("====================");
         List<Event> allWithEventWithFetchJoin = eventService.findAllWithEventWithFetchJoin();
 
         //then
@@ -74,50 +73,34 @@ class EventServiceTest {
 
     @Order(2)
     @Test
-    void 인증_수정_파일이_NULL() throws IOException, NoSuchAlgorithmException {
+    void 인증_수정_파일이_NULL() {
         //given
-        Map<String, Object> param = new HashMap<>();
-
-        String userId = "testId";
-        EventResponse eventResponse = eventService.findAllByUserId(userId).get(0);
-        Long id = eventResponse.getId();
-        String updateTestTitle = "updateTestTitle";
-        String context = "testContext";
-        String textColor = "#02343f";
-        String backgroundColor = "#02343f";
-        Boolean allDay = true;
-        byte[] data = new byte[]{1, 2, 3, 4};
-        InputStream stream = new ByteArrayInputStream(data);
-        MockMultipartFile file = new MockMultipartFile("file", "NameOfTheFile", "multipart/form-data", stream);
-        MockMultipartFile file1 = null;
-
-        param.put("id", id);
-        param.put("userId", userId);
-        param.put("title", updateTestTitle);
-        param.put("context", context);
-        param.put("textColor", textColor);
-        param.put("backgroundColor", backgroundColor);
-        param.put("allDay", allDay);
+        EventResponse eventResponseWithUpdateTitleAndWithoutFile = eventFixtures.getEventResponseWithUpdateTitleAndWithoutFile();
+        String userId = eventResponseWithUpdateTitleAndWithoutFile.getUserId();
         //when
-        eventService.eventUpdate(param, file1, id);
-        String updateEvent = eventService.findById(id).getTitle();
-        //then
-        Assertions.assertThat(updateEvent).isEqualTo(updateTestTitle);
-    }
-
-    @Order(3)
-    @Test
-    void 인증_삭제() {
-        //given
-        String userId = "testId";
         Long id = eventService.findAllByUserId(userId).get(0).getId();
-        String fileById = eventService.findFileById(id);
-        //when
-        eventService.delete(id);
-        s3Service.delete(fileById);
-
-        EventResponse byId = eventService.findById(id);
+        Event byIdss = eventService.findByIdss(id);
+        byIdss.updateInfo(eventResponseWithUpdateTitleAndWithoutFile);
+        String updateEventTitle = eventService.findAllByUserId(userId).get(0).getTitle();
+        EventResponse findUpdateEventById = eventService.findAllByUserId(userId).get(0);
         //then
-        Assertions.assertThat(byId).isNull();
+        Assertions.assertThat(updateEventTitle).isEqualTo(eventResponseWithUpdateTitleAndWithoutFile.getTitle());
+        Assertions.assertThat(findUpdateEventById.getFile()).isNotEmpty();
     }
+
+//    @Order(3)
+//    @Test
+//    void 인증_삭제() {
+//        //given
+//        String userId = "testId";
+//        Long id = eventService.findAllByUserId(userId).get(0).getId();
+//        String fileById = eventService.findFileById(id);
+//        //when
+//        eventService.delete(id);
+//        s3Service.delete(fileById);
+//
+//        EventResponse byId = eventService.findById(id);
+//        //then
+//        Assertions.assertThat(byId).isNull();
+//    }
 }
