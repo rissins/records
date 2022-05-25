@@ -19,9 +19,7 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.security.NoSuchAlgorithmException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @SpringBootTest
 @TestMethodOrder(value = MethodOrderer.OrderAnnotation.class)
@@ -88,19 +86,25 @@ class EventServiceTest {
         Assertions.assertThat(findUpdateEventById.getFile()).isNotEmpty();
     }
 
-//    @Order(3)
-//    @Test
-//    void 인증_삭제() {
-//        //given
-//        String userId = "testId";
-//        Long id = eventService.findAllByUserId(userId).get(0).getId();
-//        String fileById = eventService.findFileById(id);
-//        //when
-//        eventService.delete(id);
-//        s3Service.delete(fileById);
-//
-//        EventResponse byId = eventService.findById(id);
-//        //then
-//        Assertions.assertThat(byId).isNull();
-//    }
+    @Order(3)
+    @Test
+    @Rollback(value = false)
+    void 인증_삭제() {
+        //given
+        String userId = eventFixtures.getEventResponseWithUpdateTitleAndWithoutFile().getUserId();
+        Long id = eventService.findAllByUserId(userId).get(0).getId();
+        String fileById = eventService.findFileById(id);
+        Long planId = planService.findAllByUserId(userId).get(0).getId();
+        List<Long> planIds = new ArrayList<>(Arrays.asList(planId));
+        Long findIdByUserId = userService.findByUserId(userId).getId();
+        //when
+        userService.deleteById(findIdByUserId);
+        eventService.delete(id);
+        planService.deleteByIds(planIds);
+        s3Service.delete(fileById);
+
+        List<EventResponse> allByUserId = eventService.findAllByUserId(userId);
+        //then
+        Assertions.assertThat(allByUserId).isEmpty();
+    }
 }
