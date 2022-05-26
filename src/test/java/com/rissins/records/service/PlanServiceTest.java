@@ -1,12 +1,10 @@
 package com.rissins.records.service;
 
+import com.rissins.records.PlanFixtures;
 import com.rissins.records.domain.Plan;
 import com.rissins.records.dto.PlanResponse;
 import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.MethodOrderer;
-import org.junit.jupiter.api.Order;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestMethodOrder;
+import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -21,6 +19,13 @@ class PlanServiceTest {
 
     @Autowired
     PlanService planService;
+
+    private PlanFixtures planFixtures;
+
+    @BeforeEach
+    void setUp() {
+        this.planFixtures = new PlanFixtures();
+    }
 
     @Test
     @Order(1)
