@@ -7,6 +7,8 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Rollback;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +17,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @TestMethodOrder(value = MethodOrderer.OrderAnnotation.class)
+@Transactional
 class PlanServiceTest {
 
     @Autowired
@@ -29,37 +32,30 @@ class PlanServiceTest {
 
     @Test
     @Order(1)
+    @Rollback(value = false)
     void 계획_추가() {
         //given
-        String title = "계획제목테스트";
-        String content = "계획내용테스트";
-        String userId = "testId";
-        PlanResponse planResponse = PlanResponse.builder()
-                .userId(userId)
-                .title(title)
-                .context(content)
-                .build();
+        PlanResponse testPlanResponse = planFixtures.getPlanResponse();
         //when
-        planService.save(planResponse);
-        List<Plan> allByUserId = planService.findAllByUserId(userId);
+        planService.save(testPlanResponse);
+        List<Plan> allByUserId = planService.findAllByUserId(testPlanResponse.getUserId());
         //then
-        Assertions.assertThat(allByUserId.get(0).getTitle()).isEqualTo(title);
+        Assertions.assertThat(allByUserId.get(0).getTitle()).isEqualTo(testPlanResponse.getTitle());
     }
 
     @Test
     @Order(2)
+    @Rollback(value = false)
     void 계획_삭제() {
         //given
-        String userId = "testId";
-        Long id = planService.findAllByUserId(userId).get(0).getId();
         List<Long> ids = new ArrayList<>();
+        String testUserId = planFixtures.getPlanResponse().getUserId();
+        Long id = planService.findAllByUserId(testUserId).get(0).getId();
         ids.add(id);
         //when
         planService.deleteByIds(ids);
+        List<Plan> planFindByUserId = planService.findAllByUserId(testUserId);
         //then
-        List<Plan> planFindByUserId = planService.findAllByUserId(userId);
         Assertions.assertThat(planFindByUserId).isEmpty();
     }
-
-
 }
