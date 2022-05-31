@@ -7,7 +7,6 @@ import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import com.amazonaws.services.s3.model.*;
-import com.rissins.records.domain.constant.Status;
 import com.rissins.records.utils.enctypt.SHA_256;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

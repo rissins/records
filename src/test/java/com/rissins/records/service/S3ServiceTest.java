@@ -1,15 +1,11 @@
 package com.rissins.records.service;
 
-import ch.qos.logback.core.spi.LifeCycle;
 import com.amazonaws.services.s3.model.S3Object;
-import com.rissins.records.PlanFixtures;
 import com.rissins.records.S3Fixtures;
-import com.rissins.records.domain.constant.Status;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
