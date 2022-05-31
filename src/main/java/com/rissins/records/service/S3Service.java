@@ -1,17 +1,16 @@
 package com.rissins.records.service;
 
+import com.amazonaws.AmazonServiceException;
 import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.auth.AWSStaticCredentialsProvider;
 import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
-import com.amazonaws.services.s3.model.CannedAccessControlList;
-import com.amazonaws.services.s3.model.DeleteObjectRequest;
-import com.amazonaws.services.s3.model.MultiObjectDeleteException;
-import com.amazonaws.services.s3.model.PutObjectRequest;
+import com.amazonaws.services.s3.model.*;
 import com.rissins.records.domain.constant.Status;
 import com.rissins.records.utils.enctypt.SHA_256;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -22,6 +21,7 @@ import java.security.NoSuchAlgorithmException;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class S3Service {
 
     private final SHA_256 sha256;
@@ -64,13 +64,22 @@ public class S3Service {
         return s3Client.getUrl(bucket, encryptFileName).toString();
     }
 
-    public Status delete(String fileName) {
+    public void delete(String fileName) {
         DeleteObjectRequest request = new DeleteObjectRequest(bucket, fileName);
         try {
             s3Client.deleteObject(request);
-            return Status.ACCEPTED;
-        } catch (MultiObjectDeleteException e) {
-            return Status.DENIED;
+        } catch (AmazonServiceException e) {
+            log.error(e.getMessage());
+        }
+    }
+
+    public S3Object findObjectByFileName(String fileName) {
+        try {
+            s3Client.getObject(bucket, fileName);
+            return s3Client.getObject(bucket, fileName);
+        } catch (AmazonS3Exception e) {
+            log.error("S3 can't find file = {}", e.getMessage());
+            return null;
         }
     }
 }
