@@ -100,6 +100,11 @@ function updateDetailViewData(eventId) {
 function deleteEvent() {
     var eventId = $('#eventId').val();
 
+    if (sessionId === "") {
+        alert("삭제 할 수 없는 이벤트입니다.");
+        return;
+    }
+
     if (confirm("삭제하시겠습니까?") === false) {
         return;
     }
@@ -117,6 +122,10 @@ function deleteEvent() {
 
 function updateEvent(eventId) {
     console.log("수정 아이디 =" + eventId);
+    if (sessionId === "") {
+        alert("수정 할 수 없는 이벤트입니다.");
+        return;
+    }
 
     var param = {
         'title': $("#updateTitle").val(),
