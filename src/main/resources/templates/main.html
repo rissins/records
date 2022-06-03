@@ -148,17 +148,8 @@
     (function () {
 
         sessionId = $('#userId').val();
-        var loginText;
-        if (sessionId === "") {
-            loginText = "로그인";
-        } else {
-            loginText = "로그아웃";
-        }
-        console.log("아이디 = " + sessionId);
-        console.log($('#title').val());
         $(function () {
         // calendar element 취득
-//             var calendarEl = $('#calendar')[0];
             var calendarEl = document.getElementById('calendar');
         // full-calendar 생성하기
             calendar = new FullCalendar.Calendar(calendarEl, {
@@ -188,7 +179,6 @@
                         }
                     },
                     dropDownButton: {
-                        // text: "계획추가",
                         click: function (arg) {
                             if (sessionId === "") {
                                 alert("로그인이 필요합니다.");
@@ -199,7 +189,6 @@
                         }
                     },
                     loginDropDownButton: {
-                        // text: "계정",
                         click: function (arg) {
                             document.querySelector(".fc-loginDropDownButton-button").innerHTML=loginDropDownHtml;
                             if (sessionId !== "") {
@@ -213,13 +202,13 @@
                     },
                 },
                 buttonText: {
-                    listWeek: '인증목록',
+                    listMonth: '인증목록',
                     dayGridMonth: '달력',
                 },
                 headerToolbar   : {
                     left: 'loginDropDownButton noticeDropDownButton today',
                     center: 'prev title next',
-                    right: 'myCustomButton dropDownButton dayGridMonth,listWeek'
+                    right: 'myCustomButton dropDownButton dayGridMonth,listMonth'
                 },
 
                 initialView: 'dayGridMonth', // 초기 로드 될때 보이는 캘린더 화면(기본 설정: 달)
@@ -230,12 +219,6 @@
                 dayMaxEvents: true, // 이벤트가 오버되면 높이 제한 (+ 몇 개식으로 표현)
                 textColor: 'black',
                 locale: 'ko', // 한국어 설정
-                eventAdd: function (obj) { // 이벤트가 추가되면 발생하는 이벤트
-                    console.log('바보');
-                },
-                eventChange: function (obj) { // 이벤트가 수정되면 발생하는 이벤트
-                    console.log(obj);
-                },
                 dayClick: function (date, allDay, jsEvent, view) {
                     $('#calendar').fullCalendar('clientEvents', function (event) {
                         if (event.start <= date && event.end >= date) {
@@ -264,7 +247,6 @@
                             allDay: arg.allDay,
                         })
                     }
-                    // calendar.unselect();
                 },
 // 이벤트
                 events: {
@@ -280,14 +262,11 @@
                 },
                 eventClick: function (info) {
                     console.log("이벤트클릭")
-                    // $('#updateModal').modal();
-                    // updateModelPopUp(info);
                     $('.fc-popover .fc-popover-close').trigger('click');
                     viewModelPopUp(info);
                 },
             });
             $('#submitButton').on('click', function (e) {
-                // We don't want this to act as a link so cancel the link action
                 if (sessionId === "") {
                     alert("로그인 해주세요")
                     return;
@@ -298,7 +277,6 @@
             });
 
             function doSubmit() {
-                // $("#insertModal").modal('hide');
                 //현재 시간 설정 YY-MM-DD
                 var date = new Date();
                 var years = date.getFullYear();
