@@ -50,12 +50,10 @@ public class Event {
 
     @Column
     @CreatedDate
-    @LastModifiedDate
     private LocalDateTime start;
 
     @Column
     @CreatedDate
-    @LastModifiedDate
     private LocalDateTime end;
 
     @Column
