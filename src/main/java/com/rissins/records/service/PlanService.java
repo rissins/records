@@ -4,6 +4,7 @@ import com.rissins.records.domain.Plan;
 import com.rissins.records.dto.PlanResponse;
 import com.rissins.records.repository.PlanRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,6 +12,7 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class PlanService {
 
     private final PlanRepository planRepository;
@@ -30,9 +32,8 @@ public class PlanService {
     }
 
     public void deleteByIds(List<Long> ids) {
-//        planRepository.deleteById(id);
         for (Long id : ids) {
-            planRepository.deleteById(id);
+                planRepository.deleteById(id);
         }
     }
 

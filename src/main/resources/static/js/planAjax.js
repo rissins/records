@@ -85,6 +85,7 @@ function deleteData() {
     }).done(function () {
         window.location.reload();
     }).fail(function () {
+        alert("본 계획과 관련된 인증을 삭제해주세요.")
     });
 }
 
