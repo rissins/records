@@ -49,10 +49,10 @@ class S3ServiceTest {
     @Test
     void 파일_삭제_실패() {
         //given
-        String deleteFileNameWithIncorrectTestFileName = encryptFileName + "11";
+        String deleteIncorrectFileName = encryptFileName + "11";
 
         //when
-        s3Service.delete(deleteFileNameWithIncorrectTestFileName);
+        s3Service.delete(deleteIncorrectFileName);
         S3Object objectByFileName = s3Service.findObjectByFileName(encryptFileName);
 
         //then
