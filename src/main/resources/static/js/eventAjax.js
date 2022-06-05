@@ -34,7 +34,7 @@ function eventSave() {
     }).done(function () {
         window.location.reload();
     }).fail(function () {
-        alert("등록 실패");
+        alert("파일 크기가 5MB를 초과합니다.");
     }
     );
 }
@@ -152,7 +152,7 @@ function updateEvent(eventId) {
             alert("수정완료");
             window.location.reload();
     }).fail(function () {
-            alert("수정실패");
+            alert("파일 크기가 5MB를 초과합니다.");
         }
     );
 }
