@@ -25,10 +25,4 @@ public class CommonFixtures {
     public static final String UPDATE_CONTENT = "업데이트테스트내용";
     public static final String FAIL_USER_PASSWORD = "failPassword";
     public static final MultipartFile IMAGE = new MockMultipartFile("image", "image".getBytes());
-
-    public static MultipartFile getIMAGE() throws IOException {
-        byte[] data = new byte[]{1, 2, 3, 4};
-        InputStream stream = new ByteArrayInputStream(data);
-        return new MockMultipartFile("file", "NameOfTheFile", "multipart/form-data", stream);
-    }
 }
